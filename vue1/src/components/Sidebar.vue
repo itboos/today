@@ -85,6 +85,9 @@
             hideRemove(idx) {
                 return this.subscribeList[idx]['showRemoveBtn']= false;
             }        
+        },
+        created () {
+            console.log('sidebar建立....');
         }
     }
 </script>

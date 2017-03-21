@@ -1,27 +1,4 @@
-<!-- <template>
-  <div id="app">
-    <img src="./assets/logo.png">
-    <router-view></router-view>
-  </div>
-</template>
 
-<script>
-export default {
-  name: 'app',
-};
-</script>
-
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
- -->
 <template>
   <div id="app">
     <div class="container">
@@ -60,10 +37,12 @@ export default {
 
 <script>
     import Sidebar from './components/Sidebar.vue'
+    import title from './components/title.vue'
 
     export default {
         components: {
-            'sidebar': Sidebar
+            sidebar: Sidebar,
+            titleTest:title
         },
         watch :{
           '$route' (to,from){
@@ -71,6 +50,16 @@ export default {
             console.log('to=',to);
             console.log('from',from);
           }
+        },
+        created () {
+          console.log('App.vue 建立....');
         }
+        
     }
 </script>
+
+<style scoped>
+    p {
+      color:red;
+    }
+</style>

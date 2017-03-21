@@ -13,6 +13,7 @@
 //   template: '<App/>',
 //   components: { App },
 // });
+console.log('main.js开始....');
 import 'bootstrap/dist/css/bootstrap.css';
 import 'font-awesome/css/font-awesome.css';
 import Vue from 'vue';
@@ -26,6 +27,7 @@ import girl from './components/girl';
 
 import VueResource from 'vue-resource'
 import store from './store'
+//console.log('store:',store);
 
 Vue.use(VueRouter);
 Vue.use(VueResource);
@@ -53,6 +55,7 @@ new Vue({
   template: '<App/>',
   components: { App },
 });
+console.log('main.js结束....')
 
 // import VueResource from 'vue-resource'
 // import store from './store'
@@ -66,28 +69,8 @@ new Vue({
 //     ...App
 // }).$mount('#app')
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /* eslint-disable no-new */
 // new Vue({
 //     router,
 //     ...App
-// }).$mount('#app')
+// }).$mount('#app') 

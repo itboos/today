@@ -190,12 +190,28 @@
                         jsonp:'cb'
                     }).then(function(res){
                     this.searchResultJson = JSON.parse(res.bodyText);
+                    console.log(this.searchResultJson);
                     var mpXmls = this.searchResultJson.items;
                     var i, xmlDoc, mpResult, onePageResults=[];
                     for (i in mpXmls) {
+                        if(i==0){
+                            console.log('i=',i);
+                            console.log('mpXmls=',mpXmls);
+                        }
+                        
                         mpResult = {};
+                        //将XML转换成HTML document以便使用DOM方法: https://developer.mozilla.org/en-US/docs/Web/API/DOMParser
                         xmlDoc = new DOMParser().parseFromString(mpXmls[i], 'text/xml');
+                        console.log(xmlDoc);
                         mpResult['title'] = xmlDoc.getElementsByTagName("title")[1].childNodes[0].nodeValue;
+                        if(i==0) {
+                            console.log ( xmlDoc.getElementsByTagName("title") );
+                            console.log ( xmlDoc.getElementsByTagName("title")[1] );
+                            console.log ( xmlDoc.getElementsByTagName("title")[1].childNodes[0] );
+                            console.log ( xmlDoc.getElementsByTagName("title")[1].childNodes[0].nodeValue );
+                            
+                        }
+                        //name形式为 '龙眼 直播 ' 形式的字符串 生成'龙眼<span class="text-success">直播形式的字符串</span> '
                         mpResult['name'] = xmlDoc.getElementsByTagName("name")[0].childNodes[0].nodeValue.replace('', '<span class="text-success">').replace('', '</span>');
                         try     {
                             mpResult['summary'] = xmlDoc.getElementsByTagName("summary")[0].childNodes[0].nodeValue.replace('', '<span class="text-success">').replace('', '</span>')
@@ -207,25 +223,30 @@
                         try     {
                             mpResult['url'] = xmlDoc.getElementsByTagName("url")[2].childNodes[0].nodeValue;        // 最新更新文章
                             mpResult['title1'] = xmlDoc.getElementsByTagName("title1")[0].childNodes[0].nodeValue;
-                        }                        catch (e)  {
+                        }catch (e)  {
                             mpResult['url'] =  '';
                             mpResult['title1'] =  ''
                         }
                         try     {
                             mpResult['content'] = xmlDoc.getElementsByTagName("content")[0].childNodes[0].nodeValue.replace('', '<span class="text-success">').replace('', '</span>');
-                        }                        catch (e)  {
+                        }catch (e)  {
                             mpResult['content'] = ''
                         }
                         mpResult['date'] = xmlDoc.getElementsByTagName("date")[1].childNodes[0].nodeValue;
                         mpResult['image'] = xmlDoc.getElementsByTagName("image")[0].childNodes[0].nodeValue;
                         mpResult['weixinhao'] = xmlDoc.getElementsByTagName("weixinhao")[0].childNodes[0].nodeValue;
                         mpResult['openid'] = xmlDoc.getElementsByTagName("id")[0].childNodes[0].nodeValue;
+                        //获取rank标签的所有属性 <rank rank="88.7" tr="4.4" mr="9" cr="50.0" bm25="45.0" ExactMatch="0" fLevel="16" fLevel2="3015936" vFlag="0" fans="17" rnum="0" pnum="0" fscore="0.0" frank="88.7"/>
                         var rank = xmlDoc.getElementsByTagName("rank")[0].attributes;
+                        if(i==0){
+                            console.log(rank);
+                        }
                         mpResult['rank'] = {};
                         mpResult['rank']['fans'] = rank.fans.nodeValue; // 粉丝数
                         mpResult['rank']['rnum'] = rank.rnum.nodeValue; // 月发文 篇
                         mpResult['rank']['pnum'] = rank.pnum.nodeValue; // 平均阅读
                         mpResult['isSubscribed'] = false;
+
                         for(let item of this.subscribeList) {
                             if(item.weixinhao == mpResult['weixinhao'] ) {
                                 mpResult['isSubscribed'] = true;
@@ -233,6 +254,7 @@
                             }
                         }
                         onePageResults.push(mpResult);
+                        console.log(onePageResults);
                     }
                     this.$store.dispatch('addSearchResultList', onePageResults);
                     this.searchInput = '';

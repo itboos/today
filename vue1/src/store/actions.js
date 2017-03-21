@@ -1,7 +1,9 @@
 import * as types from './mutation-types'
+console.log(types);
 
 export default {
-     subscribeMp({ commit }, mp) {
+     subscribeMp({ commit } , mp) {
+        console.log(commit);
         commit(types.SUBSCRIBE_MP, mp)
     },
     unsubscribeMp({ commit }, weixinhao) {

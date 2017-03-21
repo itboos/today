@@ -8,7 +8,17 @@
       <p class="lead">
         <a class="btn btn-outline-success btn-lg" href="#" role="button">Learn more</a>
       </p>
+      <p>{{msg}}</p>
     </div>
 
   </div>
 </template>
+<script>
+  export default {
+       data () {
+          return {
+            msg:"这是测试的2223"
+         }
+       }
+    }
+</script>
