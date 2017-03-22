@@ -68,6 +68,10 @@
         data() {
             return { }
         },
+        created: function () {
+            // 从LocalStorage中取出数据
+            return this.$store.dispatch('initFromLS', 'init from LS');
+        },
         computed : {
             subscribeList () {
                 // 从store中取出数据

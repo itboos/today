@@ -57,5 +57,15 @@ export default {
     [types.CLEAR_SEARCHRESULT] (state, info) {
         console.log('clear search result:' + info);
         state.mpList = [];
+    },
+    //从LocalStorage 初始化订阅列表
+    [types.INIT_FROM_LS] (state, info) {
+        console.log(info + window.localStorage.getItem("subscribeList"));
+        if (window.localStorage.getItem("subscribeList")) {
+          state.subscribeList = JSON.parse(window.localStorage.getItem("subscribeList")) ;
+        }
+        else{
+            state.subscribeList = [];
+        } 
     }
 };
