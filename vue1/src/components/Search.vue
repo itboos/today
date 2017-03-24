@@ -193,7 +193,9 @@
                     alert('Sorry, 网络似乎有问题')
                 });
             },
+            //点击收藏按钮，如果订阅了就取消订阅，否则，就订阅
             subscribe(idx) {
+                console.log('订阅账号....1');
                 if (this.mpList[idx].isSubscribed== true ) {
                     // 删除该公众号
                     return this.$store.dispatch('unsubSearchResult',this.mpList[idx].weixinhao);

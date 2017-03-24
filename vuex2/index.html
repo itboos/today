@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Vuex</title>
+</head>
+<body >
+	<script src='./js/vue2.1.js'></script>
+	<script src='./js/vuex.min.js'></script>
+	<div id="app">
+	</div>
+	<script>
+		// 创建一个 Counter 组件
+		const Counter = {
+		  template: `<div>{{ count }}</div>`,
+		  computed: {
+		    count () {
+		      return this.$store.state.count
+		    }
+		  }
+		}
+		const store = new Vuex.Store({
+		  // state数据
+		  state: {
+		    todos: [
+		      { id: 1, text: '...1', done: true },
+		      { id: 2, text: '...2', done: false },
+		      { id: 3, text: '...3', done: true }
+		    ],
+		    count:1
+		  },
+		  // store的计算属性
+		  getters: {
+		    doneTodos: state => {
+		      return state.todos.filter(todo => todo.done)
+		    }
+		  },
+		  //变化
+		  mutations: {
+		    increment (state) {
+		      console.log('触发一次....');
+		      state.count++
+		    }
+		  }
+		})
+		/*const store = new Vuex.Store({
+		  state: {
+		    count: 1
+		  },
+		  mutations: {
+		    increment (state) {
+		      console.log('触发一次....');
+		      state.count++
+		    }
+		  }
+		});*/
+		//store.commit('increment')
+		//console.log(store.state.count) // -> 1
+		const app = new Vue({
+		  el: '#app',
+		  methods: {
+		  	add: function(){
+		  		console.log(this.$store);
+		  		console.log(this.$store.state);
+		  		console.log(this.$store.getters);
+		  		this.$store.commit('increment');
+		  	}
+		  },
+		  // 把 store 对象提供给 “store” 选项，这可以把 store 的实例注入所有的子组件
+		  store:store,
+		  components: { Counter },
+		  template: `
+		    <div class="app">
+		      <counter></counter>
+		      <button @click="add()">加1</button>
+		    </div>
+		  `
+		})
+	</script>
+</body>
+</html>
