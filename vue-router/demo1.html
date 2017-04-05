@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>demo1</title>
+	<style>
+	.list-group {
+		width:400px;
+		border:solid 1px red;
+		margin:0 auto;
+	}
+	</style>
+</head>
+<body>
+ <div id="app">
+	<div class="list-group">
+	    <a class="list-group-item" v-link="{ path: '/home'}">Home</a>
+	    <a class="list-group-item" v-link="{ path: '/about'}">About</a>
+	    <a class="list-group-item" v-link="{ path: '/sayhi'}">sayHi</a>
+	</div>
+	<router-view></router-view>
+
+ </div>
+	<script src="js/vue.js"></script>
+	<script src="js/vue-router.js"></script>
+	<script>
+		//注册组件
+		var Home = Vue.extend({
+		    template: '<div><h1>Home</h1><p>{{msg}}</p></div>',
+		    data: function() {
+		        return {
+		            msg: 'Hello, vue router!'
+		        }
+		    },
+		    created:function(){
+		    	console.log('Home..组件构建了');
+		    }
+		})
+		//注册组件
+		var About = Vue.extend({
+		    template: '<div><h1>About</h1><p>This is the tutorial about vue-router.</p></div>'
+		})
+		var sayHi=Vue.extend({
+			template:'<div><h3>大家好呀</h3><p>周六顺利。。。。</p><p>{{msg}}</p></div>',
+			data:function(){
+				return {
+					msg:'这是返回的数据啊...'
+				}
+			},
+			created:function(){
+				console.log('sayHi..组件构建了');
+			}
+		});
+		//创建路由实例
+		var router=new VueRouter();
+		//映射路由
+		router.map({
+		    '/home': { component: Home },
+		    '/about': { component: About },
+		    '/sayhi': { component: sayHi }
+		});
+		//启动路由
+		var App=Vue.extend({});
+		router.start(App,'#app');
+		//默认重定向到home组件下
+		router.redirect({
+		    '/': '/home'
+		})
+	</script>
+</body>
+</html>

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>demo2</title>
+	<style>
+	.list-group {
+		width:400px;
+		border:solid 1px red;
+		margin:0 auto;
+	}
+	</style>
+</head>
+<body>
+ <div id="app">
+ 	<div class="list-group">
+		<a class="list-group-item" v-link="{ path: '/home'}">Home</a>
+		<a class="list-group-item" v-link="{ path: '/about'}">About</a>
+ 	</div>
+ 	<router-view></router-view>
+	<template id="home">
+	    <div>
+	        <h1>Home</h1>
+	        <p>{{msg}}</p>
+	    </div>
+	    <div>
+        <ul class="nav nav-tabs">
+            <li>
+                <a v-link="{ path: '/home/news'}">News</a>
+            </li>
+            <li>
+                <a v-link="{ path: '/home/message'}">Messages</a>
+            </li>
+        </ul>
+	        <router-view></router-view>
+	    </div>
+	</template>
+
+	<template id="news">
+	    <ul>
+	        <li>News 01</li>
+	        <li>News 02</li>
+	        <li>News 03</li>
+	    </ul>
+	</template>
+	<template id="message">
+	    <ul>
+	        <li>Message 01</li>
+	        <li>Message 02</li>
+	        <li>Message 03</li>
+	    </ul>
+	</template>
+	<template id="about">
+		<div>
+			<h1>About</h1>
+			<p>This is the tutorial about vue-router.</p>
+		</div>
+	</template>
+
+ </div>
+	<script src="js/vue.js"></script>
+	<script src="js/vue-router.js"></script>
+	<script>
+		var Home = Vue.extend({
+		    template: '#home',
+		    data: function() {
+		        return {
+		            msg: 'Hello, vue router!'
+		        }
+		    }
+		})
+
+		var News = Vue.extend({
+		    template: '#news'
+		})
+
+		var Message = Vue.extend({
+		    template: '#message'
+		})
+		var About = Vue.extend({
+			template: '#about'
+		});
+
+		var router = new VueRouter();
+
+		router.redirect({
+					'/': '/home'
+		});
+
+		//路由映射
+		router.map({
+		    '/home': {
+		        component: Home,
+		        // 定义子路由
+		        subRoutes: {
+		            '/news': {
+		                component: News
+		            },
+		            '/message': {
+		                component: Message
+		            }
+		        }
+		    },
+		    '/about': {
+		        component: About
+		    }
+		})
+
+		var App = Vue.extend({})
+		router.start(App, '#app')
+	</script>
+</body>
+</html>
