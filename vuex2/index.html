@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-cn">
 <head>
 	<meta charset="UTF-8">
 	<title>Vuex</title>
@@ -12,10 +12,13 @@
 	<script>
 		// 创建一个 Counter 组件
 		const Counter = {
-		  template: `<div>{{ count }}</div>`,
+		  template: `<div>{{ amount }}</div>`,
 		  computed: {
 		    count () {
 		      return this.$store.state.count
+		    },
+		    amount() {
+		    	return this.$store.state.amount;
 		    }
 		  }
 		}
@@ -27,7 +30,8 @@
 		      { id: 2, text: '...2', done: false },
 		      { id: 3, text: '...3', done: true }
 		    ],
-		    count:1
+		    count:1,
+		    amount:20
 		  },
 		  // store的计算属性
 		  getters: {
@@ -37,25 +41,33 @@
 		  },
 		  //变化
 		  mutations: {
-		    increment (state) {
+		    increment (state,payload) {
 		      console.log('触发一次....');
-		      state.count++
+		      console.log(payload);
+		      state.count+=payload.num;
+		    },
+		    incrementAsync(state,payload){
+		    	console.log('触发incrementAsync...');
+		    	console.log(state);
+		    	state.amount+=100;
 		    }
-		  }
-		})
-		/*const store = new Vuex.Store({
-		  state: {
-		    count: 1
 		  },
-		  mutations: {
-		    increment (state) {
-		      console.log('触发一次....');
-		      state.count++
-		    }
-		  }
-		});*/
-		//store.commit('increment')
-		//console.log(store.state.count) // -> 1
+		  actions: {
+	    	increment2 ({commit:commit}) {
+	    	 console.log('actions--increment...');
+	    	 setTimeout(() => {
+	    	 	commit('increment',{num:30});
+	    	 	console.log('2秒时间到.....');
+	    	 },2000);
+	      	 
+	        },
+	        do2({commit}){
+	        	console.log('do2....');
+	        	commit('incrementAsync',{amount:100});
+	        }
+	  	 }
+		});
+		 
 		const app = new Vue({
 		  el: '#app',
 		  methods: {
@@ -63,7 +75,15 @@
 		  		console.log(this.$store);
 		  		console.log(this.$store.state);
 		  		console.log(this.$store.getters);
-		  		this.$store.commit('increment');
+		  		//this.$store.commit('increment',{num:20,num2:11});
+		  		// this.$store.commit({
+		  		// 	num:30,
+		  		// 	num2:11,
+		  		// 	type:'increment'
+		  		// });
+		  		//触发一个行为
+		  		//this.$store.dispatch('increment2');
+		  		this.$store.dispatch('do2');
 		  	}
 		  },
 		  // 把 store 对象提供给 “store” 选项，这可以把 store 的实例注入所有的子组件
