@@ -1,0 +1,4 @@
+<!-- A.wxml -->
+<template name="A">
+  <text> A template </text>
+</template>
