@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>demo1</title>
+	<style>
+		#imgs{
+			width:200px;
+			height:200px;
+			border:solid 1px red ;
+		}
+	</style>
+</head>
+<body>
+	<img src="../imgs/loadding.gif" alt="" id="img1">
+</body>
+<script>
+	Promise.prototype.done = function (resolve, reject) {
+	    this.then(resolve, reject)
+	        .catch( function (reason) {
+	            // 抛出一个全局错误
+	            setTimeout( () => { throw reason }, 0);
+	        });
+	}
+	Promise.prototype.finally = function (callback) {
+	    let P = this.constructor;
+	    return this.then(
+	        ret => P.resolve(callback()).then( (ret) => ret),
+	        err => P.resolve(callback(a,b)).then( (reason) => {throw reason })
+	    );
+	};
+
+	var p = new Promise( (resolve, reject) => {
+	    resolve('p');
+	});
+	p.then(ret => {
+	    console.log(ret);
+	    return 'then1';
+	}).catch( err => {
+	    console.log(err.toString());
+	}).then( ret => {
+		console.log(ret);
+	    return 'then2';
+	}).then( ret => {
+		console.log(ret);
+	     
+	}).finally( (res)=> {
+		console.log('完毕...');
+		return 'aaaaa';
+	});
+</script>
+</html>

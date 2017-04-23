@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>例子2</title>
+</head>
+<body>
+	<div id="app">
+	    <p>请输入父组件的信息:</p>
+	    <p><input type="text" v-model="msg"></p>
+	    <button @click="notify">广播事件</button>
+	    <hr>
+	    <child-component1></child-component1>
+	    <br>
+	    <br>
+	    <br>
+	    <child-component2></child-component2>
+	</div>
+	<template id="child-component">
+	    <h3>子组件1</h3>
+	    <ul>
+	    	<li v-for="item in messages">
+	    		父组件录入了信息:{{item}}
+	    	</li>
+	    </ul>
+	</template>
+	<template id="child-component2">
+	    <h3>子组件2</h3>
+	    <ul>
+	    	<li v-for="item in messages">
+	    		父组件录入了信息:{{item}}
+	    	</li>
+	    </ul>
+	</template>
+	<script src="../js/vue1.0.js"></script>
+	<script>
+	Vue.component('child-component1',{
+		template:'#child-component',
+		data:function() {
+			return {
+				messages:[]
+			}
+		},
+		events:{
+			'parent-msg':function(msg){
+				this.messages.push(msg);
+			}
+		}
+	});
+	Vue.component('child-component2',{
+		template:'#child-component2',
+		data:function() {
+			return {
+				messages:[]
+			}
+		},
+		events:{
+			'parent-msg':function(msg){
+				this.messages.push(msg);
+			}
+		}
+	});
+	var vm=new Vue({
+		el:'#app',
+		data:{
+			msg:''
+		},
+		methods:{
+			notify:function(){
+				if(this.msg.trim() ){
+					this.$broadcast('parent-msg',this.msg);
+				}
+			}
+		}
+	});
+	</script>
+</body>
+</html>

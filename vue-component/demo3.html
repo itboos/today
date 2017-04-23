@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CURD实例</title>
+    <style>
+        /* 
+         * 由于IE不支持<template>标签，所以template标签中的内容在IE下会直接显示出来。
+         * 将模板设为隐藏即可解决这个问题，template标签各浏览器支持请参考：http://caniuse.com/#feat=template
+         */
+        #grid-template{
+            display: none;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Helvetica, simhei, Arial, sans-serif;
+        }
+
+        html {
+            font-size: 1rem;
+        }
+
+        body{
+            margin-top: 100px;
+        }
+
+        table,
+        td,
+        th {
+            border-collapse: collapse;
+            border-spacing: 0
+        }
+
+        table {
+            width: 100%;
+        }
+
+        td,
+        th {
+            border: 1px solid #bcbcbc;
+            padding: 5px 10px;
+        }
+
+        th {
+            padding: 10px;
+            font-weight: 400;
+            color: #fff;
+            background: #0090d3;
+            cursor: pointer;
+        }
+
+        tr:nth-of-type(odd) {
+            background: #fff
+        }
+
+        tr:nth-of-type(even) {
+            background: #eee
+        }
+
+        h1{
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        input {
+            outline: none
+        }
+
+        input[type=text] {
+            padding: 3px 6px;
+            font-size: 1.2rem;
+            border: 1px solid #ccc;
+
+        }
+
+        input[type=text]:focus {
+            border-color: #0090d3;
+            transition: .3s ease-in;
+        }
+
+        button {
+            display: inline-block;
+            box-sizing: border-box;
+            padding: 10px 30px;
+            background: #0090d3;
+            color: #fff;
+            border: 1px solid #0090d3;
+            border-radius: 3px; 
+            outline: 0;
+
+            transition: .4s ease-out;
+        }
+
+        button:hover,
+        button:focus {
+            opacity: 0.8;
+            cursor: pointer;
+            transition: .15s ease-in;
+        }
+
+        #app {
+            margin: 0 auto;
+            max-width: 640px;
+        }
+
+        .btn-danger{
+            padding: 5px 15px;
+            border: 1px solid salmon;
+            background: salmon;
+        }
+
+        .btn-save{
+            border: 1px solid #0090d3;
+            background: #0090d3;
+        }
+
+        .btn-close{
+            border: 1px solid #ccc;
+            background: #ccc;
+        }
+
+
+        .container {
+            padding-left: 15px;
+            padding-right: 15px;
+            margin: 10px;
+        }
+
+        .search-input {
+            width: 80%;
+        }
+
+        .form-group {
+            margin: 10px;
+        }
+
+        .form-group > label {
+            display: inline-block;
+            padding-right: 1rem;
+            width: 5rem;
+            text-align: right;
+        }
+
+        .form-group > input,
+        .form-group > select {
+            display: inline-block;
+            height: 1.8rem;
+            line-height: 1.8rem;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .dialog {
+            width: 480px;
+            position: fixed;
+            left: 50%;
+            top: 2em;
+            transform: translateX(-50%);
+            z-index: 2000;
+            visibility: hidden;
+            backface-visibility: hidden;
+            perspective: 1300px;
+        }
+
+        .dialog-active {
+            visibility: visible;
+        }
+
+        .dialog-active .dialog-content {
+            opacity: 1;
+            transform: rotateY(0);
+        }
+
+        .dialog-active ~ .dialog-overlay {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .dialog-content {
+            border-radius: 3px;
+            background: #fff;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            transition: .5s ease-in-out;
+            opacity: 0;
+            transform-style: preserve-3d;
+            transform: rotateY(-70deg);
+        }
+
+        .dialog-header {
+            background: #0090d3;
+            color: #fff;
+        }
+
+        .dialog-title {
+            margin: 0;
+            font-size: 2em;
+            text-align: center;
+            font-weight: 200;
+            line-height: 2em;
+        }
+
+        .dialog-body {
+            padding: 2em;
+        }
+
+        .dialog-footer {
+            margin: 0 2em;
+            padding: 1em 0;
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .dialog-overlay {
+            content: "";
+            position: fixed;
+            visibility: hidden;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 1000;
+            opacity: 0;
+            background: rgba(0, 0, 0, 0.5);
+            transition: all .6s;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div class="container">
+            <div class="form-group">
+                <label>Search</label>
+                <input type="text" class="search-input" v-model="searchQuery" />
+            </div>
+
+        </div>
+        <div class="container">
+            <simple-grid :data-list="people" :columns="columns" :search-key="searchQuery">
+            </simple-grid>
+        </div>
+    </div>
+    <template id="grid-template">
+        <table border='1'>
+            <thead>
+                <tr>
+                    <th v-for="col in columns">
+                        {{col.name | capitalize}}
+                    </th>
+                    <th>
+                        Delete
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="(index,entry) in dataList | filterBy searchKey ">
+                        <td v-for="col in columns">
+                            {{entry[col.name]}}
+                        </td>
+                        <td class="text-center">
+                            <button class="btn-danger" @click="deleteItem(entry)">delete</button>
+                        </td>
+                </tr>
+            </tbody>
+        </table>
+    </template>
+    <!-- 对话框组件 -->
+    <template id="dialog-template">
+            <div class="dialogs">
+                <div class="dialog" v-bind:class="{ 'dialog-active': show }">
+                    <div class="dialog-content">
+                        <header class="dialog-header">
+                            <h1 class="dialog-title">{{ title }}</h1>
+                        </header>
+                        <div class="dialog-body">
+                            <div v-for="field in fields" class="form-group">
+                                <label>{{ field.name }}</label>
+                                <select v-if="field.dataSource" v-model="item[field.name]">
+                                    <option v-for="opt in field.dataSource" :value="opt">{{ opt }}</option>
+                                </select>
+                                <input v-else type="text" v-model="item[field.name]">
+                            </div>
+                        </div>
+                        <footer class="dialog-footer">
+                            <div class="form-group">
+                                <label></label>
+                                <button class="btn-save" v-on:click="save">Save</button>
+                                <button class="btn-close" v-on:click="close">Close</button>
+                            </div>
+                        </footer>
+                    </div>
+                </div>
+                <div class="dialog-overlay"></div>
+            </div>
+        </template>
+
+    <script src="../js/vue1.0.js"></script>
+    <script>
+        Vue.component('simple-grid',{
+            template:'#grid-template',
+            data: function() {
+                    return {
+                        mode: 0,
+                        title: '',
+                        item: {}
+                    }
+                },
+            props:['data-list','columns','searchKey'],
+            methods:{
+                openNewItemDialog: function(title) {
+                    // 对话框的标题
+                    this.title = title
+                        // mode = 1表示新建模式
+                    this.mode = 1
+                        // 初始化this.item
+                    this.item = {}
+                        // 广播事件，showDialog是modal-dialog组件的一个方法，传入参数true表示显示对话框
+                    this.$broadcast('showDialog', true);
+                },
+                createItem: function() {
+                    // 将item追加到dataList
+                    this.dataList.push(this.item)
+                        // 广播事件，传入参数false表示隐藏对话框
+                    this.$broadcast('showDialog', false)
+                        // 新建完数据后，重置item对象
+                    this.item = {}
+                },
+                deleteItem:function(index){
+                    this.dataList.splice(index,1);
+                }
+            },
+            components:{
+                    'modal-dialog': {
+                        template: '#dialog-template',
+                        data: function() {
+                            return {
+                                // 对话框默认是不显示的
+                                show: false
+                            }
+                        },
+                        /*
+                         * mode = 1是新增数据模式，mode = 2是修改数据模式
+                         * title表示对话框的标题内容
+                         * fields表示对话框要显示的数据字段数组
+                         * item是由simple-dialog传下来，用于绑定表单字段的
+                         */
+                        props: ['mode', 'title', 'fields', 'item'],
+                        methods: {
+                            close: function() {
+                                this.show = false
+                            },
+                            save: function() {
+                                if (this.mode === 1) //新建模式
+                                    this.$dispatch('create-item');
+                            }
+                        },
+                        events: {
+                            'showDialog': function(show) {
+                                this.show = show
+                            }
+                        }
+                    }
+                }
+            });
+        var vm=new Vue({
+            el:"#app",
+            data:{
+                searchQuery:'',
+                columns:[{
+                    name:'name'
+                },{
+                    name:'age'
+                },{
+                    name:'sex'
+                },{
+                    name:'job'
+                }],
+                people:[{
+                    name:'徐文华',
+                    job:'待业',
+                    sex:24,
+                    sex:'Male'
+                },{
+                    name:'钟冬林',
+                    job:'WEB前端',
+                    sex:24,
+                    sex:'Male'
+                }
+                , {
+                           name: 'Bill',
+                           age: 26,
+                           sex: 'Male'
+                       }, {
+                           name: 'Tracy',
+                           age: 22,
+                           sex: 'Female'
+                       }, {
+                           name: 'Chris',
+                           age: 36,
+                           sex: 'Male'
+                       }
+                ]
+            }
+        });
+    </script>
+</body>
+</html>
