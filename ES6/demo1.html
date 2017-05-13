@@ -3,50 +3,47 @@
 <head>
 	<meta charset="UTF-8">
 	<title>demo1</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="format-detection" content="telephone=no, email=no">
+	<meta http-equiv="Pragma" content="no-cache">
+	<meta http-equiv="Cache-Control" content="no-cache">
+	<meta http-equiv="Expires" content="0">
 	<style>
 		#imgs{
-			width:200px;
-			height:200px;
-			border:solid 1px red ;
+			width:100%;
+			border:solid 1px red;
 		}
 	</style>
 </head>
 <body>
-	<img src="../imgs/loadding.gif" alt="" id="img1">
+	
 </body>
 <script>
-	Promise.prototype.done = function (resolve, reject) {
-	    this.then(resolve, reject)
-	        .catch( function (reason) {
-	            // 抛出一个全局错误
-	            setTimeout( () => { throw reason }, 0);
-	        });
-	}
-	Promise.prototype.finally = function (callback) {
-	    let P = this.constructor;
-	    return this.then(
-	        ret => P.resolve(callback()).then( (ret) => ret),
-	        err => P.resolve(callback(a,b)).then( (reason) => {throw reason })
-	    );
-	};
+	function createArray(...elements) {
+	  let handler = {
+	    get(target, propKey, receiver) {
+	    	console.log(target);
+	    	console.log(propKey);
+	    	console.log(receiver);
+	      let index = Number(propKey);
+	      if (index < 0) {
+	        propKey = String(target.length + index);
+	      }
+	      return Reflect.get(target, propKey, receiver);
+	    }
+	  };
 
-	var p = new Promise( (resolve, reject) => {
-	    resolve('p');
-	});
-	p.then(ret => {
-	    console.log(ret);
-	    return 'then1';
-	}).catch( err => {
-	    console.log(err.toString());
-	}).then( ret => {
-		console.log(ret);
-	    return 'then2';
-	}).then( ret => {
-		console.log(ret);
-	     
-	}).finally( (res)=> {
-		console.log('完毕...');
-		return 'aaaaa';
-	});
+  let target = [];
+  target.push(...elements);
+  return new Proxy(target, handler);
+}
+
+let arr = createArray('a', 'b', 'c');
+arr[-1] // c
+
+	
 </script>
 </html>
