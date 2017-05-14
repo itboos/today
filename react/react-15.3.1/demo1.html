@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Hello React</title>
+    <script src="./build/react.js"></script>
+    <script src="./build/react-dom.js"></script>
+    <script src="./build/browser.min.js"></script>
+
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="text/babel">
+       var child1 = React.createElement('li', null, 'First Text Content');
+       var child2 = React.createElement('li', null, 'Second Text Content');
+       var root = React.createElement('ul', { className: 'my-list'}, child1, child2);
+       console.log(root);
+       ReactDOM.render(root, document.getElementById('root'));
+
+       var root2 = React.DOM.ul({ className: 'my-list' },
+                    React.DOM.li(null, 'Text Content'),
+                    React.DOM.li({className: 'a-test'}, 'Text Content')
+                  );
+       console.log(root2);
+    </script>
+  </body>
+</html>
