@@ -19,31 +19,9 @@
 	</style>
 </head>
 <body>
-	
+
 </body>
 <script>
-	function createArray(...elements) {
-	  let handler = {
-	    get(target, propKey, receiver) {
-	    	console.log(target);
-	    	console.log(propKey);
-	    	console.log(receiver);
-	      let index = Number(propKey);
-	      if (index < 0) {
-	        propKey = String(target.length + index);
-	      }
-	      return Reflect.get(target, propKey, receiver);
-	    }
-	  };
-
-  let target = [];
-  target.push(...elements);
-  return new Proxy(target, handler);
-}
-
-let arr = createArray('a', 'b', 'c');
-arr[-1] // c
-
 	
 </script>
 </html>
