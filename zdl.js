@@ -101,3 +101,37 @@ for(var key in data){
   console.log(key);
   console.log(data[key])  -> 这里可以访问到值。
 }
+
+/*
+  2017年05月18日10:15:11  http://es6.ruanyifeng.com/#docs/reflect 
+  下面，使用 Proxy 写一个观察者模式的最简单实现，即实现observable和observe这两个函数。思路是observable函数返回一个原始对象的 Proxy 代理，拦截赋值操作，触发充当观察者的各个函数。
+  观察者模式的简单实现
+  上面代码中，先定义了一个Set集合，所有观察者函数都放进这个集合。然后，observable函数返回原始对象的代理，拦截赋值操作。拦截函数set之中，会自动执行所有观察者。
+*/
+const queuedObservers = new Set();
+
+const observe = fn => queuedObservers.add(fn);
+const observable = obj => new Proxy(obj, {set:set});
+
+function set(target, key, value, receiver) {
+  //Reflect.set方法设置target对象的name属性等于value。
+  const result = Reflect.set(target, key, value, receiver);
+  queuedObservers.forEach(observer => observer());
+  return result;
+}
+
+const person = observable({
+  name: '张三',
+  age: 20
+});
+
+function print() {
+  console.log(`${person.name}, ${person.age}`)
+}
+
+observe(print);
+person.name = '李四';
+person.age= '26';
+person.age= '29';
+// 输出
+// 李四, 20
