@@ -95,7 +95,7 @@ var data={
   ]
 };
 data.2017 ->  报错
-data.['2017'] ->  undefined 
+data.[2017] ->  可以正常访问到 ,但是无法提前知道键名字是什么的情况下，使用 keys来遍历
 可行的做法:
 for(var key in data){
   console.log(key);
@@ -114,8 +114,9 @@ const observe = fn => queuedObservers.add(fn);
 const observable = obj => new Proxy(obj, {set:set});
 
 function set(target, key, value, receiver) {
-  //Reflect.set方法设置target对象的name属性等于value。
+  //Reflect.set方法设置target对象的name属性等于value。 设置属性成功，返回true,否则，返回false
   const result = Reflect.set(target, key, value, receiver);
+  console.log( queuedObservers );
   queuedObservers.forEach(observer => observer());
   return result;
 }
@@ -128,10 +129,59 @@ const person = observable({
 function print() {
   console.log(`${person.name}, ${person.age}`)
 }
-
+function print2(){
+  console.log('观察者2 ,看到数据改变了....');
+}
 observe(print);
+observe(print2);
 person.name = '李四';
-person.age= '26';
-person.age= '29';
 // 输出
 // 李四, 20
+// 观察者2 ,看到数据改变了....
+
+
+generate 函数实现完全遍历二叉树:
+ http://es6.ruanyifeng.com/#docs/generator
+// 下面是二叉树的构造函数，
+// 三个参数分别是左树、当前节点和右树
+function Tree(left, label, right) {
+  this.left = left;
+  this.label = label;
+  this.right = right;
+}
+
+// 下面是中序（inorder）遍历函数。
+// 由于返回的是一个遍历器，所以要用generator函数。
+// 函数体内采用递归算法，所以左树和右树要用yield*遍历
+function* inorder(t) {
+  if (t) {
+    yield* inorder(t.left);
+    yield t.label;
+    yield* inorder(t.right);
+  }
+}
+
+// 下面生成二叉树
+function make(array) {
+  // 判断是否为叶节点
+  if (array.length == 1) return new Tree(null, array[0], null);
+  return new Tree(make(array[0]), array[1], make(array[2]));
+}
+let tree = make([[['a'], 'b', ['c']], 'd', [['e'], 'f', ['g']]]);
+
+// 遍历二叉树
+var result = [];
+for (let node of inorder(tree)) {
+  result.push(node);
+}
+
+console.log( result );
+// ['a', 'b', 'c', 'd', 'e', 'f', 'g']
+
+/* 检测css3动画结束: */
+  
+el.addEventListener("transitionend", updateTransition, true);
+https://developer.mozilla.org/zh-CN/docs/Web/CSS/CSS_Transitions/Using_CSS_transitions
+http://www.ruanyifeng.com/blog/2014/02/css_transition_and_animation.html
+
+

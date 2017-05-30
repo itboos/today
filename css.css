@@ -1,0 +1,17 @@
+/* CSS 知识积累 2017年05月30日21:41:10 */
+/*  映客充值页 https://pay.busi.inke.cn/  */
+*{
+
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: HelveticaNeue, /*西文无衬线体*IOS系统字体*/
+				 arial, /*无衬线体*PC.window.英文字体*/
+				  'Droid Sans Fallback', /*无衬线体*安卓系统字体*/ 
+				  STXihei, "华文细黑", /*IOS默认中文字体*/ 
+				  "Microsoft YaHei", "微软雅黑", /*PC.windows*中文字体*/ 
+				  /*默认为*非衬线体*/ sans-serif;
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+	outline: 0;
+}
+	
