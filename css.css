@@ -14,4 +14,15 @@
 	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 	outline: 0;
 }
-	
+输入框高亮:;
+.myinput{
+	outline:none;
+	border: solid 1px #ccc;
+	border-radius: 4px;
+}
+.my-input:focus{
+        border: 1px solid #fafafa;
+        -webkit-box-shadow: 0px 0px 6px #007eff;
+        -moz-box-shadow: 0px 0px 5px #007eff;
+        box-shadow: 0px 0px 5px #007eff;   
+ }
