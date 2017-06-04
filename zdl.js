@@ -184,4 +184,132 @@ el.addEventListener("transitionend", updateTransition, true);
 https://developer.mozilla.org/zh-CN/docs/Web/CSS/CSS_Transitions/Using_CSS_transitions
 http://www.ruanyifeng.com/blog/2014/02/css_transition_and_animation.html
 
+// 生成指定个数不重复的随机数: 2017-06-02 17:56:01
+var headArr=document.querySelectorAll('.row .head'),
+    randomArr=[];
+ 
+ function newNumber(start,end){  
+    return Math.round(Math.random()*(end-start)+start);
+ } 
+ 
+ function isHaveThisNumber(para,num){ 
+   for(var i=0;i<para.length;i++){  
+           if(para[i]==num){  
+               return true;
+           }  
+       }  
+       return false;  
+ }
+
+function newRandom(start,end,size){  
+    var para=[];//目标随机数组  
+    var rnum;
+    var currentIndex=0;
+    for(var i=0;i<size;i++){ //生成 size 个不重复的随机数  
+        rnum=newNumber(start,end);
+        if(isHaveThisNumber(para,rnum)){
+            while(isHaveThisNumber(para,rnum)){
+                rnum=newNumber(start,end);
+            }  
+        }  
+        para[currentIndex++]=rnum;//添加到现有数字集合中  
+    } 
+    console.log(para); 
+    return para;  
+}  
+function changeSrc(){
+    var randomArr=newRandom(0,imgArr.length-1,6);
+    //console.log(randomArr);
+    for(var i=0;i<headArr.length;i++ ){
+        headArr[i].src=imgArr[ randomArr[i] ];
+    }
+}
+changeSrc();
+// ===========================
+  2017年06月04日20:16:56
+  一个简单的State全局状态管理器的实现:
+// 原文: http://www.jianshu.com/p/69dede6f7e5f
+// 自执行创建模块
+(function() {
+    // states 结构预览
+    // states = {
+    //     a: 1,
+    //     b: 2,
+    //     m: 30,  
+    //     o: {}
+    // }
+    var states = {};  // 私有变量，用来存储状态与数据
+
+    // 判断数据类型  这个方法貌似不错¡™
+
+    /**
+     * @Param name 属性名
+     * @Description 通过属性名获取保存在states中的值
+    */
+    function get(name) {
+        return states[name] ? states[name] : '';
+    }
+
+    function getStates() {
+        return states;
+    }
+
+    /*
+    * @param options {object} 键值对
+    * @param target {object} 属性值为对象的属性，只在函数实现时递归中传入
+    * @desc 通过传入键值对的方式修改state树，使用方式与小程序的data或者react中的setStates类似
+    */
+    function set(options, target) {
+        var keys = Object.keys(options);
+        var o = target ? target : states;
+
+        keys.map(function(item) {
+            if(typeof o[item] == 'undefined') {
+                o[item] = options[item];
+            }
+            else {
+                type(o[item]) == 'object' ? set(options[item], o[item]) : o[item] = options[item];
+            }
+            return item;
+        })
+    }
+
+    // 对外提供接口
+    window.get = get;
+    window.set = set;
+    window.getStates = getStates;
+})()
+
+// 具体使用如下
+
+set({ a: 20 });     // 保存 属性a
+set({ b: 100 });    // 保存属性b
+set({ c: 10 });     // 保存属性c
+
+// 保存属性o, 它的值为一个对象
+set({ 
+    o: {
+        m: 10,
+        n: 20
+    }
+})
+
+// 修改对象o 的m值
+set({
+    o: {
+        m: 1000
+    }
+})
+
+// 给对象o中增加一个c属性
+set({
+    o: {
+        c: 100
+    }
+})
+console.log(getStates())
+
+// =========================
+
+
 
