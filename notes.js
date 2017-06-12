@@ -19,6 +19,7 @@ git 笔记: 2017-06-06 17:07:13
 	git reset --hard e884ac1  回到 e884ac1对应的那个版本
 
 	git log 显示提交的历史记录-- 可以查看提交历史
+	git log --pretty=oneline --abbrev-commit 更加友好的log显示方式
 	git reflog   用来记录你的每一次命令 --查看命令历史
 
 	查看文件的差异:
@@ -51,7 +52,21 @@ git 笔记: 2017-06-06 17:07:13
 	创建+切换分支：git checkout -b <name>  常用:  git checkout -b dev  创建dev分支，同时切换到dev分支
 
 	合并某分支到当前分支：git merge <name>
+	丢弃一个没有被合并过的分支，可以通过git branch -D <name>强行删除。
 
 	删除分支：git branch -d <name>
 
 	git log --graph 	命令可以看到分支合并图
+
+
+   git stash : 可以把当前工作现场“储藏”起来，等以后恢复现场后继续工作(没有add的文件暂时存起来，然后就工作区就是干净的，就可以用来创建新的分支了)
+   用  git stash list命令看  查看临时存储区的内容
+   恢复临时存储区的内容：
+
+   一是用git stash apply恢复，但是恢复后，stash内容并不删除，你需要用git stash drop来删除；
+
+   另一种方式是用git stash pop（常用） ，恢复的同时把stash内容也删了
+
+   在Git工作区的根目录下创建一个特殊的.gitignore文件，然后把要忽略的文件名填进去，Git就会自动忽略这些文件。
+
+
