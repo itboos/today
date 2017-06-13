@@ -69,4 +69,19 @@ git 笔记: 2017-06-06 17:07:13
 
    在Git工作区的根目录下创建一个特殊的.gitignore文件，然后把要忽略的文件名填进去，Git就会自动忽略这些文件。
 
+   简化git命令：
 
+   而当前用户的Git配置文件放在用户主目录下的一个隐藏文件.gitconfig中： /Users/xueqi/..gitconfig
+
+   $ cat .gitconfig
+   [alias]
+       co = checkout
+       ci = commit
+       br = branch
+       st = status
+   [user]
+       name = Your Name
+       email = your@email.com
+
+   修改配置后就可以使用:
+   git br 来表示git branch 命令了
