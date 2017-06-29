@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>心若止水</title>
+	<title></title>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 	<meta name="apple-mobile-web-app-status-bar-style" content="black">
@@ -28,30 +28,83 @@
 </head>
 <body>
 	<div id="target"></div>
-	<h1>JavaScript hasFocus example</h1>
-	<div id="message">Waiting for user action</div>
-	<div><button onclick="openWindow()">Open a new window</button></div>
 </body>
 <script>
-	setInterval( checkPageFocus, 200 );
+	// demo02
+	console.log('golb1');
+	//1.
+	setTimeout(function() {
+	    console.log('timeout1');
+	    process.nextTick(function() {
+	        console.log('timeout1_nextTick');
+	    })
+	    new Promise(function(resolve) {
+	        console.log('timeout1_promise');
+	        resolve();
+	    }).then(function() {
+	        console.log('timeout1_then')
+	    })
+	});
+	//2.
+	setImmediate(function() {
+	    console.log('immediate1');
+	    process.nextTick(function() {
+	        console.log('immediate1_nextTick');
+	    })
+	    new Promise(function(resolve) {
+	        console.log('immediate1_promise');
+	        resolve();
+	    }).then(function() {
+	        console.log('immediate1_then')
+	    })
+	})
+	process.nextTick(function() {
+	    console.log('glob1_nextTick');
+	})
+	new Promise(function(resolve) {
+	    console.log('glob1_promise');
+	    resolve();
+	}).then(function() {
+	    console.log('glob1_then')
+	})
 
-	function checkPageFocus() {
-	  var info = document.getElementById("message");
+	//3.
+	setTimeout(function() {
+	    console.log('timeout2');
+	    process.nextTick(function() {
+	        console.log('timeout2_nextTick');
+	    })
+	    new Promise(function(resolve) {
+	        console.log('timeout2_promise');
+	        resolve();
+	    }).then(function() {
+	        console.log('timeout2_then')
+	    })
+	})
 
-	  if ( document.hasFocus() ) {
-	    info.innerHTML = "The document has the focus.";
-	  } else {
-	    info.innerHTML = "The document doesn't have the focus.";
-	  }
-	}
+	process.nextTick(function() {
+	    console.log('glob2_nextTick');
+	})
+	new Promise(function(resolve) {
+	    console.log('glob2_promise');
+	    resolve();
+	}).then(function() {
+	    console.log('glob2_then')
+	})
 
-	function openWindow() {
-	  window.open (
-	    "http://developer.mozilla.org/",
-	    "mozdev",
-	    "width=640,height=300,left=150,top=260"
-	  );
-	}
+	//4.
+	setImmediate(function() {
+	    console.log('immediate2');
+	    process.nextTick(function() {
+	        console.log('immediate2_nextTick');
+	    })
+	    new Promise(function(resolve) {
+	        console.log('immediate2_promise');
+	        resolve();
+	    }).then(function() {
+	        console.log('immediate2_then')
+	    })
+	})
 </script>
 <script>
 

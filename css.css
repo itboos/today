@@ -26,3 +26,29 @@
         -moz-box-shadow: 0px 0px 5px #007eff;
         box-shadow: 0px 0px 5px #007eff;   
  }
+
+ devicePixelRatio ： window.devicePixelRatio
+ 设备物理像素和设备独立像素的比例，也就是 devicePixelRatio = 物理像素 / 独立像素。
+ css中的px就可以看做是设备的独立像素，所以通过devicePixelRatio，我们可以知道该设备上一个css像素代表多少个物理像素
+ 例如：iPhone 6 Plus 物理像素为: 414*736
+ 	  逻辑像素为： 1242x2208
+ 	  它的像素比: devicePixelRatio = 物理像素 /独立像素 =1242 / 414 = 3;
+ 	  也就是说， 1个css像素 = 3个物理像素
+  还有一个因素也会引起css中px的变化，那就是用户缩放。例如，当用户把页面放大一倍，那么css中1px所代表的物理像素也会增加一倍；反之把页面缩小一倍，css中1px所代表的物理像素也会减少一倍。
+
+  visual viewport宽度 = ideal viewport宽度  / 当前缩放值
+
+  当前缩放值 = ideal viewport宽度  / visual viewport宽度
+      ps: visual viewport的宽度指的是浏览器可视区域的宽度
+  例如: ip 6Plus 设置:
+  <meta name="viewport" id="WebViewport" content="width=device-width,initial-scale=0.333333, maximum-scale=0.333333, minimum-scale=0.333333, user-scalable=no">
+  
+  viewport宽度 = 414 / 0.3333 = 1242 px;
+
+  总之记住这个结论就行了：在iphone和ipad上，无论你给viewport设的宽的是多少，如果没有指定默认的缩放值，则iphone和ipad会自动计算这个缩放值，
+  以达到当前页面不会出现横向滚动条(或者说viewport的宽度就是屏幕的宽度)的目的。
+
+
+
+
+

@@ -596,5 +596,61 @@ oElem.addEventListener('mousedown', start, false);
 new Drag('target');
 new Drag('target2');
 
+/* 利用动态加载script的方式 发送get请求 --（ 实质上是动态加载脚本 ） */
+function Myload(B, A){
+  this.done = false;
+  B.onload = B.onreadystatechange = function() {
+    if (!this.done && (!this.readyState || this.readyState === "loaded" || this.readyState === "complete")) {
+      this.done = true;
+      A();
+      B.onload = B.onreadystatechange = null;
+    }
+  };
+}
 
+function loadScript(A, id, C) {
+  var B = function() {};
+  if (C !== undefined) {
+    B = C;
+  }
+  if (!document.getElementById(id)) {
+    var D = document.createElement("script");
+    D.setAttribute("src", A);
+    D.setAttribute("id", id);
+    document.body.appendChild(D);
+    this.Myload(D, B);
+  } else {
+    B();
+  }
+}
+
+var url='http://116.62.28.97:9012/v1/c6/add_card_qrcode?callback=callback&code=123&type=999&style=5';
+loadScript(url,'script00111222322',function(){
+    alert('加载成功!');
+});
+
+function callback(data){
+    alert(JSON.stringify(data));
+}
+
+/*  元素外发光的虚线 */
+var xkXian = function () {
+       var body = document.querySelector('body');
+       var style = '<style id="xm" media="screen">* {outline: 1px red dashed!important;} </style>'
+       var i = true;
+       body.insertAdjacentHTML('afterbegin', style);
+       body.addEventListener('keydown', function (event) {
+         if (event.keyCode === 77 && event.ctrlKey) {
+           if (i) {
+             var styletog = document.querySelector('#xm')
+             styletog.remove()
+             i= false
+           }else {
+             i = true
+             body.insertAdjacentHTML('afterbegin', style);
+           }
+         }
+       })
+     }
+xkXian();
 
