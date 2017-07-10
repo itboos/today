@@ -107,3 +107,141 @@
 </html>
 
 */
+css 开关:
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Demo</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no, email=no">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+		<style>
+			.switch {  
+			    position: relative;  
+			    float: left;   
+			    width: 60px;  
+			    margin: 0;  
+			    -webkit-user-select:none;   
+			    -moz-user-select:none;   
+			    -ms-user-select: none;  
+			}  
+			  
+			.switch-checkbox {  
+			    display: none;  
+			}  
+			  
+			.switch-label {  
+			    display: block;   
+			    overflow: hidden;   
+			    cursor: pointer;  
+			    border: 1px solid #999999;   
+			    border-radius: 20px;  
+			}  
+			  
+			.switch-inner {  
+			    display: block;   
+			    width: 200%;   
+			    margin-left: -100%;  
+			    transition: margin 0.3s ease-in 0s;  
+			}  
+			  
+			.switch-inner::before, .switch-inner::after {  
+			    display: block;   
+			    float: right;   
+			    width: 50%;   
+			    height: 20px;   
+			    padding: 0;   
+			    line-height: 20px;  
+			    font-size: 12px;   
+			    color: white;   
+			    font-family:   
+			    Trebuchet, Arial, sans-serif;   
+			    font-weight: bold;  
+			    box-sizing: border-box;  
+			}  
+			  
+			.switch-inner::after {  
+			    content: attr(data-on);  
+			    padding-left: 6px;  
+			    background-color: #00e500;   
+			    color: #FFFFFF;  
+			}  
+			  
+			.switch-inner::before {  
+			    content: attr(data-off);  
+			    padding-right: 4px;  
+			    background-color: #EEEEEE;   
+			    color: #999999;  
+			    text-align: right;  
+			}  
+			  
+			.switch-switch {  
+			    position: absolute;   
+			    display: block;   
+			    width: 12px;  
+			    height: 12px;  
+			    margin: 4px;  
+			    background: #FFFFFF;  
+			    top: 0;   
+			    bottom: 0;  
+			    right: 30px;  
+			    border: 1px solid #999999;   
+			    border-radius: 20px;  
+			    transition: all 0.3s ease-in 0s;  
+			}  
+			  
+			.switch-checkbox:checked + .switch-label .switch-inner {  
+			    margin-left: 0;  
+			}  
+			  
+			.switch-checkbox:checked + .switch-label .switch-switch {  
+			    right: 0px;   
+			}  
+		</style>
+</head>
+<body>
+		<div class="switch">  
+           <input class="switch-checkbox" id="onoffswitch" type="checkbox">  
+           <label class="switch-label" for="onoffswitch">  
+               <span class="switch-inner" data-on="ON" data-off="OFF"></span>  
+               <span class="switch-switch"></span>  
+           </label>  
+       </div>  
+
+   		<div class="switch">  
+              <input class="switch-checkbox" id="onoffswitch2" type="checkbox">  
+              <label class="switch-label" for="onoffswitch2">  
+                  <span class="switch-inner" data-on="ON" data-off="OFF"></span>  
+                  <span class="switch-switch"></span>  
+              </label>  
+         </div>  
+<script src="http://nh5.nagezan.net/wx/loveshow/js/jquery-2.1.3.min.js"></script>
+<script >
+   	$(document).ready(function() {  
+   	    $("#onoffswitch").on('click', function(){  
+   	        clickSwitch()  
+   	    });  
+   	    $("#onoffswitch2").on('click', function(){  
+   	        clickSwitch()  
+   	    });  
+   	  
+   	    var clickSwitch = function() {  
+   	        if ($("#onoffswitch").is(':checked')) {  
+   	            console.log("在ON的状态下");  
+   	        } else {  
+   	            console.log("在OFF的状态下");  
+   	        }  
+   	    };  
+   	});  
+
+
+    
+</script>
+</body>	
+</html>
