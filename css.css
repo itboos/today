@@ -49,6 +49,9 @@
   以达到当前页面不会出现横向滚动条(或者说viewport的宽度就是屏幕的宽度)的目的。
 
 
-
-
+.text{
+  -webkit-writing-mode: vertical-rl;  设置文字竖直显示
+  height: 400px;
+  text-orientation: upright; 设置单个文字方向
+}
 
