@@ -1,5 +1,21 @@
 /* CSS 知识积累 2017年05月30日21:41:10 */
 /*  映客充值页 https://pay.busi.inke.cn/  */
+
+2017年07月14日15:11:28:
+
+Jquery实现鼠标右键菜单的实现: 
+http://swisnl.github.io/jQuery-contextMenu/demo.html
+https://swisnl.github.io/jQuery-contextMenu/demo/trigger-custom.html
+
+库1: 
+https://github.com/swisnl/jQuery-contextMenu
+库2: 标准:
+https://github.com/sydcanem/bootstrap-contextmenu
+https://github.com/sydcanem/bootstrap-contextmenu voss使用的
+
+https://swisnl.github.io/jQuery-contextMenu/demo/trigger-custom.html
+
+
 *{
 
 	margin: 0;
