@@ -86,23 +86,37 @@
 		
 	// },false)
 	// 比如需要这样的格式 yyyy-MM-dd hh:mm:ss
-	
-	function dataFormat(str){
-		var date = new Date(str);
-		Y = date.getFullYear() + '-';
-		M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
-		D = date.getDate() + ' ';
-		h = date.getHours() + ':';
-		m = date.getMinutes() + ':';
+	dataFormat(str){
+		//str 为整形
+		str=parseInt(str);
+		var date = new Date(str),
+		Y = date.getFullYear() + '-',
+		M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-',
+		D = date.getDate() + ' ',
+		h = date.getHours() + ':',
+		m = date.getMinutes() + ':',
 		s = date.getSeconds(); 
 		return Y+M+D+h+m+s;
-	}
+	},
 	var res = dataFormat(1495209600000);
 	console.log(res);
 	// 输出结果：2014-04-23 18:55:49
 	import receiveAndSendBand from './components/views/receiveAndSendBand'
 	import diamondBeanSourceConsume from './components/views/diamondBeanSourceConsume'
 
+	由2017-12-13 或者是 2017-12-30 12:12:13 转换成时间戳的形式: 123232323
+
+	getTimeStamp(timeStr){
+	    timeStr=timeStr.replace(/：/g,':').replace(/\s+/g,' ').trim();
+	    var date=timeStr.substr(0,10),
+	        time=timeStr.substr(10),
+	        formatedTime='',
+	        dateArr=[];
+	    time=time.trim()
+	    dateArr=date.split('-');
+	    formatedTime = dateArr[0]+'/'+dateArr[1]+'/'+dateArr[2]+' '+time;
+	    return Date.parse(formatedTime);
+	},
 </script>
 </html>
 
