@@ -86,6 +86,19 @@ git 笔记: 2017-06-06 17:07:13
    修改配置后就可以使用:
    git br 来表示git branch 命令了
 
+ 远程分支相关:
+ git branch -r #查看远程分支
+ git branch -a #查看所有分支
+
+ 切换到远程分支:
+	 iMac:hardworking xueqi$ git branch -r
+	   origin/develop
+	   origin/master
+	   origin/meila
+ git checkout origin/develop  -切换到develop 分支
+
+
+
  phthon3 相关教程: 2017年06月16日10:51:48
  
  自动转换时，转换为false的值:
@@ -112,4 +125,12 @@ res1=f1();
 res2=f2();
 res3=f3();
 print(res1,res2,res3);
+
+React 笔记:
+属性使用驼峰式命名法:
+ class -> className
+ tanindex -> tabIndex
+组件首字母使用大写形式
+属性值用引号包起来:
+< welcome  name='zdl' ,age='23'>
 
