@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<!-- saved from url=(0113)http://visugar.com/FrontEnd-examples/01%E7%9C%81%E5%B8%82%E5%8C%BA%E4%B8%89%E7%BA%A7%E8%81%94%E5%8A%A8/index.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <title>城市选择的三种实现</title>
+    <link rel="stylesheet" href="./js/style.css">
+</head>
+<body>
+<div>
+    <fieldset>
+        <legend>方法一：下拉选择框实现省市区（县）三级联动</legend>
+        <form action="http://visugar.com/FrontEnd-examples/01%E7%9C%81%E5%B8%82%E5%8C%BA%E4%B8%89%E7%BA%A7%E8%81%94%E5%8A%A8/index.html#">
+            <label for="addr-show">您选择的是：
+                <input type="text" value="" id="addr-show">
+            </label>
+            <br>
+
+            <!--省份选择-->
+            <select id="prov" onchange="showCity(this)">
+                <option>=请选择省份=</option>
+
+            <option value="0">北京市</option><option value="1">天津市</option><option value="2">上海市</option><option value="3">重庆市</option><option value="4">河北省</option><option value="5">山西省</option><option value="6">内蒙古</option><option value="7">辽宁省</option><option value="8">吉林省</option><option value="9">黑龙江省</option><option value="10">江苏省</option><option value="11">浙江省</option><option value="12">安徽省</option><option value="13">福建省</option><option value="14">江西省</option><option value="15">山东省</option><option value="16">河南省</option><option value="17">湖北省</option><option value="18">湖南省</option><option value="19">广东省</option><option value="20">广西</option><option value="21">海南省</option><option value="22">四川省</option><option value="23">贵州省</option><option value="24">云南省</option><option value="25">西藏</option><option value="26">陕西省</option><option value="27">甘肃省</option><option value="28">青海省</option><option value="29">宁夏</option><option value="30">新疆</option><option value="31">香港</option><option value="32">澳门</option><option value="33">台湾省</option></select>
+
+            <!--城市选择-->
+            <select id="city" onchange="showCountry(this)">
+                <option>=请选择城市=</option>
+            </select>
+
+            <!--县区选择-->
+            <select id="country" onchange="selecCountry(this)">
+                <option>=请选择县区=</option>
+            </select>
+            <button type="button" class="btn met1" onclick="showAddr()" disabled="">确定</button>
+        </form>
+    </fieldset>
+</div>
+<!--**********************************华丽丽*************************************-->
+
+<div>
+    <fieldset>
+        <legend>方法二：按级选中省市县/区</legend>
+        <label for="addr-show02">您选择的是：
+            <input type="text" id="addr-show02">
+        </label>
+        <div id="addr-choice">
+            <ul id="title-wrap">
+                <li value="0" class="titleSel">省份</li>
+                <li value="1">城市</li>
+                <li value="2">县区</li>
+            </ul>
+            <div id="show-panel">
+                <ul id="addr-wrap"><li>北京市</li><li>天津市</li><li>上海市</li><li>重庆市</li><li>河北省</li><li>山西省</li><li>内蒙古</li><li>辽宁省</li><li>吉林省</li><li>黑龙江省</li><li>江苏省</li><li>浙江省</li><li>安徽省</li><li>福建省</li><li>江西省</li><li>山东省</li><li>河南省</li><li>湖北省</li><li>湖南省</li><li>广东省</li><li>广西</li><li>海南省</li><li>四川省</li><li>贵州省</li><li>云南省</li><li>西藏</li><li>陕西省</li><li>甘肃省</li><li>青海省</li><li>宁夏</li><li>新疆</li><li>香港</li><li>澳门</li><li>台湾省</li></ul>
+            </div>
+        </div>
+        <button type="button" class="btn met2" disabled="">确定</button>
+    </fieldset>
+</div>
+<!--**********************************华丽丽*************************************-->
+<div>
+    <fieldset>
+        <legend>方法三：按字母顺序选中城市</legend>
+        <label for="addr-show03">您选择的是：
+            <input type="text" id="addr-show03">
+        </label>
+        <div id="data-wrap">
+            <ul id="data-order">
+                <li value="0" class="cityOn">热门</li>
+                <li value="1">ABCD</li>
+                <li value="2">EFGH</li>
+                <li value="3">JKLM</li>
+                <li value="4">NPQR</li>
+                <li value="5">STWX</li>
+                <li value="6">YZ</li>
+            </ul>
+            <div id="data-show"><dl><dt>hot</dt><dd><a>北京</a><a>上海</a><a>广州</a><a>深圳</a><a>杭州</a><a>南京</a><a>成都</a><a>重庆</a><a>武汉</a><a>长沙</a><a>昆明</a></dd></dl></div>
+        </div>
+    </fieldset>
+</div>
+
+<script src="./js/city.js"></script>
+<script src="./js/city02.js"></script>
+
+<script src="./js/method01.js"></script>
+<script src="./js/method02.js"></script>
+<script src="./js/method03.js"></script>
+
+</body></html>
