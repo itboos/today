@@ -654,3 +654,42 @@ var xkXian = function () {
      }
 xkXian();
 
+数组的map 方法:
+const numbers = [1, 2, 3, 4, 5];
+// 第一个参数为回调函数，第二个参数为指定回调函数的this值
+let arr = numbers.map((currentValue, index, array) => {
+    console.log(`currentValue = `, currentValue);
+    console.log(`index = `, index);
+    console.log(`array= `, array);
+    return currentValue * 2;
+}, numbers);
+
+console.log(`arr `, arr);
+    
+    //根据时间戳，转换为剩余的天，时，分，秒
+      resetTime(time) {
+        time = parseInt(time) + ''
+        if (time.length < 2) {
+          return '0' + time
+        } else {
+          return time
+        }
+      },
+      getTimeStr(timeStr){
+        var remain = {
+          time: parseInt(timeStr/1000),
+          h: 0,
+          m: 0,
+          s: 0,
+        };
+        remain.h = this.resetTime(remain.time / (60 * 60));
+        remain.m = this.resetTime(remain.time % (60 * 60) / 60);
+        remain.s = this.resetTime(remain.time % 60);
+        if(parseInt(remain.h)  > 24) {
+          var day = Math.floor( parseInt(remain.h) /24 ),
+              hour = parseInt(remain.h) % 24;
+          return day+'天'+hour +'时'+ remain.m +'分'+remain.s+'秒';
+        }
+        return remain.h +'时'+ remain.m+'分'+remain.s+'秒';
+      },
+
