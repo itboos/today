@@ -259,3 +259,57 @@ css 开关:
 </script>
 </body>	
 </html>
+
+<script>
+	/* 检测对象中元素的变化 */
+   const OP = Object.prototype;
+   class Jsonob{
+    constructor(obj, callback){
+        if(OP.toString.call(obj) !== '[object Object]'){
+            console.error('This parameter must be an object：' + obj);
+        }
+        this.$callback = callback;
+        this.observe(obj);
+    }
+
+    observe(obj){
+        Object.keys(obj).forEach(function(key, index, keyArray){
+            var val = obj[key];
+            Object.defineProperty(obj, key, {
+                get: function(){
+                    return val;
+                },
+                set: (function(newVal){
+                    this.$callback(newVal);
+                }).bind(this)
+            });
+
+            if(OP.toString.call(val) === '[object Object]'){
+                this.observe(val);
+            }
+
+        }, this);
+
+    }
+}
+var callback = function(newVal){
+                alert(newVal);
+            };
+var data = {
+    a: 200,
+    level1: {
+        b: 'str',
+        c: [1, 2, 3],
+        level2: {
+            d: 90
+        }
+    }
+}
+var j = new Jsonob(data, callback);
+console.log(j);
+
+data.a = 250;
+data.level1 = '覆盖属性咯1~';
+data.level1.b = 'sss';
+data.level1.level2.d = 'msn';
+</script>

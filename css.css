@@ -71,3 +71,6 @@ https://swisnl.github.io/jQuery-contextMenu/demo/trigger-custom.html
   text-orientation: upright; 设置单个文字方向
 }
 
+多个空格的字符串在元素里只会显示一个空格： 
+解决办法:   
+设置元素的样式  white-space:pre;;
