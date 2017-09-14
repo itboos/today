@@ -1,6 +1,0 @@
-<import src="B.wxml"/>
-<template is="A"/>
-<template is="B"/>
-<include src="header" />
-<view class="classname">body</view>
-<include src="footer" />

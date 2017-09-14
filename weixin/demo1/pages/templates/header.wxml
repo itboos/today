@@ -1,4 +1,0 @@
-<view class="classname">header</view>
-<template name="A">
-  <text> A template </text>
-</template>

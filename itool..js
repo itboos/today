@@ -122,3 +122,88 @@ egret_h5.startLoading = function () {
     var list = egret_h5.preloadList;
     egret_h5.loadScript(list, egret_h5.startGame);
 };
+// 检测css3的支持情况
+supportCss3(style) {
+    const prefix = ['webkit', 'Moz', 'ms', 'o'];
+    let i;
+    const humpString = [];
+    const htmlStyle = document.documentElement.style;
+    const _toHumb = function (string) {
+      return string.replace(/-(\w)/g, function ($0, $1) {
+        return $1.toUpperCase();
+      });
+    };
+    for (i in prefix) {
+      humpString.push(_toHumb(prefix[i] + '-' + style));
+    }
+    humpString.push(_toHumb(style));
+    for (i in humpString) {
+       if (humpString[i] in htmlStyle) {
+         return true;
+       } 
+    }
+    return false;
+  }
+
+// 监听移动端手指滑动事件:
+  //获得角度
+function getAngle(angx, angy) {
+    return Math.atan2(angy, angx) * 180 / Math.PI;
+};
+
+//根据起点终点返回方向 1向上 2向下 3向左 4向右 0未滑动
+function getDirection(startx, starty, endx, endy) {
+    var angx = endx - startx;
+    var angy = endy - starty;
+    var result = 0;
+
+    //如果滑动距离太短
+    if (Math.abs(angx) < 2 && Math.abs(angy) < 2) {
+        return result;
+    }
+
+    var angle = getAngle(angx, angy);
+    if (angle >= -135 && angle <= -45) {
+        result = 1;
+    } else if (angle > 45 && angle < 135) {
+        result = 2;
+    } else if ((angle >= 135 && angle <= 180) || (angle >= -180 && angle < -135)) {
+        result = 3;
+    } else if (angle >= -45 && angle <= 45) {
+        result = 4;
+    }
+
+    return result;
+}
+//手指接触屏幕
+DOm.addEventListener("touchstart", function(e) {
+    //停止正在执行的轮播图.
+      startx = e.touches[0].pageX;
+      starty = e.touches[0].pageY;
+}, false);
+//手指离开屏幕
+DOm.addEventListener("touchend", function(e) {
+  var endx, endy;
+  endx = e.changedTouches[0].pageX;
+  endy = e.changedTouches[0].pageY;
+  var direction = getDirection(startx, starty, endx, endy);
+  switch (direction) {
+      case 0:
+          alert("未滑动！");
+          break;
+      case 1:
+          alert("向上！");
+          break;
+      case 2:
+          alert("向下！");
+          break;
+      case 3:
+          alert("向左！");
+          //触发上一张事件 $(this)只让当前的那个轮播图滑动
+          break;
+      case 4:
+          alert("向右！");
+          break;
+      default:
+  }
+}, false);

@@ -1,7 +1,0 @@
-<!--pages/welcome/welcome.wxml-->
-<!--<text>pages/welcome/welcome.wxml</text>-->
-<view class="container">
-    <image src="{{imgSrc}}" class="girl"></image>
-    <text class="motoo">{{text}}111</text>
-    <button bindtap="begin" type="default">开启小程序之旅</button>
-</view>

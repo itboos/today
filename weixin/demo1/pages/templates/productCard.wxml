@@ -1,5 +1,0 @@
-<template name="productCard"> 
-  <text>{{obj.title}}</text>
-  <text>{{obj.name}}</text>
-  <text>{{obj.job}}</text>
-</template>

@@ -693,3 +693,21 @@ console.log(`arr `, arr);
         return remain.h +'时'+ remain.m+'分'+remain.s+'秒';
       },
 
+/**
+ *  时间戳-> 时间
+ * @param {*} timeStamp 
+ */
+function getDate(timeStamp) {
+    var Y,M,D,h,m,s;
+    var date = new Date(timeStamp);
+    Y = date.getFullYear() + '-';
+    M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
+    D = date.getDate() + ' ';
+    h = date.getHours() + ':';
+    m = date.getMinutes() + ':';
+    s = date.getSeconds(); 
+    return Y+M+D+h+m+s;
+}
+var res = getDate(1504595190000);
+console.log(res);
+
