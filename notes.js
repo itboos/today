@@ -134,3 +134,11 @@ React 笔记:
 属性值用引号包起来:
 < welcome  name='zdl' ,age='23'>
 
+黑科技: 
+利用数组的结构赋值来交换两个变量的值:
+let x = 1;
+let y = 2;
+[x,y] = [y,x];
+console.log(x); // 2
+console.log(y); // 1
+
