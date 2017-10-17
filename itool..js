@@ -207,3 +207,18 @@ DOm.addEventListener("touchend", function(e) {
       default:
   }
 }, false);
+
+检测是否支持localStorage:
+// 移动端浏览器隐私模式/无痕模式使用本地存储localStorage/sessionStorage的问题
+function isLocalStorageSupport(){
+    try {
+        var isSupport = 'localStorage' in window && window['localStorage'] !== null;
+        if (isSupport) {
+            localStorage.setItem('__test', '1');
+            localStorage.removeItem('__test');
+        }
+        return isSupport;
+    } catch (e) {
+        return false;
+    }
+}
