@@ -222,3 +222,32 @@ function isLocalStorageSupport(){
         return false;
     }
 }
+
+// 美团rem 解决方案 2017年10月31日09:37:46  有未理解的地方
+! function(e, t) {
+    // e= document , t = window;
+
+    function n() {
+    var e = Math.min(d.getBoundingClientRect().width, 768);
+    t.payuiWidth = e,
+    d.style.fontSize = e / 7.5 + "px"
+    }
+
+    // 这个方法是什么意思?  貌似是遇到高清屏， 创建一个半个像素的透明框，最后移除
+    function i() {
+        var n = e.createElement("div");
+        n.style.border = ".5px solid red";
+        e.body.appendChild(n);
+        1 === n.offsetHeight &&  e.body.classList.add("hairline");
+        // e.body.removeChild(n);
+        t.removeEventListener("DOMContentLoaded", i);
+    }
+    var d = e.documentElement;
+    n(); 
+    t.addEventListener("resize", n);
+    t.devicePixelRatio && devicePixelRatio > 1 && 				
+    ("complete" === e.readyState ? 
+                            i() : 
+                            t.addEventListener("DOMContentLoaded", i))
+
+}(document, window);

@@ -103,10 +103,15 @@ var lozad = function () {
   // 如果浏览器支持 IntersectionObserver
   if (window.IntersectionObserver) {
     // 创建观察者对象
+    /**
+     * 参数1： callback, 是个必选参数，当有相交发生时，浏览器便会调用
+     * 参数2： options 可选参数 对象里面的三个属性也是可选的
+     */
     observer = new IntersectionObserver(onIntersection(load), {
       rootMargin: rootMargin,
       threshold: threshold
     });
+    console.log('观察者对象为:', observer);
   }
 
   return {
