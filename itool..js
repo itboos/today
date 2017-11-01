@@ -251,3 +251,26 @@ function isLocalStorageSupport(){
                             t.addEventListener("DOMContentLoaded", i))
 
 }(document, window);
+
+
+检查是否支持localStorage, safiri 无痕模式会报错
+
+function isLocalStorageSupport(){
+    try {
+        var isSupport = 'localStorage' in window && window['localStorage'] !== null;
+        if (isSupport) {
+            localStorage.setItem('__test', '1');
+            localStorage.removeItem('__test');
+            info.textContent = '支持';
+        }
+        return isSupport;
+    } catch (e) {
+         info.textContent = '不支持';
+        return false;
+    }
+}
+var res = isLocalStorageSupport();
+console.log(res);
+if (!res) {
+  alert('无痕模式可能会导致问题....');
+}
