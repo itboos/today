@@ -23,6 +23,13 @@
 // 定义的是立即函数
 (function (global, factory) {
   //判断执行环境，是浏览器环境还是Node环境
+  /*
+    typeof define === 'function' && define.amd 
+    // If 'define' is not undefined and it is a function and 'amd' (asynchronous module definition) 
+      is also defined then the code assumes that require.js is in play.
+      检测当前环境是否处于 require.js 的环境
+  
+  */
 	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
 	typeof define === 'function' && define.amd ? define(factory) :
   (global.lozad = factory());
@@ -47,14 +54,36 @@ var _extends = Object.assign ||
                 return target;
               };
 
-// 设置默认配置              
+var defaultUrl  = 'https://www.google.co.jp/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png';
+var loadImageAsync = function loadImageAsync(element) {
+  console.log(element);
+  console.log(defaultConfig);
+  var img = new Image();
+  img.onload = function() {
+    // 使用目标图片
+    console.log('加载成功....');
+    element.src = element.dataset.src;
+  };
+  img.onerror = function () {
+    // 加载失败使用的error图片
+    console.log('加载失败....');
+    element.src = defaultConfig.errorImgUrl;
+  }
+  img.src = element.dataset.src;
+  element.src = defaultConfig.holdImgUrl;
+};
+// 设置默认配置  考虑怎么加一个默认的占位图，在所需的图片加载完成前，先使用占位图，待图片完全加载后，再赋值.             
 var defaultConfig = {
   rootMargin: '0px',
   threshold: 0, // 阈,(入口，开始值
   load: function load(element) {
-    // 新的H5元素支持直接取dataset.src // 元素以data-shuxing 的形式存在时，可一直直接这样 Node.dataset.shuxing 设置或者取值
-    element.src = element.dataset.src;
-  }
+    console.log( element);
+    // 新的H5元素支持直接取dataset.src // 元素以data-shuxing 的形式存在时，可以直接这样 Node.dataset.shuxing 设置或者取值
+    // element.src = element.dataset.src;
+    loadImageAsync(element);
+  },
+  holdImgUrl: '',
+  errorImgUrl: '',
 };
 
 //设置成已经加载
@@ -96,6 +125,9 @@ var lozad = function () {
       rootMargin = _defaultConfig$option.rootMargin,
       threshold = _defaultConfig$option.threshold,
       load = _defaultConfig$option.load;
+  // 设置占位图和错误图
+  defaultConfig.holdImgUrl = _defaultConfig$option.holdImgUrl;
+  defaultConfig.errorImgUrl = _defaultConfig$option.errorImgUrl;
 
   // 设置一个空值
   var observer = void 0;
@@ -124,7 +156,7 @@ var lozad = function () {
       // observer 不存在了, 加载所有还没加载的图片
       if (!observer) {
         elements.forEach(function (element) {
-          load(element);
+          load(holdImgUrl, errorImgUrl, element);
           markAsLoaded(element);
         });
 

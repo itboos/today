@@ -711,3 +711,20 @@ function getDate(timeStamp) {
 var res = getDate(1504595190000);
 console.log(res);
 
+
+// 定义assign方法, 存在则是用ES6自带的方法，否则，自定义一个对象赋值的方法.
+// _extends(target, [source1, source2.... sourcen] );  将源对象的自身属性赋值给目标对象, 后面的对象属性会覆盖前面的对象的属性
+var _extends = Object.assign || 
+function (target) { 
+  for (var i = 1; i < arguments.length; i++) {
+     var source = arguments[i];
+      for (var key in source) {
+        // 如果属性是对象自身的，则赋值给目标对象 , 可以直接对象.hasOwnProperty -- 避免原型链的查找过程，原型链的查找很费时间, 参数也可以使用ES6剩余参数的形式, ...args 
+       if (Object.prototype.hasOwnProperty.call(source, key)) {
+          target[key] = source[key];
+        }
+      }
+  }
+  return target;
+};
+
