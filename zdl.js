@@ -728,3 +728,45 @@ function (target) {
   return target;
 };
 
+
+// 一般的模块化写法 2017年11月13日22:48:49
+
+(function(root, factory) {
+    if (typeof module === "object" && typeof module.exports === "object") {
+        module.exports = factory();
+    } else if (typeof define === 'function' && define.amd) {
+        define(factory);
+    } else {
+        root.$ = factory();
+    }
+})(this, function() {
+    // 模块主体
+
+});
+
+
+<script>
+    /* 网易rem 方案 */
+    !function(doc, win){
+      var n = doc.documentElement,
+       event = "orientationchange"in window ? "orientationchange":"resize",
+      // MSStream 是Ie下的一个Dom对象
+      // d=(/iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream,
+      // 这段话貌似没有什么实质性的含义, 就是为了语法不报错，在后面定义一个函数???
+      d=(/iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream,
+      function(){
+        var t=n.clientWidth;
+        t && (t >= 750 ? (t=750,doc.body.style.width="750px"):
+            doc.body.style.width = t+"px",
+            n.style.fontSize=100*(t/750)+"px",
+        
+        n.dataset.width = t,
+        n.dataset.percent=100 * (t / 750));
+
+      });
+      d(),
+      doc.documentElement.classList.add("iosx" + win.devicePixelRatio),
+      doc.addEventListener  &&  win.addEventListener(event, d, false);
+
+      }(document, window);
+  </script>
