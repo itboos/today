@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="UTF-8">
+  <title>....</title>
+ <style>
+
+.container > div {
+  /* height: 100px; */
+  color:#fff;
+  text-align: center;
+}
+.container {
+  display: grid;
+  grid-template-columns: 60px 60px;
+  grid-template-rows: 90px 90px;
+  grid-auto-columns: 150px;
+  grid-auto-rows: 100px;
+}
+.item-a {
+  background: blue;
+}
+.item-b {
+  background: #d6ae3c;
+}
+.item-a {
+  grid-column: 1 / 2;
+  grid-row: 2 / 3;
+}
+.item-b {
+  grid-column: 5 / 6;
+  grid-row: 2 / 4;
+}
+
+.item-c {
+  grid-area: sidebar;
+  background: red;
+}
+.item-d {
+  background: green;
+}
+
+
+
+
+</style>
+</head>
+<body>
+<div class="container">
+    <div class="item-a">header</div>
+    <div class="item-b">main</div>
+    <!-- <div class="item-c">sidebar</div>
+    <div class="item-d">footer</div> -->
+</div>
+
+<!-- <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js"></script> -->
+
+<script>
+ 
+</script>
+</body>
+</html>
+

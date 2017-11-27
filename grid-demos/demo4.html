@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="UTF-8">
+  <title>....</title>
+ <style>
+/* .container {
+  display: grid;
+  grid-template-columns: 40px 50px auto 50px 40px;
+  grid-template-rows: 25% 100px auto 100px;
+} */
+.container > div {
+  /* height: 100px; */
+  color:#fff;
+  text-align: center;
+  /* justify-self: center;
+  align-self:  center; */
+}
+.container {
+  display: grid;
+  height: 600px;
+  grid-template-columns: repeat(4, 40px);
+  grid-template-rows:  auto;
+  grid-template-areas: 
+    "header header header header"
+    "main main . sidebar"
+    "footer footer footer footer";
+  /* grid-row-gap: 20px;
+  grid-column-gap: 40px; */
+  grid-gap: 30px;
+  justify-items: center;	
+  align-items: center;
+  justify-content: center;
+  align-content:  stretch;
+}
+.item-a {
+  grid-area: header;
+  background: blue;
+}
+.item-b {
+  grid-area: main;
+  background: #d6ae3c;
+}
+
+.item-c {
+  grid-area: sidebar;
+  background: red;
+}
+.item-d {
+  grid-area: footer;
+  background: green;
+}
+
+
+
+
+</style>
+</head>
+<body>
+<div class="container">
+    <div class="item-a">header</div>
+    <div class="item-b">main</div>
+    <div class="item-c">sidebar</div>
+    <div class="item-d">footer</div>
+</div>
+
+<!-- <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js"></script> -->
+
+<script>
+ 
+</script>
+</body>
+</html>
+

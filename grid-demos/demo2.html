@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="UTF-8">
+  <title>....</title>
+ <style>
+/* .container {
+  display: grid;
+  grid-template-columns: 40px 50px auto 50px 40px;
+  grid-template-rows: 25% 100px auto 100px;
+} */
+.container > #areaA1 {
+   justify-self:stretch;
+   align-self: center;
+}
+
+.grid > div {
+  border-right: solid 1px red;
+  float: left;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr) 2fr;
+  grid-template-rows:  repeat(3, 60px [row-start]) 50px;
+}
+#areaD1 {
+  /* grid-column-start:4;
+  grid-column-end: 6;
+  grid-row-start: 1;
+  grid-row-end: span 2; */
+  grid-column:  4 / span 2;
+  grid-row: 1 / 3;
+  background: yellow;
+}
+
+</style>
+</head>
+<body>
+
+  <div id="grid" class="container">
+    <div id="areaA1">A</div>
+    <div id="areaB1">B</div>
+    <div id="areaC1">C</div>
+    <div id="areaD1">D</div>
+    <!-- <div id="areaE1">E</div> -->
+    <!-- 第二行 -->
+    <div id="areaA2">A1</div>
+    <div id="areaB2">B1</div>
+    <div id="areaC2">C1</div>
+    <!-- <div id="areaD2">D1</div> -->
+    <!-- <div id="areaD2">E1</div> -->
+    <!-- 第三行 -->
+    <div id="areaA3">A2</div>
+    <div id="areaB3">B2</div>
+    <div id="areaC3">C2</div>
+    <div id="areaD3">D2</div>
+    <div id="areaD3">E2</div>
+    <!-- 第四行 -->
+    <div id="areaA4">A3</div>
+    <div id="areaB4">B3</div>
+    <div id="areaC4">C3</div>
+    <div id="areaD4">D3</div>
+    <div id="areaD4">E3</div>
+  </div>
+
+<!-- <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js"></script> -->
+
+<script>
+ 
+</script>
+</body>
+</html>
+

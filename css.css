@@ -74,3 +74,93 @@ https://swisnl.github.io/jQuery-contextMenu/demo/trigger-custom.html
 多个空格的字符串在元素里只会显示一个空格： 
 解决办法:   
 设置元素的样式  white-space:pre;;
+
+
+css grid 系统:
+注： column，float，clear，和vertical-align对网格容器没有影响。- 就是父元素设置了格子布局的情况下， 子元素设置float, clear, vertical 等属性是不起作用的
+
+对于父元素:
+
+.container {
+	display: grid;
+	grid-template-columns: 40px 20% 100px auto; 
+	/* 
+	  设置列
+		设置列的宽度，分别是40px, 20%（设置为百分比的话， 只能是在父元素设置了高度的情况下才会生效，
+		否则，就只是元素默认的高度） 100px auto 就是元素正常的高度. 可以的值（fr  /  minmax(10px, 100px)  ）
+		fr就是flex 布局， 占用剩余空间的全部, minmax(min, max) 就是设置这列的宽度，它的值再[10, 100]之间， 都是闭区间
+	*/
+ grid-template-rows:  20% 100px auto 100px;
+ /*
+  设置格子的行
+	设置了四行， 它们的行高分别是 20%(在设置了容器的高度下才会生效)， 100px ,auto（这一行元素正常的高度） 100px;
+	注： 单独元素如果设置了高，则那个元素的高是css设置的那个高度，这一行的高度还是 这个 grid-template-rows 设置的高度
+ */
+ grid-row-gap: 20px;  /* 设置行的间距 */
+ grid-column-gap: 40px; /* 设置容器内格子的列间距 */
+ /* 简写:  */
+ grid-gap:   <grid-row-gap> <grid-column-gap>;
+/* 只写一个的话，就是两个间距设置成一样的 */
+
+justify-items: start | end | center | stretch 
+/* 沿着行轴对齐网格内的内容（而不是align-items沿着列轴对齐）。该值适用于容器内的所有网格项目 */
+align-items: start | end | center | stretch;
+/* 沿列轴对齐网格内的内容（而不是justify-items沿着行轴对齐）。该值适用于容器内的所有网格项目 */
+
+justify-content: start | end | center | stretch | space-around | space-between | space-evenly;	
+/* 有时，网格的总大小可能小于其网格容器的大小。如果您的所有网格项目都使用非灵活单位进行大小调整，就可能发生这种情况px。在这种情况下，您可以设置网格容器内的网格的对齐方式。此属性沿着行轴对齐网格（而不是align-content沿着列轴对齐网格）。 */
+
+align-content: start | end | center | stretch | space-around | space-between | space-evenly;	
+/*有时，网格的总大小可能小于其网格容器的大小。如果您的所有网格项目都使用非灵活单位进行大小调整，就可能发生这种情况px*/
+
+}
+
+<div id="grid" class="container">
+	<div id="areaA1">A</div>
+	<div id="areaB1">B</div>
+	<div id="areaC1">C</div>
+	<div id="areaD1">D</div>
+	<div id="areaD1">E</div>
+	<!-- 第二行 -->
+	<div id="areaA2">A1</div>
+	<div id="areaB2">B1</div>
+	<div id="areaC2">C1</div>
+	<div id="areaD2">D1</div>
+	<div id="areaD2">E1</div>
+	<!-- 第三行 -->
+	<div id="areaA3">A2</div>
+	<div id="areaB3">B2</div>
+	<div id="areaC3">C2</div>
+	<div id="areaD3">D2</div>
+	<div id="areaD3">E2</div>
+	<!-- 第四行 -->
+	<div id="areaA4">A3</div>
+	<div id="areaB4">B3</div>
+	<div id="areaC4">C3</div>
+	<div id="areaD4">D3</div>
+	<div id="areaD4">E3</div>
+</div>
+
+/* 格子跨行跨列的情况 */
+.item-b {
+  grid-column-start:4; 
+  grid-column-end: 6;
+  grid-row-start: 1;
+	grid-row-end: span 2;
+	/* 
+	 表示这个格子开始于第四列， 结束于第六列
+	 开始于第一行， 跨一行，即占用两行
+	*/
+	/* 简写形式: */
+	grid-column: 4 / 6; (列开始) / (列结束)  <start-line> / <end-line> - 每一个都接受与所有相同的值，包括span
+	grid-row:  1 / 3; (行开始) / (行结束)   <start-line> / <end-line> - 每一个都接受与所有相同的值，包括span
+	/* 如果没有声明结束值，则该项目默认跨越1个轨道。 */
+
+}
+
+子元素： 单个格子的属性, 设置在单个格子上面
+/* 水平上的对齐方式 */
+justify-slef:  start | center | end | stretch (默认值，将元素拉伸到整个格子的宽度)
+/* 垂直上的对齐方式 */
+align-self: start | center | end | stretch (默认值，将元素拉伸到整个格子的宽度)
+
