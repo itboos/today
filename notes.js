@@ -142,3 +142,7 @@ let y = 2;
 console.log(x); // 2
 console.log(y); // 1
 
+
+
+node 笔记:
+ node 进入node的repl环境中, .ext / ctrl+c *2 退出repl环境，
