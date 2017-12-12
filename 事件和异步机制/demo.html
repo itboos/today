@@ -1,0 +1,23 @@
+// demo1: 是等到任务栈为空时， 进行下一轮事件循环， 取出任务队列里的第一个任务， 执行入栈
+
+<script>
+function sleep() {
+  console.log('sleep-start:',new Date().getTime());
+  for(var j = 0 ; j < 10000000000; j+= 1) {
+
+  }
+  console.log('sleep-end:',new Date().getTime());
+}
+setTimeout(function() {
+  console.log(new Date().getTime(), '第一个倒计时');
+  sleep();
+}, 100);
+for (var i = 0; i < 5; i++) {
+    setTimeout(function() {
+      console.log(new Date().getTime(), i);
+    }, 1000);
+}
+console.log(new Date().getTime(), i);
+// 最小的时间， 5
+
+</script>
