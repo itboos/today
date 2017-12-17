@@ -1,0 +1,27 @@
+<view class="index">
+  <!-- <view class="index-title">首页</view> -->
+  <view class="tab">
+
+    <view class="tab-title">
+      <view>序号</view>
+      <view>昵称</view>
+      <view>头像</view>
+      <view>uid</view>
+    </view>
+    
+<!-- <view wx:for="{{array}}" wx:for-index="idx" wx:for-item="itemName"> -->
+    <view class="tab-content">
+      <block wx:for="{{list}}" wx:for-index ="idx" wx:for-item="anchor" wx:key="{{idx}}">
+        <view class="anchor bottom-line">
+          <view class="index">{{anchor.index}}</view>
+            <view class="nick one-line"> {{anchor.name}} </view>
+            <view class="head">
+              <image class="image" src="{{anchor.head}}" />
+            </view>
+            <view class="uid">{{anchor.uid}}</view>
+        </view>
+      </block>
+    </view>
+
+  </view>
+</view>

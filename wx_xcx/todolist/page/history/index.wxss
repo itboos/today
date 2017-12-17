@@ -1,0 +1,49 @@
+.his .tab-title {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  background:#666;
+  color:#fff;
+}
+.tab-title > view {
+  padding:  0 20px;
+}
+.tab-content {
+  color: #333;
+  font-size: 14px;
+  padding-top: 30px;
+}
+.tab-content .todo {
+  display: flex;
+  align-items: center;
+  height: 50px;
+  padding-left: 30px;
+  /* border-bottom: solid 1px #ccc; */
+  position: relative;
+}
+.check-box {
+  width: 24px;
+  margin-right: 20px;
+}
+.todo .index {
+  margin-right: 15px;
+}
+.todo .nick {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+          flex: 1;
+}
+.one-line:after {
+  content: " ";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  height: 1px;
+  border-bottom: 1rpx solid #D9D9D9;
+  color: #D9D9D9;
+  transform: scaleY(.5);
+}

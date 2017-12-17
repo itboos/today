@@ -1,0 +1,33 @@
+<view class="his">
+  <!-- <view class="index-title">首页</view> -->
+  <view class="tab">
+
+    <view class="tab-title">
+      <view>待办事项</view>
+    </view>
+    
+<!-- <view wx:for="{{array}}" wx:for-index="idx" wx:for-item="itemName"> -->
+    <view class="tab-content">
+      <block wx:for="{{list}}" wx:for-index ="idx" wx:for-item="todo" wx:key="{{idx}}">
+        <view class="todo one-line">
+            <view class="index">{{todo.id}}</view>
+            <view class="check-box">
+              <checkbox value="{{item.id}}" checked="{{item.checked}}"/>
+            </view>
+          <view class="nick one-line"> {{todo.desc}} </view>
+        </view>
+      </block>
+    </view>
+
+  </view>
+</view>
+
+
+<!-- <checkbox-group bindchange="checkboxChange">
+          <label class="weui-cell weui-check__label" wx:for="{{items}}" wx:key="{{item.value}}">
+            <view class="weui-cell__hd">
+              <checkbox value="{{item.value}}" checked="{{item.checked}}"/>
+            </view>
+            <view class="weui-cell__bd">{{item.name}}</view>
+          </label>
+        </checkbox-group> -->
