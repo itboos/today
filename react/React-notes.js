@@ -1,6 +1,6 @@
 1.注意，组件类的第一个字母必须大写，否则会报错，比如HelloMessage不能写成helloMessage。
 另外，组件类只能包含一个顶层标签，否则也会报错。
-2.件的用法与原生的 HTML 标签完全一致，可以任意加入属性，比如 <HelloMessage name="John"> ，就是 HelloMessage 组件加入一个 name 属性，
+2.组件的用法与原生的 HTML 标签完全一致，可以任意加入属性，比如 <HelloMessage name="John"> ，就是 HelloMessage 组件加入一个 name 属性，
 值为 John。组件的属性可以在组件类的 this.props 对象上获取，比如 name 属性就可以通过 this.props.name 读取。
 
 添加组件属性，有一个地方需要注意，就是 class 属性需要写成 className ，for 属性需要写成 htmlFor ，这是因为 class 和 for 是 JavaScript 的保留字。
@@ -163,3 +163,51 @@ demos：
 
 
  ===================================================
+ 关于Es6 的模块化:
+ import 和export 
+ import React, { Component } from 'react';
+ // 这个意思是导出react模块的默认变量（这里是一个对象），命名为React, 后面是导入一个 Component 方法，
+ 这里使用了对象的解构语法.
+
+ 栗子: 
+ // test.js
+ var zdl ={
+  name: 'ZDL',
+  age: 23,
+  sex: 'man'
+};
+var zdl2 ={
+  name: 'ZDL2',
+  age: 23,
+  sex: 'man'
+};
+var zdl3 ={
+  name: 'ZDL3',
+  age: 23,
+  sex: 'man'
+};
+// 输出一个默认值， zdl,赋值给变量default 👻
+export default zdl;
+// 输出方法
+export function sayHi() {
+  console.log('hi, React.....');
+}
+
+export function area(radius) {
+  return Math.PI * radius * radius;
+}
+
+export function circumference(radius) {
+  return 2 * Math.PI * radius;
+}
+// 输出变量
+export {
+  zdl2,
+  zdl3
+}
+
+// app.js
+import ZDL, { sayHi } from './test';
+console.log(ZDL);
+sayHi();
+// 这里ZDL 就是导出的那个default 对象，  sayHi 导出的是那个指定的方法
