@@ -20,4 +20,25 @@ for (var i = 0; i < 5; i++) {
 console.log(new Date().getTime(), i);
 // 最小的时间， 5
 
+
+
+一个简单的例子:
+
+setTimeout(function() {
+    console.log('timeout1');
+})
+
+new Promise(function(resolve) {
+    console.log('promise1');
+    for(var i = 0; i < 4; i++) {
+        i == 3 && resolve();
+    }
+    console.log('promise2');
+}).then(function() {
+    console.log('then1');
+})
+
+console.log('global1');
+
+
 </script>
