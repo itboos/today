@@ -1,3 +1,4 @@
+/*
 1.注意，组件类的第一个字母必须大写，否则会报错，比如HelloMessage不能写成helloMessage。
 另外，组件类只能包含一个顶层标签，否则也会报错。
 2.组件的用法与原生的 HTML 标签完全一致，可以任意加入属性，比如 <HelloMessage name="John"> ，就是 HelloMessage 组件加入一个 name 属性，
@@ -6,6 +7,8 @@
 添加组件属性，有一个地方需要注意，就是 class 属性需要写成 className ，for 属性需要写成 htmlFor ，这是因为 class 和 for 是 JavaScript 的保留字。
 
 我们一般在组件渲染完成时做一些异步的请求:
+
+*/
 
 componentDidMount: function() {
     $.ajax({
@@ -88,7 +91,7 @@ demos：
         		};
         	},
         	handClick: function(e){
-    			this.setState({ value:  e.target.value});
+    				this.setState({ value:  e.target.value});
         	},
         	render: function(){	
         		const value= this.state.value;
@@ -219,7 +222,7 @@ sayHi();
 
 
 // 注意的坑:
-1.为避免组件渲染时， 导致选件循环渲染的问题， HTML元素一律用小写字母。
+1.为避免组件渲染时， 导致组件循环渲染的问题， HTML元素一律用小写字母。
 当时定义了一个Button类， 里面的button 有是写的大写的Button， 导致页面渲染死循环了。
 所以，HTML 元素一律用小写表示。
 2. 引入组件时， 前后不能加入空格，否则，会导致路径错误，导致组件找不到。

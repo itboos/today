@@ -1,55 +1,37 @@
 
 import React, { Component } from 'react';
 
-class Clock extends Component {
+
+class Card extends Component {
+  componentDidMount() {
+    console.log('this.props.Children', this.props);
+  }
   constructor() {
     super();
     this.state = {
-      date: new Date()
+      content: '<h4>react 小书呀....</h4>'
     };
   }
-  componentWillMount() {
-    this.timer = setInterval(() => {
-      this.setState({date: new Date()});
-    }, 1000);
-  }
-  componentWillUnmount () {
-    clearInterval(this.timer);
-    console.log('组件将要卸载.....');
-  }
-  render() {
+  render () {
     return (
-      <div>
-        <p>现在的时间是：</p>
-        {this.state.date.toLocaleTimeString()}
+      <div className='card'>
+        <div className='card-content' style={{fontSize: '15px', color: 'blue'}}
+          dangerouslySetInnerHTML= {{__html: this.state.content}}
+        >
+        </div>
       </div>
-    );
+    )
   }
 }
-class Index extends Component {
-  constructor() {
-    super();
-    this.state = {
-      isShowClock: true
-    }
-  }
-  handleShowOrHide () {
-    this.setState({
-      isShowClock: !this.state.isShowClock
-    });
-  }
-  render() {
-    return (
-      <div>
-        {this.state.isShowClock ? <Clock /> : null }
-        <button onClick={this.handleShowOrHide.bind(this)}>显示或者隐藏时钟</button>
-      </div>
-    );
-  }
-}
+
 class App extends Component {
-  render() {
-    return <Index />
-  }
+  render(){
+    return <Card  content={
+      <div>
+        <h2>React.js 小书</h2>
+        <p>抓紧时间学习吧</p>
+      </div>
+    } />
+  } 
 }
 export default App;
