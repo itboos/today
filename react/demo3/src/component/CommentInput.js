@@ -8,6 +8,28 @@ class CommentInput extends Component {
       content: ''
     }
   }
+  componentWillMount() {
+    // 组件将要挂载
+    console.log('组件将要挂载....');
+    this._loadUserName()
+  }
+  componentDidMount() {
+    console.log('组件已经挂载....');
+    this.textarea.focus();
+  }
+
+   // _表示私有方法
+   _saveUserName(value) {
+    localStorage.setItem('username', value);
+  }
+  _loadUserName() {
+    const username = localStorage.getItem('username');
+    if (username) {
+      this.setState({
+        username
+      });
+    }
+  }
 
   handleUsernameChange (event) {
     this.setState({
@@ -26,9 +48,15 @@ class CommentInput extends Component {
       this.props.onSubmit({
         username: this.state.username,
         content: this.state.content,
+        createdTime: +new Date(), // 是 new Date().getTime()的黑科技写法
       })
     }
+
     this.setState({ content: '' })
+  }
+  handleUseNmaeBlur(e) {
+    console.log('用户输入框失去焦点....', e);
+    this._saveUserName( e.target.value);
   }
 
   render () {
@@ -39,6 +67,7 @@ class CommentInput extends Component {
           <div className='comment-field-input'>
             <input
               value={this.state.username}
+              onBlur = {this.handleUseNmaeBlur.bind(this)}
               onChange={this.handleUsernameChange.bind(this)} />
           </div>
         </div>
@@ -47,7 +76,7 @@ class CommentInput extends Component {
           <div className='comment-field-input'>
             <textarea
               value={this.state.content}
-              onChange={this.handleContentChange.bind(this)} />
+              onChange={this.handleContentChange.bind(this)}  ref={(textarea) => {this.textarea = textarea}} />
           </div>
         </div>
         <div className='comment-field-button'>
