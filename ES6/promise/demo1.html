@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="UTF-8">
+  <title>nice</title>
+ <style>
+  img {
+    vertical-align: top;
+    transition:all .5s ease-in-out;
+  }
+</style>
+</head>
+<body>
+    <!-- <audio id="jp_audio_0" preload="metadata"  autoplay src="http://7tt03k.com1.z0.glb.clouddn.com/yyg-dong-tian-zai-yin-yue-li-qu-nuan.mp3"></audio> -->
+  
+<!-- <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js"></script> -->
+
+<script>
+    
+// delay-race-cancel-play.js  可以取消xhr  promise - 在一定的时间内变为解决状态的promise对象实现了超时处理 基于delayPromise和Promise.race的超时实现方式
+// 原文: http://liubin.org/promises-book/#how-to-write-promise
+
+function copyOwnFrom(target, source) {
+    Object.getOwnPropertyNames(source).forEach(function (propName) {
+        Object.defineProperty(target, propName, Object.getOwnPropertyDescriptor(source, propName));
+    });
+    return target;
+}
+// 创建一个timeOut类， 此类继承自error
+function TimeoutError() {
+    var superInstance = Error.apply(null, arguments);
+    copyOwnFrom(this, superInstance);
+}
+// 创建某个对象，同时指定原型
+TimeoutError.prototype = Object.create(Error.prototype);
+TimeoutError.prototype.constructor = TimeoutError;
+
+function delayPromise(ms) {
+    return new Promise(function (resolve) {
+        setTimeout(resolve, ms);
+    });
+}
+function timeoutPromise(promise, ms) {
+    var timeout = delayPromise(ms).then(function () {
+            return Promise.reject(new TimeoutError('Operation timed out after ' + ms + ' ms'));
+        });
+    return Promise.race([promise, timeout]);
+}
+function cancelableXHR(URL) {
+    var req = new XMLHttpRequest();
+    var promise = new Promise(function (resolve, reject) {
+            req.open('GET', URL, true);
+            req.onload = function () {
+                if (req.status === 200) {
+                    resolve(req.responseText);
+                } else {
+                    reject(new Error(req.statusText));
+                }
+            };
+            req.onerror = function () {
+                reject(new Error(req.statusText));
+            };
+            req.onabort = function () {
+                reject(new Error('abort this request'));
+            };
+            req.send();
+        });
+    var abort = function () {
+        // 如果request还没有结束的话就执行abort
+        // https://developer.mozilla.org/en/docs/Web/API/XMLHttpRequest/Using_XMLHttpRequest
+        if (req.readyState !== XMLHttpRequest.UNSENT) {
+            req.abort();
+        }
+    };
+    return {
+        promise: promise,
+        abort: abort
+    };
+}
+var object = cancelableXHR('http://httpbin.org/get');
+// main
+timeoutPromise(object.promise, 1000).then(function (contents) {
+    console.log('Contents', contents);
+}).catch(function (error) {
+    if (error instanceof TimeoutError) {
+        object.abort();
+        return console.log(error);
+    }
+    console.log('XHR Error :', error);
+});
+
+</script>
+</body>
+</html>

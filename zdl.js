@@ -783,3 +783,80 @@ function (target) {
         }
         return c;
   }
+
+  /*
+    比较笨的方法， 计算剩余的天数，时，分，秒
+  var timeObj = {
+    day: 0,
+    hour: 0,
+    minute: 0,
+    senconds: 0,
+  };
+  // 根据时间戳，转换成 时分秒
+  function getLeftTime(time) {
+     // 100800 s
+      // 2 天 14 小时 15分 40 秒 10087
+      var day = Math.floor(time / (24*60*60));
+      var hour = Math.floor((time - (day * 24 * 60 * 60)) / (60 * 60));
+      var minute = Math.floor((time- (day * 24 * 60 * 60)- (hour * 60 * 60)) / 60 );
+      var senconds = Math.floor((time- (day * 24* 60 * 60)- (hour * 60 * 60)-(minute * 60)) % 60 );
+      timeObj = {
+        day,
+        hour,
+        minute,
+        senconds,
+      };
+      setZero(timeObj);
+      return timeObj;
+  }
+  function setZero(timeObj) {
+     for (var p in timeObj) {
+        if(timeObj[p] < 10) {
+          timeObj[p] =  '0' + timeObj[p];
+        } else {
+          timeObj[p] = '' + timeObj[p];
+        }
+     }
+  }
+
+  var timeObj = getLeftTime(100870);
+  console.log('timeObj:', timeObj);
+
+
+  */
+
+// 版本2, 计算倒计时的天，时，分， 秒
+function setZero(timeObj) {
+    for (var p in timeObj) {
+       if(timeObj[p] < 10) {
+         timeObj[p] =  '0' + timeObj[p];
+       } else {
+         timeObj[p] = '' + timeObj[p];
+       }
+    }
+ }
+
+ var remain = {
+   d: 0,
+   h: 0,
+   m: 0,
+   s: 0,
+ };
+ var remainTime = {
+    time: 100870,
+ };
+function getLeftTime(isUseDay = false){
+   remain.h =  Math.floor(remainTime.time / (60 * 60));
+   remain.m =  Math.floor((remainTime.time % (60 * 60)) / 60);
+   remain.s = remainTime.time % 60;
+   // 大于24小时，则用天来表示
+   if(isUseDay && remain.h > 24) {
+     remain.d = Math.floor(remain.h / 24),
+     remain.h = remain.h % 24 ;
+   }
+   setZero(remain);
+   return remain;
+}
+
+ var timeObj = getLeftTime(false);
+ console.log('timeObj:', timeObj);
