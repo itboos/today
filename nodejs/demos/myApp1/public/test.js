@@ -1,0 +1,1 @@
+var a = 'this is the test.js';
