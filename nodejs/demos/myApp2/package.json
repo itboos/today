@@ -1,12 +1,12 @@
 {
-  "name": "myapp_1",
+  "name": "myapp_2",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "main",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "node index.js",
-    "main": "index2.js"
+    "main": "index.js"
   },
   "keywords": [],
   "author": "",

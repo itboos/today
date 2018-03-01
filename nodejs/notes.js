@@ -132,7 +132,9 @@
    运行后， 请打开output.txt文件查看
 
    Express 框架:
-   支持跨域的插件： cors
-   https://www.npmjs.com/package/cors
+    1.1支持跨域的插件： cors
+    https://www.npmjs.com/package/cors
+    1.2 使用body-parser（bodyParser） 中间件实现处理post、get、delete请求:
+    npm地址:  https://www.npmjs.com/package/body-parser
 
 */

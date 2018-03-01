@@ -130,6 +130,32 @@ app.listen(port, function() {
  // 这样, public 里的所有文件就可以当做静态文件来访问了,并且不需要加public目录
 
 // ===================================
+// demo: express 处理 post 请求:
+const express = require('express');
+const bodyParser = require('body-parser');
+const app = express();
+
+// 转换body  for POST, PUT, DELETE, etc.
+app.use(bodyParser.json());
+
+app.use(bodyParser.urlencoded({ extended: true }));
+
+app.post('/getdata', function(req, res, next) {
+  // req.body contains the parsed body of the request.
+  console.log(req.body);
+  // post 请求的数据都在body里了
+  // 返回服务器对于此请求的响应
+  res.send(JSON.stringify({
+    errno: 0,
+    msg: 'ok',
+    success: true
+  }));
+});
+
+app.listen(3000, function() {
+  console.log('Node.js listening on port:' + port);
+});
+
 // ===================================
 // ===================================
 // ===================================
