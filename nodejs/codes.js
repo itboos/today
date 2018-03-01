@@ -79,3 +79,27 @@ var zdlMdule = {
   
   console.log('外面:', zdlMdule.exports);
 // =================
+// =========一个模块/包 兼容Node, AMD, CMD 以及浏览器环境， 为了保持一致性， 类库开发者需要将类库包装在一个比包内 ========
+  ;(function(name, definition){
+    // 检测上下文是否为AMD 或者CMD
+    var hasDefine = typeof define === 'function',
+        hasExports = typeof module !== 'undefined' && module.exports;
+    if(hasDefine) {
+      // AMD 环境或 CMD环境
+      define(definition);
+      console.log('hasDefine');
+    } else if (hasExports) {
+    // 定义为node模块
+      module.exports = definition();
+      console.log('hasExports...');
+    } else {
+      // 将模块的执行结果挂在window变量中， this 在浏览器环境里指向window
+      this[name]  = definition();
+      console.log('浏览器中....');
+    }
+  })('hello', function() {
+      var hello = function(){};
+      return hello;
+  })
+
+// =================

@@ -136,5 +136,8 @@
     https://www.npmjs.com/package/cors
     1.2 使用body-parser（bodyParser） 中间件实现处理post、get、delete请求:
     npm地址:  https://www.npmjs.com/package/body-parser
-
+   
+    package.json 文件可以直接用require 引入， 得到的就是一个js对象.
+    
+    const json = require('./package.json');
 */
