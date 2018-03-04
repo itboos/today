@@ -103,3 +103,36 @@ var zdlMdule = {
   })
 
 // =================
+// 查看node中内存占用的情况:
+process.memoryUsage();
+// 格式化node中内存的方法
+var showMem = function() {
+    var mem = process.memoryUsage();
+    var format = function(bytes) {
+      return (bytes / 1024 / 1024).toFixed(2) + 'MB';
+    }
+    console.log('Process: heapTotal: ' + format(mem.heapTotal) + ' heapUsed: ' + format(mem.heapUsed) + '  rss:  ' + format(mem.rss));
+    console.log('------------------------------------------');
+  };
+  var useMem = function() {
+    var size = 20 * 1024 * 1024;
+    var arr = new Array(size);
+    for (var i  = 0; i < size; i++) {
+      arr[i] = 0;
+    }
+    return arr;
+  };
+  var total = [];
+  for (var j = 0; j < 15; j++) {
+    showMem();
+    total.push(useMem());
+  }
+  
+  showMem();
+
+  /*
+  小结： Node的内存构成主要由V8进行分配的部分和Node自行进行分配的部分。
+  受V8的垃圾回收限制的主要是V8的堆内存. 堆外内存可以不受显示比如Buffer对象
+  */
+// =================
+// =================

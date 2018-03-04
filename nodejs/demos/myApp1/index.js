@@ -1,8 +1,27 @@
-const fs = require('fs');
-const path = require('path');
-const paths = '/Users/xueqi/Desktop/git/today/nodejs/demos/myApp1/text1.txt';
+// 格式化node中内存的方法
+var showMem = function() {
+  var mem = process.memoryUsage();
+  var format = function(bytes) {
+    return (bytes / 1024 / 1024).toFixed(2) + 'MB';
+  }
+  console.log('Process: heapTotal: ' + format(mem.heapTotal) + ' heapUsed: ' + format(mem.heapUsed) + '  rss:  ' + format(mem.rss));
+  console.log('------------------------------------------');
+};
+var useMem = function() {
+  var size = 200 * 1024 * 1024;
+  var buffer = new Buffer(size);
+  for (var i  = 0; i < size; i++) {
+    buffer[i] = 0;
+  }
+  return buffer;
+};
+var total = [];
 
-const fn = require('../myApp2/');
-const json = require('./package.json');
-console.log('package.json:', json);
-console.log('package.json:', json.version);
+showMem();
+
+setTimeout(function(){
+  for (var j = 0; j < 15; j++) {
+    showMem();
+    total.push(useMem());
+  }
+}, 5000);

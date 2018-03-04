@@ -1,7 +1,10 @@
 /* node js 笔记相关 */
 /*
   2018年02月25日17:04:42
-  
+  nodejs相关博客:
+  http://cnodejs.org/
+
+
   1.编程基础#如何在OS X下创建并运行一个shell脚本
   https://www.jianshu.com/p/60d240383180
   
@@ -138,6 +141,22 @@
     npm地址:  https://www.npmjs.com/package/body-parser
    
     package.json 文件可以直接用require 引入， 得到的就是一个js对象.
-    
+
     const json = require('./package.json');
+
+  流程控制模块: async(npm 库) step, wind
+  https://www.npmjs.com/package/async
+  async.series: 一组任务的串行化
+  async.parallel 异步的并行执行
+
+  缓存显示策略:
+  一个缓存对象，用于删除最近最少使用的项目
+  https://github.com/isaacs/node-lru-cache
+
+  缓存的解决办法:
+  1. Redis: 
+    https://github.com/NodeRedis/node_redis
+    https://www.npmjs.com/package/redis
+  2.Memcached:
+    https://github.com/3rd-Eden/memcached
 */
