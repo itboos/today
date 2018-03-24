@@ -3,6 +3,7 @@
   2018年02月25日17:04:42
   nodejs相关博客:
   http://cnodejs.org/
+  node 调试工具 devtool:
 
 
   1.编程基础#如何在OS X下创建并运行一个shell脚本

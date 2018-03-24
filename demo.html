@@ -17,7 +17,12 @@
 <!-- <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js"></script> -->
 
 <script>
-
+  var str = 'http://www.baidu.com/a.pnghhjhkjhttp://www.baidu.com/b.png好可怜的是否结束考虑到附近http://www.baidu.com/c.png';
+ var reg = /^https?:\/\/.+\.(jpg|gif|png)$/g;
+  var arr= [];
+  str.replace(reg, function(m, i) {
+    arr.push(m);
+  });
 </script>
 </body>
 </html>
