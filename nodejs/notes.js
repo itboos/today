@@ -161,3 +161,7 @@
   2.Memcached:
     https://github.com/3rd-Eden/memcached
 */
+
+// nodejs 测试工具:
+// tap-producing test harness for node and browsers
+// https://github.com/substack/tape

@@ -1,0 +1,16 @@
+{
+  "name": "issushu",
+  "version": "1.0.0",
+  "description": "find a num is premie",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm run-script unit",
+    "unit": "tape test/*.js"
+  },
+  "keywords": [],
+  "author": "xueqi",
+  "license": "ISC",
+  "dependencies": {
+    "tape": "^4.9.0"
+  }
+}

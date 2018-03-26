@@ -1,0 +1,22 @@
+[
+  {
+    "num": "0",
+    "expected": false
+  },
+  {
+    "num": "1",
+    "expected": false
+  },
+  {
+    "num": "2",
+    "expected": true
+  },
+  {
+    "num": "3",
+    "expected": true
+  },
+  {
+    "num": "10",
+    "expected": false
+  }
+]
