@@ -1,8 +1,8 @@
 /*  2017年04月23日09:54:28 一些代码的积累*/
-利用Promise 实现一个图片懒加载的功能:
-  1.有加载中的占位图片的显示
-  2.加载失败，显示加载失败占位符
-  3.在DOM加载之后再加载图片，要懒加载的图片加上data-src属性，等真正的图片加载完成之后，再替换默认的图片
+// 利用Promise 实现一个图片懒加载的功能:
+//   1.有加载中的占位图片的显示
+//   2.加载失败，显示加载失败占位符
+//   3.在DOM加载之后再加载图片，要懒加载的图片加上data-src属性，等真正的图片加载完成之后，再替换默认的图片
 
  function loadImageAsync(url) {
     return new Promise(function (reslove, reject) {
@@ -40,7 +40,7 @@ loadImage2.then(function success() {
 var arr= [2,3,4,5,5,5,6,6,6,'a','a','b','b'];
 //生成一个新的map结构，会自动去除重复的元素，再使用扩展运算符，展开map结构里的元素
 var newArr = [ ...new Set(arr ) ]
-方法2：
+// 方法2：
 function dedupe(array) {
   return Array.from(new Set(array));
 }
@@ -140,7 +140,7 @@ person.name = '李四';
 // 观察者2 ,看到数据改变了....
 
 
-generate 函数实现完全遍历二叉树:
+// generate 函数实现完全遍历二叉树:
  http://es6.ruanyifeng.com/#docs/generator
 // 下面是二叉树的构造函数，
 // 三个参数分别是左树、当前节点和右树
@@ -226,8 +226,8 @@ function changeSrc(){
 }
 changeSrc();
 // ===========================
-  2017年06月04日20:16:56
-  一个简单的State全局状态管理器的实现:
+//   2017年06月04日20:16:56
+//   一个简单的State全局状态管理器的实现:
 // 原文: http://www.jianshu.com/p/69dede6f7e5f
 // 自执行创建模块
 (function() {
@@ -330,7 +330,7 @@ console.log(res);
 
 
 
-一个小小的拖拽代码:2017年06月11日22:33:35
+// 一个小小的拖拽代码:2017年06月11日22:33:35
   http://www.jianshu.com/p/cd3fee40ef59
 
 // 获取当前浏览器支持的transform兼容写法
@@ -462,7 +462,7 @@ var sourceX = 0;
 var sourceY = 0;
 oElem.addEventListener('mousedown', start, false);
 
-用对象的方法封装:
+// 用对象的方法封装:
 ;
 (function() {
     // 这是一个私有属性，不需要被实例访问
@@ -654,7 +654,7 @@ var xkXian = function () {
      }
 xkXian();
 
-数组的map 方法:
+// 数组的map 方法:
 const numbers = [1, 2, 3, 4, 5];
 // 第一个参数为回调函数，第二个参数为指定回调函数的this值
 let arr = numbers.map((currentValue, index, array) => {
@@ -746,7 +746,7 @@ function (target) {
 
 
 <script>
-    /* 网易rem 方案 */
+    // 网易rem 方案
     !function(doc, win){
       var n = doc.documentElement,
        event = "orientationchange"in window ? "orientationchange":"resize",
@@ -860,3 +860,24 @@ function getLeftTime(isUseDay = false){
 
  var timeObj = getLeftTime(false);
  console.log('timeObj:', timeObj);
+
+ /*
+     https://microzz.com/2017/03/05/func/
+    利用偏函数来实现一个简单的类型判断
+    偏函数的定义:  假设有一个参数或变量已经预置的函数A，我们通过调用A来产生一个新的函数B，函数B就是我们说的偏函数。
+ */
+    var isType = function(type){
+      return function(obj) {
+        return toString.call(obj) === '[object '+ tpe +']';
+      } 
+    }
+    // 定制新的函数
+    var isString = isType('String');  // isString 就称为偏函数
+    var isArray = isType('Array');
+    var isFunction = isType('Function');
+
+    // 测试偏函数
+    console.log(isString('abc')); // true
+    console.log(isArray([1, 2])); // true
+    console.log(isFunction('abc')); // false
+ // =============================
