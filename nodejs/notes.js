@@ -4,7 +4,30 @@
   nodejs相关博客:
   http://cnodejs.org/
   node 调试工具 devtool:
+   npm i devtool -g 
+  
+  查看node 的安装路径:
+  which node ，得到的输出结果就是node安装路径
 
+  软链接：
+  在 Unix 系统中，可以对文件创建 硬链接 和 软链接。简单来说，链接就是可以指向文件系统中其他位置的一个快捷方式，
+  比如 Windows 系统下的快捷方式。那么，硬链接和软链接有什么区别呢？
+  https://slarker.me/mac-file-link/
+
+
+  Linux: 自己创建一个软链接:
+   http://iamocean.github.io/2014/05/19/mac-symbolic-link/
+   ln -s  原路径 软链接名称
+  如:  ln -s  /Users/xueqi/.nvm/versions/node/v7.9.0/lib/node_modules/create-react-app/node_modules/.bin  create-react-app
+  这就在当前的目录创建了一个软链接, 软链接的名字叫create-react-app， 它指向了前面的目录
+
+
+  which  查看可执行文件的位置。
+  which命令的作用是，在PATH变量指定的路径中，搜索某个系统命令的位置，并且返回第一个搜索结果。也就是说，
+  使用which命令，就可以看到某个系统命令是否存在，以及执行的到底是哪一个位置的命令。
+
+  which node ： -> /Users/xueqi/.nvm/versions/node/v7.9.0/bin/node
+  which pwd -> /bin/pwd
 
   1.编程基础#如何在OS X下创建并运行一个shell脚本
   https://www.jianshu.com/p/60d240383180
@@ -47,7 +70,48 @@
    NPM知识:
     npm list 列出所有包的信息
     npm list *** 列出指定包的信息
+    查看全局安装包的信息:
+    npm list -g
+    mac 全局的包安装在: /usr/local/lib/node_modules/下面
     1.安装指定版本的包:
+
+    使用这条命令来查看:
+
+    npm root -g
+    Mac 下默认的全局路径是:
+
+    /usr/local/lib/node_modules
+    Ubuntu 下默认的全局路径是:
+    /usr/lib/node_modules
+
+
+    2. 更改npm install -g 全局安装包的安装路径: 
+      目录前缀配置参数prefix
+      (详情请参考《npm常用技巧》)
+      prefix参数指定全局安装时相关目录的共同路径，即全局安装的根目录；
+      可以通过如下命令配置prefix参数：
+       npm config set prefix <路径> [-g|--global]  //给配置参数key设置值为value；
+       如  npm config set prefix '/usr/local/'
+       或者直接加一条:
+       /Users/xueqi/.npmrc:
+       prefix=/usr/local
+      包会被安装到如下位置：
+
+        Unix系统：{prefix}/lib/node_modules
+        Mac系统：{prefix}/lib/node_modules  -> /usr/local/lib/node_modules/gulp***
+        Windows系统：{prefix}/node_modules
+      
+      并且，会把可执行文件链接到如下位置：(关键，这样才能在任意目录下执行相应的命令)
+
+        Unix系统：{prefix}/bin
+        Mac系统：{prefix}/bin
+        Windows系统：{prefix}
+
+      作者：科研者
+      链接：https://www.jianshu.com/p/0cff9f4167c9 强
+      來源：简书
+
+
 
     npm install <name>@<version>
     # e.g. to install version 4.11.1 of the package lodash
