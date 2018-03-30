@@ -23,11 +23,64 @@
 
 
   which  查看可执行文件的位置。
+  查看系统中全局的安装路径:
+  npm root -g
   which命令的作用是，在PATH变量指定的路径中，搜索某个系统命令的位置，并且返回第一个搜索结果。也就是说，
   使用which命令，就可以看到某个系统命令是否存在，以及执行的到底是哪一个位置的命令。
 
   which node ： -> /Users/xueqi/.nvm/versions/node/v7.9.0/bin/node
   which pwd -> /bin/pwd
+
+  查看全局安装的包， 深度为1（只列出一层):
+  npm ls -g --depth=0
+  npm ls -g --depth=0:
+  一个npm 的bug：
+  https://github.com/npm/npm/issues/10004#issuecomment-210710935
+  sudo npm -g update
+
+  、现在大家都安装了iTerm2，
+  我们先把bash切换成zsh，使用命令行如下：
+    sudo chsh -s /bin/zsh
+    执行命令后，会让你输入电脑的密码，输入即可。完成后，需要完全退出iTerm2,再次进入时，就已经从bash切换到zsh了。
+    也可以使用下列命令切回bash：
+    sudo chsh -s /bin/bash
+
+  bash shell默认读取的是当前用户下的.bash_profile文件,   强
+  而zsh shell默认读取的是当前用户下的.zshrc文件
+
+  echo $shell / which bash 查看当前使用的是哪个bash
+  
+  vscode使用 zsh 作为默认终端:
+  修改默认配置:
+    "terminal.integrated.shell.linux": "/bin/zsh",
+    // // 终端在 OS X 上使用的 shell 的路径,改为zsh。
+    "terminal.integrated.shell.osx": "/bin/zsh"
+  淘宝npm 镜像:
+  nvm的安装:
+  https://github.com/alsotang/node-lessons/tree/master/lesson0
+  https://github.com/creationix/nvm
+  http://bubkoo.com/2017/01/08/quick-tip-multiple-versions-node-nvm/
+
+  n 的安装:
+  https://github.com/tj/n
+  n 的使用:
+  https://75team.com/post/manage_node_with_n.html
+  https://github.com/muwenzi/Program-Blog/issues/6
+  n ls 列出所有可以安装的版本，
+  n stable 安装最新的稳定版本,
+  n latest 安装最新的版本
+  n 8.0.0  安装指定的版本
+  切换版本:
+  n 
+    会列出所有已经安装的版本， 上下键切换，按回车确定， 就可以切换到指定的版本了
+  删除某个版本:
+  n rm 0.12.9
+
+  查看某版本node的安装路径:
+  n bin 8.0.0
+
+  以指定的版本来执行脚本：
+  n use 8.0.0 some.js
 
   1.编程基础#如何在OS X下创建并运行一个shell脚本
   https://www.jianshu.com/p/60d240383180
