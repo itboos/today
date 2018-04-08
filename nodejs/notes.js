@@ -5,6 +5,10 @@
   http://cnodejs.org/
   node 调试工具 devtool:
    npm i devtool -g 
+  网页性能调试工具:
+  Lighthouse:
+  谷歌扩展程序:
+  https://chrome.google.com/webstore/detail/lighthouse/blipmdconlkpinefehnmjammfjpmpbjk/related?hl=zh-cn
   
   查看node 的安装路径:
   which node ，得到的输出结果就是node安装路径
