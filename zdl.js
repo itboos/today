@@ -914,7 +914,7 @@ function getLeftTime(isUseDay = false){
     v1 = v1.split('')
     v2 = v2.split('')
     var len = Math.max(v1.length, v2.length)
-    var arr = [], node = 1;
+    var arr = [], node = 0;
     while (v1.length < len) {
       v1.unshift('0')
     }
