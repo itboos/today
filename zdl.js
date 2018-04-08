@@ -881,3 +881,75 @@ function getLeftTime(isUseDay = false){
     console.log(isArray([1, 2])); // true
     console.log(isFunction('abc')); // false
  // =============================
+ // ============ node.js 版本号比较:=================
+ function compareVersion(v1, v2) {
+    v1 = v1.split('.')
+    v2 = v2.split('.')
+    var len = Math.max(v1.length, v2.length)
+  
+    while (v1.length < len) {
+      v1.push('0')
+    }
+    while (v2.length < len) {
+      v2.push('0')
+    }
+  
+    for (var i = 0; i < len; i++) {
+      var num1 = parseInt(v1[i])
+      var num2 = parseInt(v2[i])
+  
+      if (num1 > num2) {
+        return 1
+      } else if (num1 < num2) {
+        return -1
+      }
+    }
+    return 0
+  }
+  
+  compareVersion('1.11.0', '1.9.9') // => 1 // 1表示 1.11.0比1.9.9要新
+ // =============================
+ // =============== 超长型字符串整数相加  ==============
+ function addBigSting(v1, v2) {
+    v1 = v1.split('')
+    v2 = v2.split('')
+    var len = Math.max(v1.length, v2.length)
+    var arr = [], node = 1;
+    while (v1.length < len) {
+      v1.unshift('0')
+    }
+    while (v2.length < len) {
+      v2.unshift('0')
+    }
+    // 将字符串分割成数组， 找出两个数组的长度最长的， 在另一个数组前面补0， 这样方便按位相加，  然后各位相加， 最高位特殊处理， 大于10 进一位，然后反转数组， 转换成字符串
+
+   //  v1 ['1','2', '0'] v2: ['3', '4','1']
+    for (var i = len-1; i > 0 ; i--) {
+       var res = ~~v1[i]+~~v2[i];
+       if ( res >= 10) {
+         arr.push(res % 10);
+         node = 1;
+       } else {
+         arr.push(res);
+         node = 0;
+       }
+       
+    }
+    // 最高位特殊处理:
+    if( ~~v1[0] + ~~v2[0] + node > 10) {
+      arr.push((~~v1[0] + ~~v2[0] + node) % 10);
+      arr.push('1'); // 最高位加1
+    } else {
+      arr.push((~~v1[0] + ~~v2[0] + node) % 10);
+    }
+    return arr.reverse().join('');
+  }
+  var num1 = [19], num2 = [12];
+  for (var j = 0 ; j < 100; j++) {
+    num1.push(0);
+    num2.push(0);
+  }
+
+  console.log(addBigSting(num1.join(''), num2.join('')));
+
+ // =================================

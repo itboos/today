@@ -34,6 +34,15 @@ ln -s 源文件 目标文件 (ln -s a b) , b 就指向了a
 ln -s abc cde 建立abc 的软连接 （cde 指向了abc）
 ln abc cde 建立abc的硬连接，
 
+查看开机启动的项目:
+systemctl list-unit-files
+
+Linux 开机会执行的脚本：
+/etc/rc.local
+/etc/rc.sysinit
+/etc/inittab
+/etc/profile
+
 ### centOs 7.2 防火墙相关:
 从centos7开始使用systemctl来管理服务和程序，包括了service和chkconfig。
 
@@ -114,7 +123,7 @@ https://www.cnblogs.com/zhangzhibin/p/6231870.html
  ./nginx -t -c /usr/local/nginx/conf/nginx.conf
  创建软链接后，  nginx -t -c /usr/local/nginx/conf/nginx.conf
 
- 
+
 // =====================================
 6.5 mongoDB 的配置和使用 https://neuqzxy.github.io/2017/10/07/mongodb%E9%85%8D%E7%BD%AE%E7%94%A8%E6%88%B7/
 
