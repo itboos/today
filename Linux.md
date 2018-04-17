@@ -126,6 +126,10 @@ https://www.cnblogs.com/zhangzhibin/p/6231870.html
 
 // =====================================
 6.5 mongoDB 的配置和使用 https://neuqzxy.github.io/2017/10/07/mongodb%E9%85%8D%E7%BD%AE%E7%94%A8%E6%88%B7/
+http://yijiebuyi.com/blog/b6a3f4a726b9c0454e28156dcc96c342.html强 (使用homebrew 来安装)
+https://www.jianshu.com/p/1bb663918cfd 安装
+官方文档:
+https://docs.mongodb.com/manual/tutorial/install-mongodb-on-os-x/
 
 7. 配置域名解析， https 证书
 

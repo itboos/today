@@ -868,7 +868,7 @@ function getLeftTime(isUseDay = false){
  */
     var isType = function(type){
       return function(obj) {
-        return toString.call(obj) === '[object '+ tpe +']';
+        return toString.call(obj) === '[object '+ type +']';
       } 
     }
     // 定制新的函数

@@ -15,3 +15,12 @@ async function main(){
 }
 
 main();
+
+// use admin
+// db.createUser(
+//   {
+//     user: "root", //用户名
+//     pwd: "root123456654321", //密码
+//     roles: [ { role: "root", db: "admin" } ] //权限
+//   }
+// )
