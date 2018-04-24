@@ -27,6 +27,18 @@ shutdown -h +1 "1 minute after shutdown"
 (3)、取消关机
 在SSH中可按Ctrl+C快捷键取消正在执行的命, 或者 shutdown -c 
 
+(4) 
+移动 文件/文件夹 https://linux.cn/article-2688-1.html
+mv a.text b.text /usr/local/ 复制两个文件到制定的目录
+mv mongodb /usr/local/ 移动mongodb 文件夹到 /usr/local/
+重命名文件：
+mv a.txt a_.txt  将a.txt 重命名为a_.txt
+如果是绝对路径:
+mv /home/pungki/Documents/file_1.txt /home/pungki/Documents/file_2.txt
+
+(5) 复制文件/文件夹
+
+
 
 Linux 创建连接命令 ln -s 软链接
 ln -s 源文件 目标文件 (ln -s a b) , b 就指向了a
@@ -86,6 +98,13 @@ Linux 开机会执行的脚本：
 原文地址:
 https://www.cnblogs.com/zhangzhibin/p/6231870.html
 
+
+Mongddb:
+/data/db 拒绝用户访问:
+https://stackoverflow.com/questions/42446931/mongodb-exception-in-initandlisten-20-attempted-to-create-a-lock-file-on-a-rea
+
+启动mongdb: sudo mongdb
+
 使用centOs 7.2搭建自己的服务器的步骤:
 
 1. 安装centOs7.2 的系统 (电脑上是用虚拟机安装的)
@@ -125,7 +144,10 @@ https://www.cnblogs.com/zhangzhibin/p/6231870.html
 
 
 // =====================================
-6.5 mongoDB 的配置和使用 https://neuqzxy.github.io/2017/10/07/mongodb%E9%85%8D%E7%BD%AE%E7%94%A8%E6%88%B7/
+6.5 mongoDB 的配置和使用 
+安装:(参照官网)
+https://docs.mongodb.com/manual/tutorial/install-mongodb-on-os-x/
+https://neuqzxy.github.io/2017/10/07/mongodb%E9%85%8D%E7%BD%AE%E7%94%A8%E6%88%B7/
 http://yijiebuyi.com/blog/b6a3f4a726b9c0454e28156dcc96c342.html强 (使用homebrew 来安装)
 https://www.jianshu.com/p/1bb663918cfd 安装
 官方文档:

@@ -135,6 +135,19 @@
     使用这条命令来查看:
 
     npm root -g
+
+    npm  outdated  查看项目里过时的包
+    npm -g outdated  查看全局过时的包
+
+    npm update express 更新指定的包
+
+    npm root  查看包的安装路径
+    npm config list 查看所有配置
+
+
+    官网配置文件: 
+    https://www.npmjs.com.cn/cli/update/
+
     Mac 下默认的全局路径是:
 
     /usr/local/lib/node_modules

@@ -953,3 +953,23 @@ function getLeftTime(isUseDay = false){
   console.log(addBigSting(num1.join(''), num2.join('')));
 
  // =================================
+ // ================ 利用generator  函数扁平化数组 =================
+    // http://es6.ruanyifeng.com/#docs/generator
+    function* iterTree(tree) {
+        if (Array.isArray(tree)) {
+        for(let i=0; i < tree.length; i++) {
+            yield* iterTree(tree[i]);
+        }
+        } else {
+        yield tree;
+        }
+    }
+    
+    const tree = [ 'a', ['b', 'c'], ['d', 'e'], [{a: 1}, {b: 2}] ];
+    var newArr = [];
+    for(let x of iterTree(tree)) {
+     // console.log(x);
+     newArr.push(x);
+    }
+    console.log(newArr);
+ // =================================
