@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  
+  <script >
+    /* 
+      源码来自- 设计模式与开发实践
+      发布-订阅模式的通用实现 **  具有 命名空间和 可以先发布后订阅的 实现
+
+      建立一个存放离线事件的堆栈， 当事件发布时， 如果此时还没有订阅者来订阅这个事件， 我们暂时把发布的事件的动作包裹在
+      一个函数里，这些包装函数将被 存入堆栈中，等到终于有对象来订阅此事件的时候，我们将遍历堆栈并且依次执行这些包装函数， 
+      也就是重新发布里面的事件。当然离线事件的生命周期只有一次，就像 QQ 的未读消息只会被重 新阅读一次，
+      所以刚才的操作我们只能进行一次。
+      注意： demo 有问题， 跑不通 
+    */
+    
+    var Event = (function(){
+      var global = this,
+          Event,
+          _default = 'default';
+          
+      Event = (function() {
+        var _listen,
+            _trigger,
+            _remove,
+            _slice,
+            _shift = Array.prototype.slice,
+            _unshift = Array.prototype.unshift,
+            namespaceCache = {},
+            _create,
+            find,
+            each;
+        
+        each = function(arr, fn) {
+          var ret;
+          for (var i = 0, l = arr.length; i < l; i++ ) {
+            var n = arr[i];
+            ret = fn.call(n, i , n); //  ???
+          }
+          return ret;
+        };
+
+        _listen = function(key, fn, cache) {
+          if(!cache[key]) {
+            cache[key] = [];
+          }
+          cache[key].push(fn);
+        };
+
+        _remove = function(key, cache, fn) {
+          if (cache[key]) {
+            if(fn) {  // 删除一个事件的某一个订阅者
+              for (var i = cache[key].length; i >= 0; i--) {
+                if(cache[key][i] === fn) {
+                  cache[key].splice(i, 1);
+                }
+              }
+            } else {
+              // 删除某个事件的所有订阅者
+              cache[key] = [];
+            }
+          }
+        }
+
+        _trigger = function() {
+          var cache = _shift.call(arguments),
+                key = _shift.call(arguments),
+                args = arguments,
+                _self = this,
+                ret,
+                stack = cache[key];
+          if(!stack || !stack.length) {
+            return;
+          }
+          return each(stack, function() {
+            return this.apply(_self, args);
+          });
+        }
+      // 创建命名空间
+      _create = function() {
+        var namespace = namespace || _default;
+        var cache = {},
+            offlineStack = [], // 离线事件
+            ret = {
+              listen: function(key, fn, last) {
+                _listen(key, fn, last);
+                if(offlineStack === null) {
+                  return;
+                }
+                if(last === 'last') {
+                  offlineStack.length && offlineStack.pop()();
+                } else {
+                  each(offlineStack, function() {
+                    this(); // ????
+                  });
+                }
+                offlineStack = null; // here
+              },
+              one: function (key, fn, last) {
+                _remove(key, cache);
+                this.listen(key, fn, last);
+              },
+              remove: function(key,fn) {
+                _remove(key, cache, fn);
+              },
+              trigger: function() {
+                var fn,
+                    args,
+                    self = this;
+                _unshift.call(arguments, cache);
+                args = arguments;
+
+                fn = function() {
+                  return _trigger.apply(_self, args);
+                }
+
+                if(offlineStack) {
+                  return offlineStack.push(fn);
+                }
+                return fn();
+              },
+            };
+
+            return namespace ? 
+            (namespaceCache[namespace] ? namespaceCache[namespace]: 
+                  namespaceCache[namespace] = ret)
+                      : ret;
+        };
+
+      return {
+        create: _create,
+        one: function(key, fn, last) {
+          var event = this.create();
+              event.one(key, fn, last);
+        },
+        remove: function(key,fn) {
+          var event = this.create();
+              event.remove(key, fn);
+        },
+        listen: function(key, fn, last) {
+          var event = this.create();
+              event.listen(key, fn, last);
+        },
+        trigger: function() {
+          var event = this.create();
+              event.trigger.apply(this, arguments);
+        }
+      };
+
+    })();
+
+     return Event;
+    
+    })();
+   
+  // 测试代码：
+  var a = 1;
+  console.log(Event);
+  Event.trigger( 'click', 1 );
+  Event.listen( 'click', function( a ){
+    console.log( '先发布后订阅', a ); // 输出:1
+  });
+   
+
+  /************** 使用命名空间 ********************/ 5
+  // Event.create( 'namespace1' ).listen( 'click', function( a ){ 
+  //   console.log( 'namespace：触发', a ); // 输出:1
+  // });
+
+  // Event.create( 'namespace1' ).trigger( 'click', 1 );
+  // Event.create( 'namespace2' ).trigger( 'click', 2 );
+  </script>
+</body>
+</html>

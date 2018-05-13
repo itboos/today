@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  
+  <script >
+    // 发布-订阅模式的通用实现
+    // 定义一个事件对象
+    var event = {
+      clientList: {},
+      // 订阅事件方法
+      listen: function(key, fn) {
+        if(!this.clientList[ key ]) {
+          this.clientList[ key ] = [];
+        }
+        this.clientList[ key ].push( fn );
+      },
+      // 取消订阅
+      remove: function(key, fn) {
+        var fns = this.clientList[key];
+        if (!fns) { // 如果key 对应的消息没有被人订阅，则直接返回
+          return false; 
+        }
+        if (!fn) { // 如果没有传入具体的回调函数， 表示需要取消key对应消息的所有订阅
+          fns && (fns.length = 0); // 数组长度设置为0，等于清空数组
+        } else {
+          for (var l = fns.length - 1; l >= 0; l--) {
+            var _fn = fns[l];
+            if (_fn === fn) {
+              fns.splice(l, 1); // 删除订阅者的回调函数
+            }
+          }
+        }
+      },
+      // 发布（触发）事件
+      trigger: function() {
+        var key = Array.prototype.shift.call(arguments); //  取出第一个参数（1）
+            fns = this.clientList[key];
+
+        if( !fns || fns.length === 0 ) { // 如果没有订阅改消息
+          return false;
+        }
+
+        for(var i = 0;  fn = fns[ i++] ; ) {
+          // 这里的arguments是trigger 方法除了第一个参数的剩余参数
+          fn.apply(this, arguments); // arguments 是trigger是带上的参数
+        }
+      }
+    };
+
+    // 定义一个installEvent 函数，可以给所有的对象都动态的安装发布-订阅功能
+    var installEvent = function(obj) {
+      for(var i in event) {
+        obj[i] = event[i];
+      }
+    }
+
+    // 测试:
+    var salesOfficesA = {};
+    installEvent(salesOfficesA);
+    // 小明订阅的消息
+    salesOfficesA.listen('s100', fn1 = function(price) {
+      console.log('小明订阅的消息： 价格=', price);
+    });
+    
+     // 小红订阅的消息
+    salesOfficesA.listen('s100', fn2 = function(price) {
+      console.log('小红订阅的消息： 价格=', price);
+    });
+
+    salesOfficesA.listen('s200', fn2 = function(price) {
+      console.log('价格=', price);
+    });
+    
+    salesOfficesA.remove('s100', fn1); // 删除小明的订阅
+    
+    salesOfficesA.trigger('s100', '200万');
+
+    // salesOfficesA.trigger('s200', '400万');
+
+    console.log('salesOfficesA:', salesOfficesA);
+     
+  </script>
+</body>
+</html>
