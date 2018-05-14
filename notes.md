@@ -97,6 +97,59 @@ git 笔记: 2017-06-06 17:07:13
 	   origin/meila
  git checkout origin/develop  -切换到develop 分支
 
+ ```
+git 相关2: 
+新建分支：
+git branch 分支名字（****）
+切换分支：
+git checkout 分支名称
+列出分支：
+git branch
+删除分支:
+git branch -d 分支名称
+
+查看所有分支（包括远程）:
+git branch -a
+
+Git v1.7.0 之后:
+
+删除远程分支:
+
+git push origin --delete <branchName>
+	
+删除标签:
+git push origin --delete tag <tagname>
+
+否则，可以使用这种语法，推送一个空分支到远程分支，其实就相当于删除远程分支：
+	
+git push origin :<branchName>
+
+
+
+删除tag的方法，推送一个空tag到远程tag：
+
+git tag -d <tagname>
+git push origin :refs/tags/<tagname>
+
+删除不存在对应远程分支的本地分支
+git fetch -p 
+它在fetch之后删除掉没有与远程分支对应的本地分支：
+
+重命名远程分支:
+1.删除远程分支：
+git push --delete origin devel
+我在删除远程分支可能碰到这个错误, 当删除的是默认的分支的时候，这个时候，先把其它分支设置成默认分支，然后再删除就行了。
+2.重命名本地分支:
+git branch -m devel develop
+3.推送本地分支：
+git push origin develop
+
+把本地tag推送到远程
+git push --tags
+获取远程tag:
+git fetch origin tag <tagname>
+ ```
+
 
 
  phthon3 相关教程: 2017年06月16日10:51:48
@@ -146,3 +199,24 @@ console.log(y); // 1
 
 node 笔记:
  node 进入node的repl环境中, .ext / ctrl+c *2 退出repl环境，
+
+ ```
+ 微信小程序踩坑:
+
+1. 问题：
+
+ 使用wxpy 生成项目，运行后报:
+ Error: module "npm/lodash/_nodeUtil.js" is not defined
+ 问题产生原因： 未知
+ 解决方法：
+   https://github.com/Tencent/wepy/issues/1294
+    "npm i util --no-save && wepy build --no-cache"
+    不保存依赖，安装util , 同时 不使用缓存构建
+ 问题集合:
+ https://www.ctolib.com/article/comments/69137
+
+ Git 命令:
+ 当本地的文件修改了后，可以通过git add  xxx文件 讲文件提交到本地仓库，以便后面的提交
+也可以通过 git checkout  xxx文件  放弃本次修改，这会让文件回到上次提交的状态，把修改的内容都放弃了
+
+ ```
