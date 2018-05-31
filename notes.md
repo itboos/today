@@ -148,6 +148,10 @@ git push origin develop
 git push --tags
 获取远程tag:
 git fetch origin tag <tagname>
+
+ 本地所有修改的。没有的提交的，都返回到原来的状态
+ git checkout .
+ 
  ```
 
 
