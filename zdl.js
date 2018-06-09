@@ -972,4 +972,48 @@ function getLeftTime(isUseDay = false){
      newArr.push(x);
     }
     console.log(newArr);
+ // ============= Function.prototype.bind 自己实现====================
+
+ Function.prototype.bind = function(context) {
+    var self = this; // 保存原函数
+    return function() {
+      // 执行新函数的时候，会把之前传入的context当做新函数体内的this
+      return self.apply(context, arguments);
+    }
+  };
+
+  // 使用demo:
+  var obj = {
+    name: 'sven'
+  };
+  var func = function() {
+    console.log(this.name);
+    console.log('参数为:', ...arguments);
+  }.bind(obj);
+  func(1,2,3,4);
+
+ // ================  复杂一点的bind 实现  =================
+
+   // 复杂一点的bind 实现， 使得func 函数可以预先填入一些参数
+   Function.prototype.bind = function() {
+    var self = this, // 保存原函数
+        context = [].shift.call(arguments), // 将arguments 对象转成数组，并且(删除)取出数组中的第一个元素， 这里是需要绑定的this上下文
+        args = [].slice.call(arguments); // 剩余参数转换成数组
+    return function() { // 返回一个新的函数
+      return self.apply(context, [].concat.call(args, [].slice.call(arguments) ) );
+      // 执行新函数的时候，会把之前传入的context当做新函数体内的this
+      // 并且组合两次分别传入的参数，作为新函数的参数
+    }
+  };
+  var obj = {
+    name: 'sven'
+  };
+  var func = function(a,b,c,d) {
+    console.log(this.name); // 输出sven
+    console.log('参数为:', [a, b, c, d]); // 输出 [5, 6, 7, 8]
+  }.bind(obj, 5, 6);
+  
+  func(7, 8);
+
+
  // =================================
