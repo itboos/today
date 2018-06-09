@@ -36,7 +36,7 @@ loadImage2.then(function success() {
 });
 
 
-数组去重新思路:  利用set结构不添加重复值
+// 数组去重新思路:  利用set结构不添加重复值
 var arr= [2,3,4,5,5,5,6,6,6,'a','a','b','b'];
 //生成一个新的map结构，会自动去除重复的元素，再使用扩展运算符，展开map结构里的元素
 var newArr = [ ...new Set(arr ) ]
@@ -68,7 +68,7 @@ function loadScript(src,errorCallback, obj) {
 };
 
 // 根据毫秒数，格式化日期:
-fomateDate (d) {
+function omateDate(d) {
   var date = new Date(d),
   Y = date.getFullYear() + '-',
   M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-',
@@ -77,8 +77,8 @@ fomateDate (d) {
   m = date.getMinutes() + ':',
   s = date.getSeconds();
   return (Y+M+D+h+m+s); 
-},
-如: fomateDate(12123242343); = > 2016-06-23 16:12:54
+}
+// 如:  fomateDate(12123242343); = > 2016-06-23 16:12:54
 /*  踩坑   */
 // 当数字最为js对象的键时，会出现访问不了的情况
 
@@ -94,12 +94,12 @@ var data={
     {a:33,b:44},
   ]
 };
-data.2017 ->  报错
-data.[2017] ->  可以正常访问到 ,但是无法提前知道键名字是什么的情况下，使用 keys来遍历
-可行的做法:
+// data.2017 ->  报错
+// data.[2017] ->  可以正常访问到 ,但是无法提前知道键名字是什么的情况下，使用 keys来遍历
+// 可行的做法:
 for(var key in data){
   console.log(key);
-  console.log(data[key])  -> 这里可以访问到值。
+  console.log(data[key])  // -> 这里可以访问到值。
 }
 
 /*
@@ -667,15 +667,15 @@ let arr = numbers.map((currentValue, index, array) => {
 console.log(`arr `, arr);
     
     //根据时间戳，转换为剩余的天，时，分，秒
-      resetTime(time) {
+     function resetTime(time) {
         time = parseInt(time) + ''
         if (time.length < 2) {
           return '0' + time
         } else {
           return time
         }
-      },
-      getTimeStr(timeStr){
+      }
+      function getTimeStr(timeStr){
         var remain = {
           time: parseInt(timeStr/1000),
           h: 0,
@@ -691,7 +691,7 @@ console.log(`arr `, arr);
           return day+'天'+hour +'时'+ remain.m +'分'+remain.s+'秒';
         }
         return remain.h +'时'+ remain.m+'分'+remain.s+'秒';
-      },
+      }
 
 /**
  *  时间戳-> 时间
@@ -745,7 +745,6 @@ function (target) {
 });
 
 
-<script>
     // 网易rem 方案
     !function(doc, win){
       var n = doc.documentElement,
@@ -769,11 +768,12 @@ function (target) {
       doc.addEventListener  &&  win.addEventListener(event, d, false);
 
       }(document, window);
-  </script>
+
+
 
 // js 生成随机字符串:
 // randomStr(10) 传入随机字符串的长度
- randomStr(len) {
+ function randomStr(len) {
     var d,
         e,
         b = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",
