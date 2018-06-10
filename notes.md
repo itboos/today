@@ -99,6 +99,163 @@ git 笔记: 2017-06-06 17:07:13
 
  ```
 git 相关2: 
+ 
+查看 修改后-未暂存的文件差异: 
+git diff
+
+查看 修改后- 已暂存的文件差异：
+git diff --staged 或者  git diff --cached (staged和 cached 是同义词)
+
+跳过使用暂存区域-直接提交文件
+
+git commit -a -m '这是提交的注释' (只能提交已跟踪的文件，不能提交新文件)
+
+移动文件(文件重命名:)
+
+git mv file_old_name file_new_name
+
+相当于:
+
+mv README.md README  移动文件
+git rm README.md
+git add README
+
+查看提交历史：
+git log
+git log -2 显示最近两条提交记录
+
+git log -p 显示每次提交的内容差异
+git log -p -2 显示最近两次提交的内容差异
+
+git log --stat 带简略提交信息的 提交记录
+
+git log --pretty 更好看的提交历史 (常用)
+
+git log --grep '跳过'  显示只包含某个关键字的提交记录
+
+ git log --pretty=oneline
+
+撤消操作:
+ 1.取消暂存的文件 
+ git reset HEAD a.md (将a.md 变为未暂存状态)  这是， a.md 就变为已修改，但是未暂存的状态了
+
+ 2.撤消对文件的修改
+  拷贝了另一个文件来覆盖它
+ git checkout a.md   将文件a.md 的修改抛弃，文件重置到上次提交的状态
+ git checkout .  重置当前仓库的所有文件的 所有修改
+
+查看远程仓库地址:
+git remote
+git remote -v
+
+远程仓库中抓取与拉取
+git fetch [remote-name] 拉取之后，并没有自动合并 可以 git merge 
+git pull  拉取远程分支同时合并远程分支到当前分支 （相当于 git fetch + git merge）
+
+查看某一个远程仓库的更多信息:
+git remote show origin
+
+远程仓库的移除与重命名:
+
+ 去修改一个远程仓库的简写名
+git remote rename pb paul
+移除一个远程仓库:
+git remote rm paul
+
+2.6 打标签: (强-使用-区分版本)
+   列出标签:
+	  git  tag
+	 查看指定的标签:
+	 git tag -l 'v1.0*'  只查看 1.0系列标签
+
+	 创建附注标签:(中包含打标签者的名字、电子邮件地址、日期时间；还有一个标签信息)
+
+	 git tag -a v1.4 -m 'my version 1.4'  -m 表示此个标签的标签信息
+	 
+	 git show 命令可以看到标签信息与对应的提交信息：
+
+	 git show v1.0 
+
+	 创建轻量标签:
+	 本质上是将提交校验和存储到一个文件中,只需要提供标签名字
+	 git tag v1.4
+	 后期打标签 对以前的提交打标签：
+   git tag -a v1.2 9fceb02(提交记录hash值，前六位就可以区分)
+
+	 推送标签: 默认情况下，git push 命令并不会传送标签到远程仓库服务器上
+
+	 推送标签：git push origin [tagname]
+	 例如:
+	  git push origin v1.0
+	 
+	 一次性推送多个标签：(推送所有不在远程的标签到远程)
+
+	 git push origin --tags
+
+	 删除标签:
+	 git tag -d v1.0
+
+	 检出标签:
+	 在 Git 中你并不能真的检出一个标签，因为它们并不能像分支一样来回移动。 如果你想要工作目录与仓库中特定的标签版本完全一样，可以使用 git checkout -b [branchname] [tagname] 在特定的标签上创建一个新分支：
+   
+	 git checkout -b version2 v2.0.0
+	 创建一个名为version2 的新分支，改分支的内容和v2.0.0 的内容完全一样
+
+
+	 Git 别名：
+	 git config 文件来轻松地为每一个命令设置一个别名：
+	 列如：
+	  git config --global alias.co checkout
+    git config --global alias.br branch
+    git config --global alias.ci commit
+    git config --global alias.s status
+    git config --global alias.cm commit -m 
+
+		以后 ， git s = git status
+					 git ci = git ci 了
+
+	常用的一些别名：
+
+	alias.s=status
+	alias.a=!git add . && git status
+	alias.au=!git add -u . && git status
+	alias.aa=!git add . && git add -u . && git status
+	alias.c=commit
+	alias.cm=commit -m
+	alias.ca=commit --amend
+	alias.ac=!git add . && git commit
+	alias.acm=!git add . && git commit -m
+
+  alias.co=checkout
+	alias.ci=commit
+	alias.br=branch
+	alias.st=status
+  
+	取消文件的暂存:
+	
+	alias.unstage= reset HEAD --
+	使用: git config --global alias.unstage 'reset HEAD --'
+
+ （显示图形提交界面:）
+
+	alias.l=log --graph --all --pretty=format:'%C(yellow)%h%C(cyan)%d%Creset %s %C(white)- %an, %ar%Creset'
+	alias.ll=log --stat --abbrev-commit
+	alias.lg=log --color --graph --pretty=format:'%C(bold white)%h%Creset -%C(bold green)%d%Creset %s %C(bold green)(%cr)%Creset %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+	alias.llg=log --color --graph --pretty=format:'%C(bold white)%H %d%Creset%n%s%n%+b%C(bold blue)%an <%ae>%Creset %C(bold green)%cr (%ci)' --abbrev-commit
+
+	alias.d=diff
+	alias.master=checkout master
+	alias.spull=svn rebase
+	alias.spush=svn dcommit
+	alias.alias=!git config --list | grep 'alias\.' | sed 's/alias\.\([^=]*\)=\(.*\)/\1\     => \2/' | sort
+
+   
+
+
+
+推送到远程仓库
+1. git push origin master
+
 新建分支：
 git branch 分支名字（****）
 切换分支：
@@ -151,6 +308,9 @@ git fetch origin tag <tagname>
 
  本地所有修改的。没有的提交的，都返回到原来的状态
  git checkout .
+
+
+
  
  ```
 

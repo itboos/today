@@ -1017,3 +1017,23 @@ function getLeftTime(isUseDay = false){
 
 
  // =================================
+   // 判断元素是否是数组:
+
+   Object.prototype.toString.call(this) === '[object Array]'
+
+ // =================================
+    // 一个简单的判断数据类型的方法
+    var Type = {},
+    types = ['String', 'Array', 'Number'];
+
+    types.forEach(function(type, index, arr) {
+      Type['is' + type] = function(obj) {
+        return Object.prototype.toString.call(obj) === '[object ' + type + ']';
+      };
+    });
+    
+    console.log(Type);
+    console.log(Type.isArray([]));  // true
+    console.log(Type.isString('str')); // true
+    
+ // =================================
