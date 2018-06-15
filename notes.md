@@ -311,6 +311,19 @@ git fetch origin tag <tagname>
 
 
 
+3. 分支:
+ 创建分支:
+ git branch new-branch
+ 切换分支：
+ git checkout new-branch
+ 查看各个分支当前所指的对象:
+
+ 简写： git checkout -b newBranch
+ git log --oneline --decorate
+ 创建分支并且切换到新的分支:
+ git chekcout -b fix-bug 
+ 查看分叉历史:
+ git log --oneline --decorate --graph --all
  
  ```
 
