@@ -325,6 +325,11 @@ git fetch origin tag <tagname>
  查看分叉历史:
  git log --oneline --decorate --graph --all
  
+ 查看哪些分支已经合并到当前分支:
+ git branch --merged
+ 查看分支尚未合并到当前分支:
+ git branch --no-merged 
+
  ```
 
 
