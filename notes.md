@@ -327,8 +327,47 @@ git fetch origin tag <tagname>
  
  查看哪些分支已经合并到当前分支:
  git branch --merged
+ $ git branch --merged
+  iss53
+	test
+* master
+这就表示： 分支iss53， test 已经合并到 master 分支上了,
+可以安全删除它们
+
  查看分支尚未合并到当前分支:
  git branch --no-merged 
+
+ 删除分支：
+ git branch -d test
+ 强制删除未合并的分支:
+ git branch -D test
+
+ 远程分支：
+ 查看远程分支:
+ git remote show
+
+ 推送远程分支:
+ git push (remote仓库名称) (branch分支名称):
+ 例如： 将serverfix 推送到远程:
+ git push origin serverfix
+ 意味着，“推送本地的 serverfix 分支来更新远程仓库上的 serverfix 分支。
+
+ 等同于:
+ git push origin serverfix:serverfix
+ 意思是:推送本地的 serverfix 分支，将其作为远程仓库的 serverfix 分支
+
+git push origin serverfix:awesomebranch
+来将本地的 serverfix 分支推送到远程仓库上的 awesomebranch 分支。
+(相当于本地的分支推送到远程，并且重命名这个分支)
+
+下一次其他协作者从服务器上抓取数据时，他们会在本地生成一个远程分支 origin/serverfix，指向服务器的 serverfix 分支的引用：
+注意:
+	git fetch origin
+	要特别注意的一点是当抓取到新的远程跟踪分支时，本地不会自动生成一份可编辑的副本（拷贝）。 换一句话说，这种情况下，不会有一个新的 serverfix 分支 - 只有一个不可以修改的 origin/serverfix 指针。
+	如果想要在自己的 serverfix 分支上工作，可以将其建立在远程跟踪分支之上：
+  
+	git checkout -b serverfix origin/serverfix
+	这会给你一个用于工作的本地分支，并且起点位于 origin/serverfix。换句话说，我们这个时候本地才有了一个名字叫做 origin/serverifx 的分支
 
  ```
 
