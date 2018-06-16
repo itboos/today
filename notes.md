@@ -299,7 +299,7 @@ git push --delete origin devel
 2.重命名本地分支:
 git branch -m devel develop
 3.推送本地分支：
-git push origin develop
+git push origin(origin为默认的仓库名字) develop(分支名)
 
 把本地tag推送到远程
 git push --tags
@@ -343,8 +343,24 @@ git fetch origin tag <tagname>
  git branch -D test
 
  远程分支：
- 查看远程分支:
+ 查看远程仓库:
  git remote show
+
+ 查看本地分支:
+ git branch
+ 查看远程分支:
+ git branch --remote
+
+ 查看所有分支(本地和远程的都显示出来):
+ git branch -a
+ * master (本地master分支)
+  remotes/zdl/HEAD -> zdl/master
+  remotes/zdl/develop
+  remotes/zdl/master (远程master 分支)
+
+ 拉取仓库时，默认只会在本地创建一个master 分支， 仓库里的其它分支都是远程的， 要使用其它的分支，我们需要创建一个以远程分支为基础的分支，然后就可以在那个分支上开发了.
+  git checkout -b develop zdl/develop (zdl为仓库名，develop 为分支名)
+	这样， 在本地就有了 一个名为 develop 的分支了，而且他的内容和远程分支上对应的内容一样.
 
  推送远程分支:
  git push (remote仓库名称) (branch分支名称):
