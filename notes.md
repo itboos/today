@@ -346,6 +346,12 @@ git fetch origin tag <tagname>
  查看远程仓库:
  git remote show
 
+ 拉取远程仓库:
+ git clone git@github.com:itboos/today.git(远程仓库名字)
+ git  会帮我们自动将仓库命名为 origin
+ 如果你运行 git clone -o xueqiweb，那么你默认的远程分支名字将会是 xueqiweb/master
+ 这相当于 将拉下来的远程仓库命名为 xueqiweb
+
  查看本地分支:
  git branch
  查看远程分支:
@@ -362,7 +368,7 @@ git fetch origin tag <tagname>
   git checkout -b develop zdl/develop (zdl为仓库名，develop 为分支名)
 	这样， 在本地就有了 一个名为 develop 的分支了，而且他的内容和远程分支上对应的内容一样.
 
- 推送远程分支:
+ 2.1 推送远程分支:
  git push (remote仓库名称) (branch分支名称):
  例如： 将serverfix 推送到远程:
  git push origin serverfix
@@ -372,6 +378,9 @@ git fetch origin tag <tagname>
  git push origin serverfix:serverfix
  意思是:推送本地的 serverfix 分支，将其作为远程仓库的 serverfix 分支
 
+ 查看设置的所有跟踪分支: 
+ git branch  -vv
+ 
 git push origin serverfix:awesomebranch
 来将本地的 serverfix 分支推送到远程仓库上的 awesomebranch 分支。
 (相当于本地的分支推送到远程，并且重命名这个分支)
@@ -382,8 +391,37 @@ git push origin serverfix:awesomebranch
 	要特别注意的一点是当抓取到新的远程跟踪分支时，本地不会自动生成一份可编辑的副本（拷贝）。 换一句话说，这种情况下，不会有一个新的 serverfix 分支 - 只有一个不可以修改的 origin/serverfix 指针。
 	如果想要在自己的 serverfix 分支上工作，可以将其建立在远程跟踪分支之上：
   
+	跟踪远程分支: 
+
 	git checkout -b serverfix origin/serverfix
-	这会给你一个用于工作的本地分支，并且起点位于 origin/serverfix。换句话说，我们这个时候本地才有了一个名字叫做 origin/serverifx 的分支
+	这会给你一个用于工作的本地分支(建立在远程跟踪分支之上)：并且起点位于 origin/serverfix。换句话说，我们这个时候本地才有了一个名字叫做 origin/serverifx 的分支
+
+	当克隆一个仓库时，它通常会自动地创建一个跟踪 origin/master 的 master 分支。 然而，如果你愿意的话可以设置其他的跟踪分支 - 其他远程仓库上的跟踪分支，或者不跟踪 master 分支。 最简单的就是之前看到的例子，
+	运行 git checkout -b [local-branch-name] [remotename]/[branch]。 
+  
+	如果想要将本地分支与远程分支设置为不同名字，你可以轻松地增加一个不同名字的本地分支的上一个命令：
+		$ git checkout -b sf origin/serverfix
+
+	这是一个十分常用的操作所以 Git 提供了 --track 快捷方式：
+
+   git checkout --track origin/serverfix
+
+	2.2 删除远程分支:
+	git push origin --delete serverfix	(删除远程分支上的serverfix)
+	
+	基本上这个命令做的只是从服务器上移除这个指针。 Git 服务器通常会保留数据一段时间直到垃圾回收运行，所以如果不小心删除掉了，通常是很容易恢复的
+
+ 2.3 如果想要查看设置的所有跟踪分支，
+ 可以使用 git branch 的 -vv 选项
+
+拉取远程分支:
+
+当 git fetch 命令从服务器上抓取本地没有的数据时，它并不会修改工作目录中的内容。 它只会获取数据然后让你自己合并。 
+然而，有一个命令叫作 git pull 在大多数情况下它的含义是一个 git fetch 紧接着一个 git merge 命令。 
+如果有一个像之前章节中演示的设置好的跟踪分支，不管它是显式地设置还是通过 clone 或 checkout 命令为你创建的，
+git pull 都会查找当前分支所跟踪的服务器与分支，从服务器上抓取数据然后尝试合并入那个远程分支。
+
+由于 git pull 的魔法经常令人困惑所以通常单独显式地使用 fetch 与 merge 命令会更好一些。
 
  ```
 
