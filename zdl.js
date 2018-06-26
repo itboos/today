@@ -1036,4 +1036,146 @@ function getLeftTime(isUseDay = false){
     console.log(Type.isArray([]));  // true
     console.log(Type.isString('str')); // true
     
- // =================================
+ // ==================    // AOP 实现before 和after 函数  ===============
+
+    Function.prototype.before = function(beforeFn) {
+        var self = this; // 保留原函数的引用
+        return function() { // 返回包含了原函数和新函数的'代理函数'
+          beforeFn.apply(this, arguments); // 执行新函数,修正this
+          return self.apply(this, arguments); // 执行原函数
+        };
+      };
+      Function.prototype.after = function(afterFn) {
+        var self = this;
+        return function() {
+          var ret = self.apply(this, arguments);
+          afterFn.apply(this, arguments);
+          return ret;
+        };
+      };
+      var func = function() {
+        console.log(2);
+        return 'end';
+      };
+      func = func.before(function() {
+        console.log(1);
+      }).after(function() {
+        console.log(3);
+      });
+      func();
+    
+  // ===============================
+        /*   函数柯里化
+     currying 又称部分求值，
+      一个 currying 的函数 先会首先接受一些参数，接受 了这些参数之后，该函数并不会立即求值，
+      而是继返回另外一个函数， 刚才传入的参数在函数形成的闭包中保存起来。 到函数被真正需要求值的时候，之前传入的所有参数都会被一次性用于求值.
+    */
+   var currying = function(fn){
+    var args = [];
+    return function innerFn() {
+      if(arguments.length === 0) {
+        return fn.apply(this, args);
+      } else {
+        [].push.apply(args, arguments);
+        console.log('arguments.callee:', arguments.callee);
+        // return arguments.callee; // 返回当前函数的引用
+        return innerFn; // 返回当前函数的引用
+      }
+    };
+  };
+  var cost = (function() {
+    var money = 0;
+    return function() {
+      for(var i = 0, l = arguments.length; i < l; i++) {
+        money += arguments[i];
+      }
+      return money;
+    };
+  })();
+  var cost = currying(cost);
+  var f1 = cost(1)(2)(3);
+  console.log('f1:', f1);
+  console.log(cost());  // 求值： 输出 6
+
+// ============================= =========
+
+      // 函数uncurrying化
+      Function.prototype.uncurrying = function() {
+        var self = this;
+        return function() {
+          var obj = Array.prototype.shift.call(arguments); // 取出第一个参数
+          return self.apply(obj, arguments);
+          // return Array.prototype.push.apply(obj, 5);
+        };
+      };
+      // 函数uncurrying化 另一种实现方式
+      Function.prototype.uncurrying2 = function() {
+        var self = this;
+        return function() {
+          return Function.prototype.call.apply(self, arguments);
+        };
+      };
+      var push = Array.prototype.push.uncurrying2();
+      var arr = [1,2,3];
+      push(arr, 5);
+      console.log(arr);
+// ==========================思考这段代码:  call 和apply 的使用========= ========
+    function testA(a){
+      console.log('aaaa',a);  
+    }  
+    Function.prototype.apply.call(testA, window, ['Mike']);
+    Function.prototype.apply.apply(testA,[window,['Mike']]);
+
+    Function.prototype.call.call(testA, window, 'Mike');  
+    Function.prototype.call.apply(testA,[window, 'Mike']);  
+
+    // testA.apply(window,['Mike']);  
+    // window.testA('Mike');   
+    // 这几个都是输出 Mike
+
+
+   // 再看这个： 有点不理解：
+
+    function f(a, b, c) {
+      console.log(this);
+      console.log(a);
+      console.log(b);
+      console.log(c);
+    }
+
+    var context = {
+      name: 'context'
+    };
+
+    console.log('---Function.prototype.apply.apply---');
+    Function.prototype.apply.apply(f, [context, [1, 'a', true]]);
+
+    console.log('---Function.prototype.apply.call---');
+    Function.prototype.apply.call(f, context, [1, 'a', true]);
+
+    console.log('---Function.prototype.apply.bind---');
+    Function.prototype.apply.bind(f)(context, [1, 'a', true]);
+
+    console.log('---Function.prototype.call.apply---');
+    Function.prototype.call.apply(f, [context, 1, 'a', true]);
+
+    console.log('---Function.prototype.call.call---');
+    Function.prototype.call.call(f, context, 1, 'a', true);
+
+    console.log('---Function.prototype.call.bind---');
+    Function.prototype.call.bind(f)(context, 1, 'a', true);
+
+    // 上面的这些输出都是一样的: 
+
+
+    // arguments 类数组转换为数组:
+    // 返回的是数组，但是arguments本身保持不变: 内部原理是， 数组的slice 的内部实现，当传入的参数不是数组的时候，  会先转为数组，浅拷贝。 slice(start, end) start 的默认值是0， end 的值是数组的length
+   var arg = [].slice.call(arguments);
+   //[].slice.call(document.getElementsByTagName('li'));
+
+// ===================== 判断浏览器的环境 ===================================
+      
+var isWeixin = (/micromessenger/i.test(navigator.userAgent));
+
+
+//==========================================================================
