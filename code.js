@@ -53,6 +53,14 @@ for (var i = 0, len = arrs.length; i < len; i++) {
     }
 }
 console.log(arrs);
-
+//黑科技:
+简单的实现一个兼容性较好的深拷贝对象的方案:
+var soucreObj = {
+    a: '测试文字',
+    f: ['zdl', 'xueqi', 'cwy'],
+};
+var newObj = JSON.parse(JSON.stringify(soucreObj));
+console.log(newObj.f === soucreObj.f); // false  因为是深拷贝， 所有新对象拥有一份完全新的数据
+// 这里的原理就是利用了JSON.parse 会生成一个全新的对象
 
 
