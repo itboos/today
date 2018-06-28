@@ -506,6 +506,61 @@ git add -i
 	  Update>> 6
 	暂存补丁:
 	Git 也可以暂存文件的特定部分。 例如，如果在 simplegit.rb 文件中做了两处修改，但只想要暂存其中的一个而不是另一个，Git 会帮你轻松地完成。 从交互式提示符中，输入 5 或 p（补丁）
+
+	储藏与清理:
+	有时，当你在项目的一部分上已经工作一段时间后，所有东西都进入了混乱的状态，而这时你想要切换到另一个分支做一点别的事情。 问题是，你不想仅仅因为过会儿回到这一点而为做了一半的工作创建一次提交。 针对这个问题的答案是 git stash 命令。
+	
+	现在想要切换分支，但是还不想要提交之前的工作；所以储藏修改。 将新的储藏推送到栈上，运行 git stash 或 git stash save：
+	git stash/git stach save
+
+	然后，工作目录就是干净的了
+
+	在这时，你能够轻易地切换分支并在其他地方工作；你的修改被存储在栈上。 要查看储藏的东西，可以使用 git stash list：
+$ git stash list
+stash@{0}: WIP on master: 049d078 added the index file
+stash@{1}: WIP on master: c264051 Revert "added file_size"
+stash@{2}: WIP on master: 21d80a5 added number to log
+
+可以看到， 有三个不同的储藏:
+应用最近的那个储藏:
+git stash apply / 即 git stash apply stash@{0} 
+应用指定的储藏:
+git stash apply stash@{2}
+
+应用选项只会尝试应用 暂存的工作， 在堆栈上还有它。
+删除储藏:
+git stash drop stash@{1} /git stash drop 储藏名字
+也可以：
+git stash pop  应用最上面的那个储藏，同时在储藏队列中删除它
+
+创造式储藏：
+不储藏任何通过 git add 命令已暂存的东西：
+git stash --keep-index
+
+储藏未跟踪（新创建的）的文件： 默认情况下，git stash 只会储藏已经在索引中的文件
+git stash -u / git stash --include-untracked  就可以储藏未跟踪的文件了
+
+如果指定了 --patch 标记，Git 不会储藏所有修改过的任何东西，但是会交互式地提示哪些改动想要储藏、哪些改动需要保存在工作目录中。
+
+从储藏创建一个分支
+检出储藏工作时所在的提交，重新在那应用工作，然后在应用成功后扔掉储藏：
+
+git stash branch 创建一个新分支
+git stash branch testchanges
+
+
+清理工作目录：
+！！！你需要谨慎地使用这个命令，因为它被设计为从工作目录中移除未被追踪的文件。
+对于工作目录中一些工作或文件，你想做的也许不是储藏而是移除。 git clean 命令会帮你做这些事。
+默认情况下，git clean 命令只会移除没有忽略的未跟踪文件。 任何与 .gitiignore 或其他忽略文件中的模式匹配的文件都不会被移除。 如果你也想要移除那些文件，例如为了做一次完全干净的构建而移除所有由构建生成的 .o 文件，可以给 clean 命令增加一个 -x 选项。
+
+git clean -f -d：  移除工作目录中所有未追踪的文件以及空的子目录
+git clean -d -n： 做一次演习然后告诉你 将要 移除什么
+
+以交互模式运行 clean 命令:
+git clean -d -i
+这种方式下可以分别地检查每一个文件或者交互地指定删除的模式
+
 ```
 
  phthon3 相关教程: 2017年06月16日10:51:48
