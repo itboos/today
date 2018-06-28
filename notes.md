@@ -133,7 +133,13 @@ git log --pretty 更好看的提交历史 (常用)
 
 git log --grep '跳过'  显示只包含某个关键字的提交记录
 
- git log --pretty=oneline
+git log --pretty=oneline
+
+查看某一次提交的具体修改的内容:
+git show 1c002d(SSA-1的前流位) SSA不少于4位，就可以区分唯一一个提交对象(即有4位既可以区分)
+
+git 生成 SHA-1 简短的唯一缩写：
+git log --abbrev-commit --pretty=oneline
 
 撤消操作:
  1.取消暂存的文件 
@@ -426,6 +432,55 @@ git pull 都会查找当前分支所跟踪的服务器与分支，从服务器�
  ```
 
 
+```git
+Git 工具:
+引用日志:
+当你在工作时， Git 会在后台保存一个引用日志(reflog)，引用日志记录了最近几个月你的 HEAD 和分支引用所指向的历史。
+注意: 引用日志只存在于本地仓库，一个记录你在你自己的仓库里做过什么的日志,其他人拷贝的仓库里的引用日志不会和你的相同；而你新克隆一个仓库的时候，引用日志是空的，因为你在仓库里还没有操作
+
+git reflog
+
+每当你的 HEAD 所指向的位置发生了变化，Git 就会将这个信息存储到引用日志这个历史记录里。 通过这些数据，你可以很方便地获取之前的提交历史。 如果你想查看仓库中 HEAD 在五次前的所指向的提交，你可以使用 @{n} 来引用 reflog 中输出的提交记录。
+
+查看HEAD在五次前所指向的提交:
+git show HEAD@{5} 
+
+查看master分支在昨天的时候指向了哪个提交:
+git show master@{yesterday}
+
+git show HEAD^ 查看HEAD的上一个提交, 也就是HEAD 的父提交
+
+提交区间:
+  双点:
+	这种语法可以让 Git 选出在一个分支中而不在另一个分支中的提交:
+	git log master..voss
+	显示 在voss 分支 而不在master 中的提交
+	git log voss..master:
+	显示 在master 分支上，而不在Voss中的提交.
+
+  查看你即将推送到远端的内容：
+	git log origin/master..HEAD
+	（即显示在HEAD指针的提交，而不在远程origin/master 上的提交）
+
+多点：
+有时候你可能需要两个以上的分支才能确定你所需要的修订，比如查看哪些提交是被包含在某些分支中的一个，但是不在你当前的分支上。 Git 允许你在任意引用前加上 ^ 字符或者 --not 来指明你不希望提交被包含其中的分支
+
+比如: 想查看
+所有被 refA 或 refB 包含的但是不被 refC 包含的提交
+下面的两个命令是等价的：
+git log refA refB ^refC
+git log refA refB --not refC
+
+三点：
+显示 被两个引用中的一个包含但又不被两者同时包含的提交：
+git log master...experiment
+
+log 命令的一个常用参数是 --left-right，它会显示每个提交到底处于哪一侧的分支
+git log --left-right master...experiment
+
+交互式暂存:
+
+```
 
  phthon3 相关教程: 2017年06月16日10:51:48
  
