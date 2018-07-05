@@ -1179,3 +1179,59 @@ var isWeixin = (/micromessenger/i.test(navigator.userAgent));
 
 
 //==========================================================================
+
+   // 场景: 当函数被触发的频率过高时， 我们想控制函数触发的频率
+   // 函数节流: 原理是 将即将被执行的函数用setTimeout 延迟一段时间执行
+   var throttle = function(fn, intreval) {
+    var _self = fn,
+       timer, // 定时器
+       firstTime = true; // 是否是第一次调用
+     return function() {
+       var args = arguments,
+           _me = this;
+       if(firstTime) {
+         // 如果是第一次调用，不需要延迟执行
+         _self.apply(_me, args);
+         return firstTime = false;
+       }
+       if(timer) {
+         // 如果定时器还在，说明上一次延迟执行还没有完成
+         return false;
+       }
+       timer = setTimeout(function() {
+         clearInterval(timer);
+         timer = null;
+         _self.apply(_me, args);
+       }, intreval || 500);
+     }
+  };
+  // 每隔1s 执行一次
+  window.onresize = throttle(function() {
+   console.log('1');
+  }, 1000);
+
+  //==========================================================================
+      // 惰性加载函数
+  // 第一次执行后，函数内部会重写函数本身
+  var test = '';
+  var addEvent = function(elem, type, handler) {
+    if(window.addEventListener) {
+      addEvent = function(elem, type, handler) {
+        elem.addEventListener(type, handler, false);
+      }
+     } else if (window.attachEvent) {
+       addEvent = function(elem, type, handler) {
+         elem.attachEvent('on' + type, handler);
+       };
+      }
+      addEvent(elem, type, handler);
+    };
+    var div = document.getElementById('test');
+    addEvent(div, 'click', function() {
+      console.log(1);
+    });
+    addEvent(div, 'click', function() {
+      console.log(2);
+    });
+    
+  //==========================================================================
