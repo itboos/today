@@ -1235,3 +1235,213 @@ var isWeixin = (/micromessenger/i.test(navigator.userAgent));
     });
     
   //==========================================================================
+  //============================= 设计模式=============================================
+  // 通用的懒惰单例：  惰性单例 指的是在需要的时候才创建对象实例,  多次调用，都是返回的同一个实例.
+  // 单一职责: 一个方法只负责一件事情, 创建对象和管理单例的职责分布在不同的方法里
+  var getSingle = function(fn) {
+    var result;
+      return function() {
+        return result || (result = fn.apply(this, arguments));
+      };
+  };
+  var createLoginLayer = function() {
+    var div = document.createElement('div');
+    div.innerHTML = '我是登录悬浮窗';
+    div.style.display = 'none';
+    div.className = 'login';
+    document.body.appendChild(div);
+    return div;
+  };
+  var createSingleLoginLayer = getSingle(createLoginLayer);
+
+  document.getElementById('loginBtn').onclick = function() {
+    var loginLayer = createSingleLoginLayer();
+    console.log(loginLayer);
+    loginLayer.style.display = 'block';
+  };
+
+  //==========================================================================
+  //================================= 一个简单的animate类 =========================================
+    // 缓动算法  js设计模式
+    var tween = {
+      linear: function(t, b, c, d) {
+        return c*t/d +b;
+      },
+      easeIn: function( t, b, c, d ) { 
+        return c * ( t /= d ) * t + b;
+      },
+      easeInOut: function(t, b, c, d) {
+        if ((t /= d / 2) < 1) return c / 2 * t * t + b;
+        return -c / 2 * ((--t) * (t-2) - 1) + b;
+      }
+    };
+    // 定义animate 类
+    var Animate = function(dom) {
+      this.dom = dom;
+      this.startTime = 0; // 动画开始时间
+      this.startPos = 0;  // dom 初试位置
+      this.endPos = 0; // 动画结束时， dom 的目标位置
+      this.propertyName = null; // dom 节点需要被改变的css属性名
+      this.easing = null; // 缓动算法
+      this.duration = null; // 动画持续时间
+    };
+    
+    // 启动方法
+    /**
+     * propertyNmae:  css 属性名， 如： left，top 等
+     * endPos: 元素目标位置
+     * duration: 动画持续时间
+     * easing: 缓动算法
+    */
+    Animate.prototype.start = function(propertyName, endPos, duration, easing) {
+      this.startTime = +new Date; //动画启动时间
+      this.startPos = this.dom.getBoundingClientRect()[propertyName]; // dom节点的初始位置
+      this.propertyName = propertyName;
+      this.endPos = endPos;
+      this.duration = duration; // 动画持续事件
+      this.easing = tween[easing]; // 缓动算法
+  
+      var self = this;
+      var timeId = setInterval(function() {
+        if (self.step() === false) {
+          clearInterval(timeId);
+        }
+      }, 19);
+    };
+    // step 每一帧要做的事情
+    Animate.prototype.step = function() {
+      var t = +new Date; // 取得当前时间
+      if(t >= this.startTime + this.duration) {
+        // 当前时间大于动画开始时间加上动画持续时间之和， 说明动画已经结束，此时，需要修正小球位置,因为这一帧开始之后， 小球的位置已经接近目标位置， 但是，很可能不完全等于目标位置.
+        this.update(this.endPos);
+        return false;
+      }
+      var pos = this.easing(t-this.startTime, this.startPos, this.endPos-this.startPos, this.duration);
+      // pos 为小球当前位置
+      this.update(pos); // 更新小球的css 属性
+    };
+    // 更新小球css属性值
+    Animate.prototype.update = function(pos) {
+      this.dom.style[this.propertyName] =  pos + 'px';
+    };
+    var div = document.getElementById('btn');
+    var animate = new Animate(div);
+    animate.start('left', 200, 3000, 'easeIn');
+  //==========================================================================
+
+  //===========================  一个通用的表单验证类===============================================
+    // 策略对象
+    var strategies = {
+      isNotEmpty: function(value, errMsg) {
+        if (value === '') {
+          return errMsg;
+        }
+      },
+      minLength: function(value, length, errMsg) {
+        if(value.length < length) {
+          return errMsg;
+        }
+      },
+      isMobile: function(value, errMsg) {
+        if (!/^1[3|5|7|8][0-9]{9}/.test(value)) {
+          return errMsg;
+        }
+      },
+        
+    };
+    // 实现validate 类
+   var Validator = function() {
+     this.cache = []; // 保存校验规则
+   };
+  // *****************  验证类 可以加多条规则  ***************** 
+
+   Validator.prototype.add = function(value, rules) {
+     var self = this;
+     for (var i = 0, rule; rule = rules[i++];) {
+       (function(rule){
+         var strategyAry = rule.strategy.split(':');
+         var errMsg = rule.errMsg;
+         self.cache.push(function() {
+           var strategy = strategyAry.shift();
+           strategyAry.unshift(value);
+           strategyAry.push(errMsg);
+           return strategies[strategy].apply(null, strategyAry);
+         });
+       })(rule);
+     }
+   };
+   Validator.prototype.start = function() {
+     for (var i = 0, validatorFunc; validatorFunc = this.cache[i++];) {
+       var msg = validatorFunc(); // 开始校验并取得校验后的返回信息
+       if (msg) { // 如果有返回值，说明没有校验通过
+         return msg;
+       }
+     }
+   };
+   var form = {
+     userName: 'xueqi1234567789',
+     phone: 123156781234,
+   };
+   var validator = new Validator();
+   validator.add(form.userName, [{
+     strategy: 'isNotEmpty',
+     errMsg: '用户名不能为空'
+   },{
+     strategy: 'minLength:6',
+     errMsg: '用户名不能小于6位'
+   }]);
+   var res = validator.start();
+   console.log('校验结果:', res);
+ 
+   //******************************************************************************************************
+   
+   //******************************************************************************************************
+     // 代理模式-缓存代理, 计算乘积的例子
+
+      // 设置计算乘积函数
+      var mult = function() {
+        var res = 1;
+        for (var i = 0, l = arguments.length; i < l; i++) {
+          res *= arguments[i];
+        }
+        return res;
+      };
+      // 缓存代理函数
+      var proxyMult = (function() {
+        var cache = {},
+          self = this;
+        return function() {
+        var args = Array.prototype.join.call(arguments, '_');
+        if (cache[args]) {
+          console.log('计算：' + args + '-从缓存中返回.....');
+          return cache[args];
+        }
+        return cache[args] = mult.apply(this, arguments);
+        };
+      })()
+
+      var res1 = proxyMult(1,2,3);
+      var res2 = proxyMult(4, 5, 6, 1);
+      var res3 = proxyMult(4, 5, 6, 1);
+      console.log(res1, res2, res3);
+      
+
+      // 实现自己的迭代器: 内部迭代器
+      var each = function(ary, callback) {
+        for(var i = 0, l = ary.length; i < l; i++) {
+          if(callback.call(ary[i], i, ary[i]) === false) {
+            // callback 的执行结果返回false, 提前终止迭代
+            break;
+          }
+        }
+      };
+      each([1,2,3, 4, 5, 6], function(i, v){
+        if (i > 3) {
+          return false;
+        }
+        console.log(v);
+      });
+
+   //******************************************************************************************************
+   //******************************************************************************************************
+  
