@@ -1443,5 +1443,26 @@ var isWeixin = (/micromessenger/i.test(navigator.userAgent));
       });
 
    //******************************************************************************************************
+    // 封装参数:
+     /*
+     * 返回 name=zdl&age=21&sex=man&job=web  组装对象参数成字符串
+    */
+    const handleData = (data) => {
+      const keys = Object.keys(data)
+      const keysLen = keys.length;
+      return keys.reduce((pre, cur, index) => {
+        const value = data[cur]
+        const flag = index !== keysLen - 1 ? '&' : ''
+        return `${pre}${cur}=${value}${flag}`
+      }, '');
+    }
+    var res = handleData({
+      name: 'zdl',
+      age: 21,
+      sex: 'man',
+      job: 'web',
+    });
+   //******************************************************************************************************
+   //******************************************************************************************************
    //******************************************************************************************************
   
