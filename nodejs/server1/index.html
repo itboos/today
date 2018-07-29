@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+	<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <meta name="format-detection" content="telephone=no, email=no">
+    <!-- <script src="//res.wx.qq.com/open/js/jweixin-1.2.0.js"></script> -->
+    <title>JSONP和iFrame 发送请求demo</title>
+  
+</head>
+
+  <style>
+    body {
+      padding: 30px;
+      margin: 0;
+      font-size: 16px;
+    }
+  </style>
+  
+<body>
+<script type="text/javascript">
+
+  // 来自： https://segmentfault.com/a/1190000015597029
+  /**
+   * JSONP请求工具
+   * @param url 请求的地址
+   * @param data 请求的参数
+   * @returns {Promise<any>}
+   */
+  const request = ({url, data}) => {
+    return new Promise((resolve, reject) => {
+      // 处理传参成xx=yy&aa=bb的形式
+      const handleData = (data) => {
+        const keys = Object.keys(data)
+        const keysLen = keys.length
+        return keys.reduce((pre, cur, index) => {
+          const value = data[cur]
+          const flag = index !== keysLen - 1 ? '&' : ''
+          return `${pre}${cur}=${value}${flag}`
+        }, '');
+      }
+      // 动态创建script标签
+      const script = document.createElement('script');
+      // 接口返回的数据获取-定义接口回调
+      window.jsonpCb = (res) => {
+        document.body.removeChild(script);
+        delete window.jsonpCb;
+        resolve(res);
+      }
+      script.type="text/javascript";
+      script.src = `${url}?${handleData(data)}&callback=jsonpCb`;
+      document.body.appendChild(script);
+    })
+  }
+  // 使用方式
+  request({
+    url: 'http://localhost:3000/q/',  // get请求地址
+    data: {
+      // 传参
+      msg: 'helloJsonp',
+
+    }
+  }).then(res => {
+    console.log(res)
+  });
+
+  // 后台去除callback方法的值， 输出 jsonpCb('data') 即可
+
+</script>
+
+<script type="text/javascript">
+// 利用iframe 实现发送跨域 post 请求: 强
+const requestPost = ({url, data}) => {
+  // 首先创建一个用来发送数据的iframe.
+  const iframe = document.createElement('iframe');
+  iframe.name = 'iframePost';
+  iframe.style.display = 'none';
+  document.body.appendChild(iframe); // 添加到当前网页
+  const form = document.createElement('form');
+  const node = document.createElement('input');
+  // 注册iframe的load事件处理程序,如果你需要在响应返回时执行一些操作的话.
+  iframe.addEventListener('load', function () {
+    console.log('post success');
+  });
+
+  form.action = url;
+  // 在指定的iframe中执行form
+  form.target = iframe.name; // 这个是关键？
+  form.method = 'post';
+  // 将数据一个一个设置到input里，然后追加到表单上
+  for (let name in data) {
+    node.name = name
+    node.value = data[name].toString()
+    form.appendChild(node.cloneNode());
+  }
+  // 表单元素需要添加到主文档中.
+  form.style.display = 'none';
+  document.body.appendChild(form);
+  form.submit(); // 提交表单
+
+  // 表单提交后,就可以删除这个表单,不影响下次的数据发送.
+  document.body.removeChild(form);
+}
+// 使用方式
+requestPost({
+  url: 'http://localhost:3000/api/post',
+  data: {
+    msg: 'helloIframePost',
+    age: 24,
+  }
+});
+</script>
+
+</body>
+</html>
