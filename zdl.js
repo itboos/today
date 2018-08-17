@@ -1511,6 +1511,24 @@ var isWeixin = (/micromessenger/i.test(navigator.userAgent));
   // 后台去除callback方法的值， 输出 jsonpCb('data') 即可
   // 例如：jquery： echo $callback."(".$result.")";
 
+   //************************** 利用职责链模式来编写after 函数 ****************************************************************************
+   Function.prototype.after = function(fn) {
+     var self = this;
+     return function() {
+        var ret = self.apply(this, arguments);
+        if (ret === 'nextSuccessor') {
+          return fn.apply(this, arguments);
+        }
+        return ret;
+     };
+   };
+   var fn1 = function() { console.log('喝茶...')};
+   var fn2 = function() { console.log('吃饭...')};
+   var fn3 = function() { console.log('敲代码...')};
+   var order = fn1.after(fn2).after(fn3);
+   order();
+
+   //******************************************************************************************************
    //******************************************************************************************************
    //******************************************************************************************************
   
