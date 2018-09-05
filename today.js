@@ -1,5 +1,5 @@
 /**
- *  同步一些设置 2018-09-04 17:55:25 同步公司文件
+ *  同步一些设置 2018-09-04 17:55:25 同步文件
  *  
  *  
  * 
@@ -19,5 +19,14 @@
   持久性数据提供了一个可变API，它不会就地更新数据，而是始终产生新的更新数据。
   1.http://facebook.github.io/immutable-js/
   GitHub： https://github.com/facebook/immutable-js/
+
+  React 官方文档：
+  https://reactjs.org/docs/refs-and-the-dom.html
+
+  propo-type: Runtime type checking for React props and similar objects.
+  https://www.npmjs.com/package/prop-types
+  Selector library for Redux：
+  
+  https://github.com/reduxjs/reselect
 
  */
