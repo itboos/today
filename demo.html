@@ -12,17 +12,47 @@
 </style>
 </head>
 <body>
-    <!-- <audio id="jp_audio_0" preload="metadata"  autoplay src="http://7tt03k.com1.z0.glb.clouddn.com/yyg-dong-tian-zai-yin-yue-li-qu-nuan.mp3"></audio> -->
-  
-<!-- <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js"></script> -->
 
-<script>
-  var str = 'http://www.baidu.com/a.pnghhjhkjhttp://www.baidu.com/b.png好可怜的是否结束考虑到附近http://www.baidu.com/c.png';
- var reg = /^https?:\/\/.+\.(jpg|gif|png)$/g;
-  var arr= [];
-  str.replace(reg, function(m, i) {
-    arr.push(m);
-  });
+  <div class="container"></div>
+  <!-- Load React. -->
+  <!-- Note: when deploying, replace "development.js" with "production.min.js". -->
+  <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+<script type="text/babel">
+ "use strict";
+  const e =  React.createElement;
+
+  class LikeBtn extends React.Component {
+    constructor(props) {
+      super(props);
+      this.state = {
+        liked: false,
+      };
+    }
+    render() {
+      if (this.state.liked) {
+        return (
+          <button onClick={() => this.setState({ liked: !this.state.liked })} >
+            not Like
+          </button>
+        );
+      }
+      return e(
+        'button', {
+          onClick: () => {
+            this.setState({
+              liked: true,
+            });
+          },
+        },
+        'like'
+      );
+    }
+  }
+
+  const container = document.querySelector('.container');
+  ReactDOM.render(e(LikeBtn), container);
 </script>
 </body>
 </html>
