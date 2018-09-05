@@ -235,7 +235,7 @@ css 开关:
                   <span class="switch-switch"></span>  
               </label>  
          </div>  
-<script src="http://nh5.nagezan.net/wx/loveshow/js/jquery-2.1.3.min.js"></script>
+
 <script >
    	$(document).ready(function() {  
    	    $("#onoffswitch").on('click', function(){  
