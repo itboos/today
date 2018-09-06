@@ -30,5 +30,23 @@
   Selector library for Redux：
 
   https://github.com/reduxjs/reselect
+  
+  Less 中文文档：
+  http://www.css88.com/doc/less/features/
+  https://less.bootcss.com/features/ 英文文档
+
+  React - gatsbyjs: 构建 pc站：
+  https://www.gatsbyjs.org/tutorial/part-three/
+  几个用到的库：
+   1. removedev: https://www.npmjs.com/package/remotedev-server
+   2. ramda: 一款实用的 JavaScript 函数式编程库。
+      https://www.npmjs.com/package/ramda 
+      github: https://github.com/ramda/ramda
+      中文文档： http://ramda.cn/
+   3. moment: 一个轻量级的JavaScript日期库，用于解析，验证，操作和格式化日期
+   https://www.npmjs.com/package/moment
+
+  vscode 快捷键：
+  1. control + alt + i 插入作者信息
 
  */
