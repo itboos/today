@@ -49,4 +49,21 @@
   vscode 快捷键：
   1. control + alt + i 插入作者信息
 
+  9.07:
+  wepy 官方文档：
+  https://tencent.github.io/wepy/document.html#/
+  一些框架常见的问题解决方法：
+  github: https://github.com/Tencent/wepy/wiki/WePY-%E4%BD%BF%E7%94%A8less-autoprefix
+  
+  前端页面预处理:
+  https://github.com/chrisvfritz/prerender-spa-plugin/tree/master/examples/create-react-app-eject
+  9.07：
+   比较好博客：
+   https://blog.sessionstack.com/how-javascript-works-under-the-hood-of-css-and-js-animations-how-to-optimize-their-performance-db0e79586216
+
+  PC 官网：
+  1.  相应式的处理
+  2. css 动画
+    vue 做官网的限制
+
  */

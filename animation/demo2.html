@@ -3,7 +3,6 @@
 <head>
   <meta charset="UTF-8">
   <title>网站菜单</title>
-  <script src="./lozad.js"></script>
  <style>
    html {
     box-sizing: border-box;
@@ -68,13 +67,6 @@
   </div>
   <div class="main"></div>
   <!-- <div class="container" id = "div"></div> -->
-  
-  
-  <!-- Load React. -->
-  <!-- Note: when deploying, replace "development.js" with "production.min.js". -->
-  <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
-  <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
-  <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
 <script type="text/babel">
 
 
@@ -85,29 +77,4 @@
 </script>
 </body>
 </html>
-
-
-
-
-
-
-<!-- 图片懒加载的demo: 
-<body>
-  <h3 data-title='这是标题' data-test='test'>这是标题.....</h3>	
-  <img class="lozad2" data-src="https://images.pexels.com/photos/572226/pexels-photo-572226.jpeg?w=1260&h=750&auto=compress&cs=tinysrgb">
-  <img class="lozad2" data-src="https://images.pexels.com/photos/571150/pexels-photo-571150.jpeg?w=1260&h=750&auto=compress&cs=tinysrgb" />
-" />
-<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js"></script>
-
-<script>
-  const observer = lozad('.lozad2', {
-    holdImgUrl: 'https://www.google.co.jp/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png',
-    errorImgUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRH1IwvUPAFV_bE7HdUSvFf-g1xmdAZ_vr1_pH41gxXWaYc6zVVew',
-  }); // lazy loads elements with default selector as '.lozad'
-  observer.observe();
-
-</script>
-</body>
-
--->
 
