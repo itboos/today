@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="UTF-8">
+  <title> 动画相关 </title>
+ <style>
+  img {
+    vertical-align: top;
+    transition:all .5s ease-in-out;
+  }
+  .box {
+    width: 300px;
+    height: 300px;
+    background: lawngreen;
+    -webkit-transform: translate(0, 0);
+    -webkit-transition: -webkit-transform 1s;
+    transform: translate(0, 0);
+    transition: transform 1s;
+  }
+  .box.move {
+    -webkit-transform: translate(50px, 50px);
+    transform: translate(50px, 50px);
+  }
+
+  .box-2 {
+    width: 100px;
+    height: 100px;
+    background: red;
+    /* Choose the animation */
+    animation-name: movingBox;
+
+    /* The animation’s duration */
+    animation-duration: 2300ms;
+
+    /* The number of times we want
+        the animation to run */
+    /* animation-iteration-count: infinite; */
+    animation-iteration-count: 2;
+
+    /* Causes the animation to reverse
+        on every odd iteration */
+    animation-direction: alternate;
+  }
+
+  @keyframes movingBox {
+    0% {
+      transform: translate(0, 0);
+      opacity: 0.4;
+    }
+
+    25% {
+      opacity: 0.9;
+    }
+
+    50% {
+      transform: translate(150px, 200px);
+      opacity: 0.2;
+    }
+
+    100% {
+      transform: translate(40px, 30px);
+      opacity: 0.8;
+    }
+  }
+
+</style>
+</head>
+<body>
+  <div class="container" id = "div"></div>
+  <div class="btn">点击我</div>
+  <div class="box"></div>
+  <div class="box-2"></div>
+  
+  <!-- Load React. -->
+  <!-- Note: when deploying, replace "development.js" with "production.min.js". -->
+  <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+<script type="text/babel">
+  const btn = document.querySelector('.btn');
+  const box = document.querySelector('.box');
+  btn.addEventListener('click', function() {
+    box.classList.add('move');
+  }, false);
+  // 添加动画结束的监听方法
+  box.addEventListener('transitionend', function() {
+    console.log('动画结束了....');
+  }, false);
+
+  /* 写一个 transitionEnd 的通用方法 */
+
+</script>
+<script>
+
+  
+</script>
+</body>
+</html>
+

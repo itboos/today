@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="UTF-8">
+  <title>网站菜单</title>
+ <style>
+   html {
+    box-sizing: border-box;
+    font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica Neue,sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+   }
+   *, :after, :before {
+     box-sizing: inherit;
+   }
+    html,body {
+      height: 100%;
+      margin: 0;
+    }
+  .fake {
+    height: 50px;
+  }
+  img {
+    vertical-align: top;
+    transition:all .5s ease-in-out;
+  }
+  .header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 50px;
+    background: limegreen;
+  }
+  .main {
+    background: red;
+    /* height: calc(100% - 50px); */
+    min-height: calc(100vh - 50px);
+  }
+  .nav-wrap {
+    width: 90%;
+    padding: 0 20px;
+    margin: 0 auto;
+    display: flex;
+  }
+  .nav {
+    color: #000;
+    background: #fff;
+    width: calc(100vw / 4);
+    text-align: center;
+    line-height: 50px;
+  }
+
+</style>
+</head>
+<body>
+  <div class="fake"></div>
+  <div class="header">
+    <div class="nav-wrap">
+      <div class="nav">菜单1</div>
+      <div class="nav">菜单2</div>
+      <div class="nav">菜单3</div>
+      <div class="nav">菜单4</div>
+    </div>
+  </div>
+  <div class="main"></div>
+  <!-- <div class="container" id = "div"></div> -->
+<script type="text/babel">
+
+
+</script>
+<script>
+
+  
+</script>
+</body>
+</html>
+

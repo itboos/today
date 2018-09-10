@@ -4,7 +4,7 @@ var helloData = {
     name: '手机用户2803',
     uid: 10895642,
     index: 1,
-    head:             'http://static.live.nagezan.net/6aee5d74-03a3-4068-bfd3-fbebd9c7c668.jpg'
+    head: ''
   }],
 };
 
