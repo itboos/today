@@ -63,9 +63,29 @@
    比较好博客：
    https://blog.sessionstack.com/how-javascript-works-under-the-hood-of-css-and-js-animations-how-to-optimize-their-performance-db0e79586216
 
+
   PC 官网：
   1.  相应式的处理
   2. css 动画
     vue 做官网的限制
+    PC 站点预渲染：
+    https://github.com/chrisvfritz/prerender-spa-plugin
+   9.11:
+
+  可以看的:
+    1.vue中自定义触屏事件，点击、滑动、左滑、右滑、下滑、上滑、长按
+    https://blog.csdn.net/huchangjiang0/article/details/80325146
+    官网demo:
+    http://www.bstcine.com/
+    2. redux.js 源码学习：
+    https://juejin.im/post/5b9617835188255c781c9e2f
+    3.css 添加浏览器 前缀:
+    https://github.com/postcss/autoprefixer
+
+  9.12:
+   Shadow DOM v1：独立的网络组件:
+   https://developers.google.com/web/fundamentals/web-components/shadowdom?hl=zh-cn#_3
+   谷歌浏览器开启显示shadow dom:
+   
 
  */
