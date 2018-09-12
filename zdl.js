@@ -1522,12 +1522,65 @@ var isWeixin = (/micromessenger/i.test(navigator.userAgent));
         return ret;
      };
    };
-   var fn1 = function() { console.log('喝茶...')};
-   var fn2 = function() { console.log('吃饭...')};
-   var fn3 = function() { console.log('敲代码...')};
+   var fn1 = function() { console.log('喝茶...'); return 'nextSuccessor'};
+   var fn2 = function() { console.log('吃饭...') ; return 'nextSuccessor'};
+   var fn3 = function() { console.log('敲代码...') ; };
    var order = fn1.after(fn2).after(fn3);
    order();
 
+   //***********************  After 和Before 函数 *******************************************************************************
+        // AOP 装饰函数: 在一个函数执行前/后 执行一个方法
+        Function.prototype.before = function(beforeFn) {
+          var _self = this; // 保存原函数的应用
+          return function() {
+            beforeFn.apply(this, arguments); // 执行新函数，并且保证this 不被劫持
+            return _self.apply(this, arguments); // 执行原函数，并且返回原函数的执行结果
+          };
+        }
+        Function.prototype.after = function(afterFn) {
+          var _self = this;
+          return function() {
+            var ret = _self.apply(this, arguments);
+            afterFn.apply(this, arguments);
+            return ret;
+          };
+        }
+    
+        // 不改变函数原型的方法， 新建一个befor 和after方法
+        var before = function(fn, beforeFn) {
+          return function() {
+            beforeFn.apply(this, arguments);
+            return fn.apply(this, arguments); 
+          };
+        };
+        var after = function(fn, afterFn) {
+          return function() {
+            var ret = fn.apply(this, arguments); 
+            afterFn.apply(this, arguments);
+            return ret;
+          };
+        };
+        // before 测试栗子
+        var a = before(
+          function() {console.log('要执行的函数')},
+          function() {console.log('在函数执行前执行')},
+        );
+        a();
+        // after 测试栗子
+        var b = after(
+          function() {console.log('要执行的函数')},
+          function() {console.log('在函数执行后执行')},
+        );
+        b();
+    
+        window.onload = function() {
+          console.log(1);
+        };
+        window.onload = window.onload.after(function() {
+          console.log(2);
+        });
+
+   //******************************************************************************************************
    //******************************************************************************************************
    //******************************************************************************************************
    //******************************************************************************************************
