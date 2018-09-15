@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="UTF-8">
+  <title>Vue 自定义指令-封装一个vue-touch</title>
+ <style>
+   html {
+    box-sizing: border-box;
+    font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica Neue,sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+   }
+   *, :after, :before {
+     box-sizing: inherit;
+   }
+   html,body {
+    height: 100%;
+    margin: 0;
+  }
+  .box {
+    width: 400px;
+    height: 400px;
+    background: lawngreen;
+  }
+</style>
+</head>
+<body>
+  <!-- <div class="container" id = "div"></div> -->
+  <script src="https://unpkg.com/vue/dist/vue.js"></script>
+  <script src="./js/vue_touch.js"></script>
+<div id="app">
+  <!-- vuetouch 为函数名，如果没有参数可以直接写函数名，如果有， 则以对象的形式传递，fn为函数名 */  -->
+  <div class="box" 
+      v-tap = "vuetouch" 
+      v-swipe = "swipeFn"
+      v-swiperight = "swiperightFn"
+      v-swipeleft = "{ fn: swipeleftFn, name: '左滑'}"
+      v-swipeup = "swipeupFn"
+      v-swipedown = "swipedownFn"
+      v-longtap = "longtapFn"
+  >
+
+  </div>
+</div>
+<script>
+
+  const app = new Vue({
+    el: '#app',
+    methods: {
+      vuetouch: function(data) {
+        console.log('tap 了，参数为:', data);
+      },
+      swipeFn: function(data) {
+        console.log('swipe了：参数为:', data);
+      },
+      swiperightFn: function(data) {
+        console.log('swiperight了：参数为:', data);
+      },
+      swipeleftFn: function(data) {
+        console.log('swipeleft了，参数为:', data);
+      },
+      swipeupFn: function(data) {
+        console.log('swipeup了，参数为:', data);
+      },
+      swipedownFn: function(data) {
+        console.log('swipedown了，参数为:', data);
+      },
+      longtapFn: function(data) {
+        console.log('longtap了，参数为:', data);
+      }
+    },
+   })
+</script>
+</body>
+</html>
+

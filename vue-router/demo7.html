@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="UTF-8">
+  <title>Vue 自定义指令</title>
+ <style>
+   html {
+    box-sizing: border-box;
+    font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica Neue,sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+   }
+   *, :after, :before {
+     box-sizing: inherit;
+   }
+   html,body {
+    height: 100%;
+    margin: 0;
+  }
+
+</style>
+</head>
+<body>
+  <div id="test"></div>
+  <div id="app">
+    <input type="text" v-focus = "{ color: 'white', text: 'hello!' }" key = "input-1"/>
+    <div class="test" v-name = "'钟冬林'"></div>
+  </div>
+  <!-- <div class="container" id = "div"></div> -->
+  <script src="https://unpkg.com/vue/dist/vue.js"></script>
+  <script>
+    // 注册一个全局自定义指令 ‘v-foucus’
+    Vue.directive('focus', {
+      // 当被绑定的元素插入到DOM中时。。。
+      inserted: function(el) {
+        console.log('元素插入到DOM中...');
+        // 聚焦元素
+        el.focus();
+        // el.value = '自动设置的值';
+      },
+      //只调用一次，指令第一次绑定到元素时调用
+      bind: function(el, binding, vnode) {
+        console.log('指令第一次绑定到元素上....');
+        console.log('el, binding, vnode:', el, binding, vnode);
+        var s = JSON.stringify;
+        window.test.innerHTML =
+          'name: '       + s(binding.name) + '<br>' +
+          'value: '      + s(binding.value) + '<br>' +
+          'expression: ' + s(binding.expression) + '<br>' +
+          'argument: '   + s(binding.arg) + '<br>' +
+          'modifiers: '  + s(binding.modifiers) + '<br>' +
+          'vnode keys: ' + Object.keys(vnode).join(', ');
+      },
+    });
+    // 定义指令的简写形式 在很多时候，你可能想在 bind 和 update 时触发相同行为，而不关心其它的钩子
+    Vue.directive('name', function(el, binding) {
+      console.log('----------------------');
+      console.log('el, binding', el, binding);
+      el.innerHTML = binding.value;
+    });
+
+    // 如果是想注册局部指令的滑，组件中页接受一个directives 的选项
+    /*
+    directives: {
+      foucs: {
+        // 指令的定义： 
+        inserted: function(el) {
+          el.foucs();
+        }
+      }
+    }
+    */
+
+  </script>
+<script>
+  const app = new Vue({
+    data: {
+      message: 'this is message',
+    },
+   }).$mount('#app');
+</script>
+</body>
+</html>
+
