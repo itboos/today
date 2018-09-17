@@ -73,8 +73,6 @@
    9.11:
 
   可以看的:
-    1.vue中自定义触屏事件，点击、滑动、左滑、右滑、下滑、上滑、长按
-    https://blog.csdn.net/huchangjiang0/article/details/80325146
     官网demo:
     http://www.bstcine.com/
     2. redux.js 源码学习：
@@ -86,6 +84,10 @@
    Shadow DOM v1：独立的网络组件:
    https://developers.google.com/web/fundamentals/web-components/shadowdom?hl=zh-cn#_3
    谷歌浏览器开启显示shadow dom:
+
+  9.18:
+  loadscript 各种方法：
+  https://github.com/letiantian/how-to-load-dynamic-script
    
 
  */

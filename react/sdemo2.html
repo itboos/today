@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="UTF-8">
+  <title>简单版react</title>
+ <style>
+   html {
+    box-sizing: border-box;
+    font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica Neue,sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+   }
+   *, :after, :before {
+     box-sizing: inherit;
+   }
+   html,body {
+    height: 100%;
+    margin: 0;
+  }
+</style>
+</head>
+<body>
+  <div class="container" id = "div"></div>
+  
+  
+  <!-- Load React. -->
+  <!-- Note: when deploying, replace "development.js" with "production.min.js". -->
+  <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+<script type="text/babel">
+  class App extends React.Component {
+    componentDidMount() {
+      const dom = ReactDOM.findDOMNode(this);
+      console.log('DOM为:', dom);
+      setTimeout(() => {
+        this.unmountComponentAtNode(this);
+      }, 2000);
+    }
+    unmountComponentAtNode() {
+
+    }
+    render() {
+      return (<h3>这是头部</h3>);
+    }
+  }
+  ReactDOM.render(
+    <App />,
+    document.querySelector('.container'),
+  );
+
+</script>
+<script>
+
+  
+</script>
+</body>
+</html>
+
