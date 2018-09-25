@@ -79,6 +79,10 @@
     https://juejin.im/post/5b9617835188255c781c9e2f
     3.css 添加浏览器 前缀:
     https://github.com/postcss/autoprefixer
+    4. immutable  入坑指南
+    http://www.aliued.com/?p=4175
+    React源码分析-ant-H5
+    https://www.yuque.com/ant-h5/react/ygoa2g
 
   9.12:
    Shadow DOM v1：独立的网络组件:
@@ -88,6 +92,59 @@
   9.18:
   loadscript 各种方法：
   https://github.com/letiantian/how-to-load-dynamic-script
-   
 
+  官网存在的问题：
+  1.transtion slide 开启动画不显示的问题
+  2. 打包后，文件路径出错的问题， 1开始时绝对路径，后来改成相对路径，然后路径也不对
+  3. 首页底部的菜单差一个  商务合作的菜单
+  4. 商务合作，和其它子页面顶部的头部可能需要轮播图的形式
+  5. fullpage.css 在main.js 里引入了，可以删除pc 上引入的文件
+
+  9.19: 上午开会 下午开会
+
+  9.20:
+  上午:
+  2. 门店轮播图样式修改
+  4. 轮播图的切换按钮上传到服务器, done (使用了本地图片)
+  5. 建立任务列表 done
+
+
+  下午:
+  4.  FAQ页
+  5.  媒体报道页
+  
+  任务列表:
+  1. PC官网首页
+  2. PC 商务合作页
+  3. FAQ页
+  4. 媒体报道页，创投商机，生活方式
+  5. 超猩社区，单篇文章
+
+  注意事项：
+  1. 建立任务时把还没开始的也写上
+  2. UI 小改动修改完成后同步给 UI
+  
+
+  9.21:
+  1. FAQ页 done
+  2. 媒体报道页，创投商机，生活方式 done
+  3. 商务合作页 bscooperation done
+  4. 首页的一些改动 底部的菜单添加商务合作，nav 里的英文字母的字体改为14px
+
+  https://36kr.com/p/5107277.html
+  http://news.winshang.com
+  https://www.pingwest.com/a/89737
+
+  9.25: 
+   1. 媒体报道剩余页 done
+   2. 超猩社区页 done 差研究接口
+   3. 招聘首页
+   4. 不存在的路由 404 组件
+   5. 修改后的底部
+   6. 文章分享到微信，朋友圈的方法
+
+  9.23:
+  redux设计思想:
+  https://www.mtyun.com/library/redux-design-code
+  https://www.mtyun.com/library/redux-design-code
  */
