@@ -639,3 +639,8 @@ node 笔记:
 也可以通过 git checkout  xxx文件  放弃本次修改，这会让文件回到上次提交的状态，把修改的内容都放弃了
 b1分支的提交
  ```
+
+ Mac 安装tree工具，显示目录的层级
+ brew install tree
+ 查看某个目录的层级
+ 进入某个文件夹, tree 
