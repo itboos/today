@@ -99,6 +99,7 @@
   3. 首页底部的菜单差一个  商务合作的菜单
   4. 商务合作，和其它子页面顶部的头部可能需要轮播图的形式
   5. fullpage.css 在main.js 里引入了，可以删除pc 上引入的文件
+  6. 404 页面刚刷新，logo 不见得问题
 
   9.19: 上午开会 下午开会
 
@@ -129,7 +130,7 @@
   1. FAQ页 done
   2. 媒体报道页，创投商机，生活方式 done
   3. 商务合作页 bscooperation done
-  4. 首页的一些改动 底部的菜单添加商务合作，nav 里的英文字母的字体改为14px
+  4. 首页的一些改动 底部的菜单添加商务合作，nav 里的英文字母的字体改为14px done
 
   https://36kr.com/p/5107277.html
   http://news.winshang.com
@@ -138,13 +139,127 @@
   9.25: 
    1. 媒体报道剩余页 done
    2. 超猩社区页 done 差研究接口
-   3. 招聘首页
-   4. 不存在的路由 404 组件
-   5. 修改后的底部
+   3. 招聘首页 done
+   4. 不存在的路由 404 组件 done
+   5. 修改后的底部 done
    6. 文章分享到微信，朋友圈的方法
+
+  9.26:
+    1. 文章接口
+       问题：  1. post 和page 的区别是什么？ 看之前用的是page
+              2. 如何设置文章的slug, 默认的是文章的标题
+              post 可以设置目录和标签， 而文章不行. 标签和目录返回的都是数字，可以手动定义么
+              3. 如何获取所有的标签， 先写死？ wordpress 有接口返回么?
+
+
+       正式接口: https://www.supermonkey.com.cn
+       获取所有的posts:
+       http://wordpress.supermonkey.com.cn/wp-json/wp/v2/posts
+       获取所有的pages:
+       http://wordpress.supermonkey.com.cn/wp-json/wp/v2/pages
+
+       获取所有的目录：
+       http://wordpress.supermonkey.com.cn/wp-json/wp/v2/categories
+       获取所有的标签:
+       http://wordpress.supermonkey.com.cn/wp-json/wp/v2/tags
+
+       推荐是根据标签还是目录来过滤的？
+
+       过滤文章：
+       根据标签来过滤文章:
+       http://wordpress.supermonkey.com.cn/wp-json/wp/v2/posts?tag=6
+       根据slug来过滤文章： 
+       http://wordpress.supermonkey.com.cn/wp-json/wp/v2/posts?=slug=%E6%B5%8B%E8%AF%95%E8%B6%85%E7%8C%A9%E7%A4%BE%E5%8C%BA%E6%96%87%E7%AB%A0%E6%A0%87%E9%A2%98-1
+
+     超猩社区文章: 
+     http://test9.supermonkey.com.cn/pc/sm/article?slug=aaaaa 根据slug 去区分文章
+
+    3. 招聘首页 done
+    4. 不存在的路由 404页面 组件 done
+
+    5. 文章页内容获取的接口 todo 
+     超猩社区: 先获取所有的目录列表，然后找到名为 超猩社区的目录，拿到目录ID, 在 根据目录ID 去哪文章列表
+     标签的话，获取所有的标签，显示出来？ 点击后根据标签过滤文章？？？
+     返回的tags 是数字
+
+    5. 看下路由懒加载
+
+    5. 关于我们页面
+    5. 修改后的底部
+    6. 文章分享到微信，朋友圈的方法
+
+    
+
+
+    9.27: 
+    1. 修改底部 done
+    2. 超猩学院 -monkeyCollege done
+
+    9.28: 
+    1. 招聘页 2个大页面
+    2. 关于我们页
+    3. 整理需要背景图的地方，找设计要，记录下没写和要换背景图的地方
+       1. 职能招聘底部的背景， 二维码左右的箭头
+       https://txt2pic.bannedbook.org/img/15381277324053.gif
+    9.29:
+     1. 职能招聘页
+     2. 关于我们页
+     3. EP 沟通视频，文章，和图片的给定时间
+     4. 打包后的问题
+
+    9.30 
+     1. 招聘页的完成 done
+     2. 打包出的问题(放在跟目录下没问题)
+     3. 首页-视频页（底部的黑边问题)
+    
+  官网问题：
+  1. 关于我们介绍页 -2017年的内容和设计没有 -小明
+
+  10.8: 
+   官网相关的问题：
+   1. 首页-视频页（底部的黑边问题) -未复现了
+   2. 关于我们介绍页 -2017年的内容和设计没有 -小明
+   3. 官网给设计验收, 列出存在的问题
+   4. footer 底部的logo 用图片
+   5. 一些其余用到的图片上传到cdn, 拿到图片地址
+   6. Pc 官网 index.html 的描述 done
+   7. 关于我们 年份介绍的 左滑 右滑 - 有疑惑-问下
+   8. 发送需要的图标给设计 done
+   9. 更新已经有的图片，拿到图片CDN地址
+   10.job 页 菜单 -差猩猩管家的菜单
+   11. 菜单logo 不显示的问题
+   12. faq 内容的补充.
+
+   剩余问题：
+    1. 首页门店的 接口，和点击进去的子页面的门店列表接口一样
+    2. 超猩社区的文章接口，标签接口， 分享文章到微信的接口
+    3. 一些之前没传的固定图片的更改
+
+
+
+
+
+
+
+
+
+
+
 
   9.23:
   redux设计思想:
   https://www.mtyun.com/library/redux-design-code
   https://www.mtyun.com/library/redux-design-code
+
+  9.27:
+  1. westore 世界上最小却强大的小程序框架 - 100多行代码搞定全局状态管理和跨页通讯
+   https://github.com/dntzhang/westore
+  2. 腾讯omi 框架：
+  https://github.com/Tencent/omi
+  3. redux源码分析
+  http://web.jobbole.com/91362/
+
+  10.03:
+  Vue.js 技术揭秘
+  https://ustbhuangyi.github.io/vue-analysis/extend/tansition.html#transition-module
  */
