@@ -219,7 +219,7 @@
    官网相关的问题：
    1. 首页-视频页（底部的黑边问题) -未复现了
    2. 关于我们介绍页 -2017年的内容和设计没有 -小明
-   3. 官网给设计验收, 列出存在的问题
+   3. 官网给设计验收, 列出存在的问题(等静态Icon 替换后，再给) 未  1
    4. footer 底部的logo 用图片
    5. 一些其余用到的图片上传到cdn, 拿到图片地址
    6. Pc 官网 index.html 的描述 done
@@ -228,13 +228,28 @@
    9. 更新已经有的图片，拿到图片CDN地址
    10.job 页 菜单 -差猩猩管家的菜单
    11. 菜单logo 不显示的问题
-   12. faq 内容的补充.
+   12. faq 内容的补充. done
 
    剩余问题：
     1. 首页门店的 接口，和点击进去的子页面的门店列表接口一样
     2. 超猩社区的文章接口，标签接口， 分享文章到微信的接口
     3. 一些之前没传的固定图片的更改
+  
+    10.09:
+     1. 首页接口的定义形式和后台约定, 改成首页获取数据，后面每次传给子组件.
+     2. 拿到图片Icon， 拿到cdn 地址，更换图片 done
+     3. 官网给设计验收, 列出存在的问题(等静态Icon 替换后，再给)
+     4. 图片，视频， 社区文章给的时间
+     5. 文章分享页的 图片滑动， 微信分享形式， 微博分享形式.
+     6. 招聘页的链接找谁拿.done
+     7. 门店的中英文如何显示的问题（PM）, 设计里没有体现（UI） PC端样式先不用英文的样式. done
+     8. 社区文章的展示，引入cms 里面, 引入样式
 
+     微博分享链接：
+     http://service.weibo.com/share/share.php?title=%23%E6%8B%89%E5%8B%BE%E7%BD%91%E4%BC%98%E8%B4%A8%E4%BC%81%E4%B8%9A%23%E6%88%91%E5%9C%A8%E6%8B%89%E5%8B%BE%E7%BD%91%E5%8F%91%E7%8E%B0%E8%B6%85%E7%BA%A7%E7%8C%A9%E7%8C%A9%E5%81%A5%E8%BA%AB%EF%BC%8C%E8%BF%99%E5%AE%B6%E5%85%AC%E5%8F%B8%E5%BE%88%E8%B5%9E%EF%BC%8C%E4%BB%96%E4%BB%AC%E5%BE%88%E5%A4%9A%E8%81%8C%E4%BD%8D%E5%9C%A8%E6%89%BE%E7%89%9B%E4%BA%BA%EF%BC%8C%E5%A6%82%E6%9E%9C%E4%BD%A0%E5%AF%B9%E8%BF%99%E5%AE%B6%E5%85%AC%E5%8F%B8%E6%84%9F%E5%85%B4%E8%B6%A3%EF%BC%8C%E5%BF%AB%E6%9D%A5%E7%9C%8B%E7%9C%8B%E6%9C%89%E6%B2%A1%E9%80%82%E5%90%88%E4%BD%A0%E7%9A%84%E8%81%8C%E4%BD%8D%E5%90%A7%EF%BC%81&
+     url=https%3A%2F%2Fwww.lagou.com%2Fgongsi%2F70395.html
+     &appkey=3761453225&
+     pic=https%3A%2F%2Fwww.lagou.com%2Fi%2Fimage%2FM00%2F16%2F9C%2FCgpFT1j9rAqAIj3fAABIIWZFhK0392.png#_loginLayer_1539054702404
 
 
 
@@ -262,4 +277,8 @@
   10.03:
   Vue.js 技术揭秘
   https://ustbhuangyi.github.io/vue-analysis/extend/tansition.html#transition-module
+  10.08 
+  svg 入门：
+  https://developer.mozilla.org/zh-CN/docs/Web/SVG/Tutorial/Getting_Started
+  https://developer.mozilla.org/zh-CN/docs/Web/SVG
  */
