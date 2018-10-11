@@ -113,4 +113,13 @@
   svg 入门：
   https://developer.mozilla.org/zh-CN/docs/Web/SVG/Tutorial/Getting_Started
   https://developer.mozilla.org/zh-CN/docs/Web/SVG
+
+  10.09:
+  85行代码实现一个简单版的React.js
+  https://juejin.im/post/5ba906eae51d450e78261dbb
+
+    问题：
+      export 的用法，
+      什么时候可以用 import {a,b} from 'u.js'  什么时候用 import a from 'u'
+      2. 图片： 父元素 width: 100px, 子元素， max-width: 100%, width: 120px, 图片只能显示 100px
  */
