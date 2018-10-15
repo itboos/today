@@ -118,8 +118,9 @@
   85行代码实现一个简单版的React.js
   https://juejin.im/post/5ba906eae51d450e78261dbb
 
-    问题：
-      export 的用法，
-      什么时候可以用 import {a,b} from 'u.js'  什么时候用 import a from 'u'
-      2. 图片： 父元素 width: 100px, 子元素， max-width: 100%, width: 120px, 图片只能显示 100px
+  10.15:
+   1. http://cn.redux.js.org/docs/introduction/CoreConcepts.html
+   2. https://github.com/reduxjs/reselect#motivation-for-memoized-selectors
+   3. https://github.com/reduxjs/reselect#q-can-i-use-reselect-without-redux
+   4.https://zhuanlan.zhihu.com/p/33985606
  */
