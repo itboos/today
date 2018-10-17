@@ -130,4 +130,9 @@
     http://cn.redux.js.org/docs/basics/UsageWithReact.html
     http://imweb.io/topic/5a1969b2a192c3b460fce226
     https://juejin.im/entry/5947702461ff4b006cf8ff86
+
+    可以看的：
+    react-redux 源码学习:
+    https://github.com/antgod/sourcecode-react-redux/blob/master/src/components/connect.js
+    https://juejin.im/entry/5947702461ff4b006cf8ff86
  */
