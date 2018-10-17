@@ -123,4 +123,11 @@
    2. https://github.com/reduxjs/reselect#motivation-for-memoized-selectors
    3. https://github.com/reduxjs/reselect#q-can-i-use-reselect-without-redux
    4.https://zhuanlan.zhihu.com/p/33985606
+
+   10.17：
+    normalizr：
+    https://github.com/paularmstrong/normalizr
+    http://cn.redux.js.org/docs/basics/UsageWithReact.html
+    http://imweb.io/topic/5a1969b2a192c3b460fce226
+    https://juejin.im/entry/5947702461ff4b006cf8ff86
  */
