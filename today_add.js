@@ -135,4 +135,9 @@
     react-redux 源码学习:
     https://github.com/antgod/sourcecode-react-redux/blob/master/src/components/connect.js
     https://juejin.im/entry/5947702461ff4b006cf8ff86
+
+
+  10.18:
+   Next generation web framework in 4KB javascript(Web Components + JSX + Proxy + Path Updating) http://omijs.org
+   https://github.com/Tencent/omi
  */
