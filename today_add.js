@@ -140,4 +140,6 @@
   10.18:
    Next generation web framework in 4KB javascript(Web Components + JSX + Proxy + Path Updating) http://omijs.org
    https://github.com/Tencent/omi
+   Fast 3kB React alternative with the same modern API. Components & Virtual DOM.
+   https://github.com/developit/preact
  */
