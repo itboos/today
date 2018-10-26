@@ -146,4 +146,32 @@
    10.25：
    dva:
    https://github.com/dvajs/dva
+    sm 用到的:
+    redux: 数据管理方案
+    mobx: 类似的数据管理方案
+    https://github.com/mobxjs/mobx
+
+    immutable:
+    https://github.com/rtfeldman/seamless-immutable(这个, JavaScript 原生接口)
+    immutable.js 相关的
+    https://facebook.github.io/immutable-js/(通过自定义的 api 来操作数据，需要额外的学习成本)
+
+    Action <> Store，业务逻辑处理: 统一处理业务逻辑，尤其是异步的处理。
+    redux-saga: 用于管理 action，处理异步逻辑。可测试、可 mock、声明式的指令。
+    https://github.com/redux-saga/redux-saga
+    redux-thunk: 类似中间件
+    https://github.com/reduxjs/redux-thunk
+
+    数据的过滤和筛选:
+    reselect: store 的 select 方案，用于提取数据的筛选逻辑，让 Component 保持简单。选 reselct 看重的是 可组合特性 和 缓存机制 。
+    https://github.com/reduxjs/reselect
+
+    一种封装的框架:
+    React and redux based, lightweight and elm-style framework. (Inspired by elm and choo)
+    https://dvajs.com/
+    https://github.com/dvajs/dva
+
+    https://stackoverflow.com/questions/34570758/why-do-we-need-middleware-for-async-flow-in-redux
+ */
+
  */
