@@ -142,4 +142,8 @@
    https://github.com/Tencent/omi
    Fast 3kB React alternative with the same modern API. Components & Virtual DOM.
    https://github.com/developit/preact
+
+   10.25：
+   dva:
+   https://github.com/dvajs/dva
  */
