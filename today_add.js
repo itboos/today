@@ -176,4 +176,6 @@
     redux saga:
     https://redux-saga.js.org/docs/introduction/BeginnerTutorial.html
     https://github.com/redux-saga/redux-saga
+
+    https://www.paulirish.com/2011/requestanimationframe-for-smart-animating/
  */
