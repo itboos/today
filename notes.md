@@ -4,6 +4,7 @@
 由于argv[0]固定等于NodeJS执行程序的绝对路径，argv[1]固定等于主模块的绝对路径，所以第一个命令行参数从argv[2]这个位置开始
 
 git 笔记: 2017-06-06 17:07:13
+  https://git-scm.com/book/zh/v2/
   ```git
 	git add ***  或者 git add .
 	git commit 
