@@ -178,4 +178,10 @@
     https://github.com/redux-saga/redux-saga
 
     https://www.paulirish.com/2011/requestanimationframe-for-smart-animating/
+
+    宏任务和微任务:
+    https://jakearchibald.com/2015/tasks-microtasks-queues-and-schedules/?utm_source=html5weekly
+
+    第三方作者写的： wepy-redux 库:
+    https://github.com/dpzxsm/wepy-redux
  */
