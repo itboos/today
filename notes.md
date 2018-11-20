@@ -696,3 +696,19 @@ b1分支的提交
  brew install tree
  查看某个目录的层级
  进入某个文件夹, tree 
+
+
+ eslint 配置：
+ 修正Eslint 的错误:
+ https://eslint.org/docs/user-guide/command-line-interface#fixing-problems
+ 禁用eslint 的一些配置:
+
+```
+	/*eslint-disable*/
+	/*eslint-enable*/
+	/*global*/
+	/*eslint*/
+	/*eslint-env*/
+	// eslint-disable-line
+	// eslint-disable-next-line
+```

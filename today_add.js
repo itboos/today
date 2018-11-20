@@ -182,6 +182,10 @@
     宏任务和微任务:
     https://jakearchibald.com/2015/tasks-microtasks-queues-and-schedules/?utm_source=html5weekly
 
-    第三方作者写的： wepy-redux 库:
+    微信官方出的：wepy-redux 有点问题：
+    https://github.com/Tencent/wepy/blob/2.0.x/packages/wepy-redux/src/connect/index.js
+    wepy-redux connect 不建议把store的所有state放到computed里去:
+    参见issue： https://github.com/Tencent/wepy/issues/1106
+    第三方作者写的： wepy-redux 库, 解决了这个issue
     https://github.com/dpzxsm/wepy-redux
  */
