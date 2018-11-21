@@ -699,8 +699,12 @@ b1分支的提交
 
 
  eslint 配置：
+ 官放方文档：
+ http://eslint.cn/docs/user-guide/configuring
  修正Eslint 的错误:
  https://eslint.org/docs/user-guide/command-line-interface#fixing-problems
+ https://juejin.im/post/5b9dee8ff265da0afe62d1dd
+ ESlint 自动修复配置
  禁用eslint 的一些配置:
 
 ```
