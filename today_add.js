@@ -188,4 +188,8 @@
     参见issue： https://github.com/Tencent/wepy/issues/1106
     第三方作者写的： wepy-redux 库, 解决了这个issue
     https://github.com/dpzxsm/wepy-redux
+
+    TODO：
+     1. redux-devtool 调试工具用不了， 看下这个怎么用？
+     https://github.com/zalmoxisus/remote-redux-devtools
  */
