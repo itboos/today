@@ -188,4 +188,11 @@
     参见issue： https://github.com/Tencent/wepy/issues/1106
     第三方作者写的： wepy-redux 库, 解决了这个issue
     https://github.com/dpzxsm/wepy-redux
+
+
+
+    vscode 快捷键：
+     command + shift + i 生成文件头注释
+     control + ~ 切换/隐藏 控制台
+     control + tab 切换最近打开的文件
  */
