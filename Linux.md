@@ -157,3 +157,7 @@ https://docs.mongodb.com/manual/tutorial/install-mongodb-on-os-x/
 
 8. 发布代码使用
   
+
+查看端口占用：
+查看端口占用情况的命令：lsof -i
+查看某一端口的占用情况： lsof -i:端口号 
