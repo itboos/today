@@ -195,4 +195,42 @@
      command + shift + i 生成文件头注释
      control + ~ 切换/隐藏 控制台
      control + tab 切换最近打开的文件
+
+        Yapi 操作 部署：
+    初始化管理员账号成功,账号名："admin@admin2.com"，密码："ymfe.org"
+
+
+
+    docker:
+   
+    docker build -t itboos/remote-dev-server .
+    docker run -p 4869:4869 -d itboos/remote-dev-server
+    docker run -p 4869:4869 -d itboos/remote-dev-server2
+
+    docker run -p 4001:8080 -d itboos/node-web-app
+    docker run -d itboos/remote-dev-server2
+
+    YAPI: YApi 是一个可本地部署的、打通前后端及QA的、可视化的接口管理平台
+    http://yapi.demo.qunar.com/
+
+    https://github.com/YMFE/yapi
+    https://github.com/branchzero/yapi-docker
+    https://github.com/crper/yapi-docker
+
+    安装1.3.23, 安装1.4.1 时出现一个 API启用的bug,
+    https://github.com/Automattic/mongoose/issues/6880
+
+    猩猩前端本地服务器：
+       ssh supermonkey@198.18.36.58
+       super
+    前端服务器YAPI:
+       http://198.18.36.58:3005/
+    账号名："admin@admin.com"，密码："supermonkey"
+
+    自己本地服务器：
+    初始化管理员账号成功,账号名："admin@admin.com"，密码："ymfe.org"
+
+
+    1.开完每次会议后，对于问题需要一个记录， 关键性的问题经过讨论后需要有结论
+    
  */

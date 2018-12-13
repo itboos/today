@@ -2,6 +2,34 @@ macOS Sierra中使用VMware Fusion安装centos7：
 https://blog.csdn.net/viola_lulu/article/details/70155317
 查看本机IP：
 ip addr show 
+如何查看ubuntu的内核版本和发行版本号:
+cat /etc/issue
+
+查看 shell:
+ 查看当前终端运行的是哪种shell: ps -p $$
+ 查看当前系统所有支持的shell: cat /etc/shells
+
+shell 常见命令：
+ctrl + a :光标跳转到行首
+
+ctrl + e: 光标跳转到行尾
+
+ctrl + u: 删除光标到行首
+
+ctrl + k: 删除光标到行尾
+
+ctrl + l: 清屏
+
+open /users/test 打开finder 窗口
+
+ 如果当前使用的是zsh, 配置/添加环境变量的时候，需要编辑 vim ~/.zshrc
+ 同时， 在zshrc 里添加 source ~/.bashrc
+ 这样，在bashrc 里的配置就能生效了
+
+ 理解 bashrc 和 profile:
+ https://wido.me/sunteya/understand-bashrc-and-profile
+
+
 切花成root用户:
 
 sudo  su 或者 sudo -i 切换成root用户之后再操作
@@ -145,13 +173,49 @@ https://stackoverflow.com/questions/42446931/mongodb-exception-in-initandlisten-
 
 // =====================================
 6.5 mongoDB 的配置和使用 
+
 安装:(参照官网)
+MacOs 安装：
 https://docs.mongodb.com/manual/tutorial/install-mongodb-on-os-x/
+
+Ubuntu: 
+https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/
+
 https://neuqzxy.github.io/2017/10/07/mongodb%E9%85%8D%E7%BD%AE%E7%94%A8%E6%88%B7/
 http://yijiebuyi.com/blog/b6a3f4a726b9c0454e28156dcc96c342.html强 (使用homebrew 来安装)
 https://www.jianshu.com/p/1bb663918cfd 安装
 官方文档:
 https://docs.mongodb.com/manual/tutorial/install-mongodb-on-os-x/
+mongoose:
+https://github.com/Automattic/mongoose/issues/6880
+
+
+参照官方文档：
+     第三方教程： https://blog.csdn.net/thatway_wp/article/details/79362261
+1.   https://docs.mongodb.com/manual/tutorial/install-mongodb-on-os-x/
+2. 下载gz压缩包，解压
+3. 配置 ~/.bashrc (即把bin 路径添加到环境变量中去，是的mongod 命令可以在全局使用)
+vim ~/.bashrc
+ 添加： export PATH=/Users/xueqi/Documents/D/software/mongodb-osx-x86_64-4.0.4/bin:$PATH
+
+ 保存退出
+ source ~/.bashrc
+
+ 2. 常见问题： 
+  /data/bd 的文件权限问题：(文件夹只有读的权限问题)
+  https://stackoverflow.com/questions/42446931/mongodb-exception-in-initandlisten-20-attempted-to-create-a-lock-file-on-a-rea
+
+  sudo chown -R $USER(自己的用户名) /data/db （将文件夹的所有权限赋给当前用户，即当前用户取得文件夹的所有权限）
+
+当以后台运行方式启动时，关闭mongodb的方式同样是：
+mongodbd 常见命令：
+ps -ef|grep mongo 
+
+kill 进程号
+
+
+
+
 
 7. 配置域名解析， https 证书
 
