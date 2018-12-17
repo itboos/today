@@ -30,3 +30,5 @@ function render() {
 
 render()
 store.subscribe(render)
+const test = 0
+action('INCREMENT')

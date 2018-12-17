@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Redux-actions example</title>
+    <script src="https://unpkg.com/redux@latest/dist/redux.js"></script>
+    <script src="https://unpkg.com/redux-actions@latest/dist/redux-actions.js"></script>
+  </head>
+  <body>
+    <div>
+      <p>
+        Clicked: <span id="value">0</span> times
+        <button id="increment">+</button>
+        <button id="decrement">-</button>
+        <button id="incrementIfOdd">Increment if odd</button>
+        <button id="incrementAsync">Increment async</button>
+      </p>
+    </div>
+    <script>
+      const defaultState = { counter: 0 };
+      const content = document.getElementById('content');
+      const render = () => {
+        // content.innerHTML = store.getState().counter;
+      };
+      render();
+
+      const { createActions, handleActions } = window.ReduxActions;
+      const { createStore } = window.Redux;
+      // const { increment, decrement } = createActions('INCREMENT', 'DECREMENT');
+      // 生成actionCreator
+      const { increment, decrement } = createActions({
+        INCREMENT: (amount = 1) => ({ amount }),
+        DECREMENT: (amount = 1) => ({ amount: -amount })
+      });
+      // ​// 生成根reducer
+      const reducer = handleActions(
+        {
+          [increment]: (state, { payload: { amount } }) => {
+            return { ...state, counter: state.counter + amount };
+          },
+          [decrement]: (state, { payload: { amount } }) => {
+            return { ...state, counter: state.counter + amount };
+          }
+        },
+        defaultState
+      );
+      const store = createStore(reducer, defaultState);
+      store.subscribe(render);
+      document.getElementById('increment')
+        .addEventListener('click', function () {
+          store.dispatch(increment({amount: 1}))
+        })
+
+      // document.getElementById('decrement')
+      //   .addEventListener('click', function () {
+      //     store.dispatch({ type: 'DECREMENT' })
+      //   })
+
+      // document.getElementById('incrementIfOdd')
+      //   .addEventListener('click', function () {
+      //     if (store.getState() % 2 !== 0) {
+      //       store.dispatch({ type: 'INCREMENT' })
+      //     }
+      //   })
+
+      // document.getElementById('incrementAsync')
+      //   .addEventListener('click', function () {
+      //     setTimeout(function () {
+      //       store.dispatch({ type: 'INCREMENT' })
+      //     }, 1000)
+      //   })
+    </script>
+  </body>
+</html>
