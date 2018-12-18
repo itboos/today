@@ -1,3 +1,4 @@
+/* eslint-disbale */
 import "babel-polyfill"
 
 import React from 'react'
@@ -31,4 +32,8 @@ function render() {
 render()
 store.subscribe(render)
 const test = 0
-action('INCREMENT')
+// action('INCREMENT')
+
+setTimeout(() => {
+  action('FETCH_REQUESTED')
+}, 2000)

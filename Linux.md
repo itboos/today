@@ -1,3 +1,6 @@
+理解 bashrc 和 profile:
+https://wido.me/sunteya/understand-bashrc-and-profile
+
 macOS Sierra中使用VMware Fusion安装centos7：
 https://blog.csdn.net/viola_lulu/article/details/70155317
 查看本机IP：
@@ -189,6 +192,9 @@ https://docs.mongodb.com/manual/tutorial/install-mongodb-on-os-x/
 mongoose:
 https://github.com/Automattic/mongoose/issues/6880
 
+使用 mongoose 连接MongoDB 数据库
+https://github.com/Automattic/mongoose
+
 
 参照官方文档：
      第三方教程： https://blog.csdn.net/thatway_wp/article/details/79362261
@@ -213,6 +219,18 @@ ps -ef|grep mongo
 
 kill 进程号
 
+查看 mongo 相关进程
+
+ps -ef | grep mongo
+
+关闭 MongoDB 服务：
+kill -2 PID
+
+可以使用操作系统的 kill 命令，给 mongod 进程发送 SIGINT 或 SIGTERM 信号，
+             即 "kill -2 PID," 或者 “kill -15 PID“。
+       
+ 建议不要使用 ”kill -9 pid“，因为如果 MongoDB 运行在没开启日志（--journal）的情况下，
+            可能会造成数据损失。
 
 
 
@@ -225,3 +243,14 @@ kill 进程号
 查看端口占用：
 查看端口占用情况的命令：lsof -i
 查看某一端口的占用情况： lsof -i:端口号 
+
+
+ 7. Docker 相关：
+    https://docs.docker.com/  官方文档 
+    docker Hub:
+    https://hub.docker.com/
+   文档相关：
+    https://docs.docker-cn.com/get-started/part2/
+    http://www.runoob.com/docker/docker-image-usage.html
+    把一个 Node.js web 应用程序给 Docker 化：
+    https://nodejs.org/zh-cn/docs/guides/nodejs-docker-webapp/

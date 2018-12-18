@@ -195,7 +195,7 @@
 
 
     vscode 快捷键：
-     command + shift + i 生成文件头注释
+     control + option + i 生成文件头注释
      control + ~ 切换/隐藏 控制台
      control + tab 切换最近打开的文件
 
@@ -233,7 +233,18 @@
     自己本地服务器：
     初始化管理员账号成功,账号名："admin@admin.com"，密码："ymfe.org"
 
+    
+    用ssh 远程连接服务器后，建立任务，关闭ssh 连接后，会导致服务关闭，我们想要在关闭ssh后，我们的服务也可以继续运行
+
+    Linux 进程后台运行的几种方式（screen）:
+    https://segmentfault.com/a/1190000002607962
+
+    使用screen 开启一个新的session， 在里面运行我们的服务，等ssh 关闭连接后， 这个服务 继续保持在后台运行
+
+    🌰：
+    screen -S mongod 启动MongoDB  mongod
+    screen -S yAPI 启动yAPI   node server/server.js
 
     1.开完每次会议后，对于问题需要一个记录， 关键性的问题经过讨论后需要有结论
-    
+
  */
