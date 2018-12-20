@@ -7,6 +7,9 @@ export default function counter(state = 0, action) {
       return (state % 2 !== 0) ? state + 1 : state
     case 'DECREMENT':
       return state - 1
+    case 'FETCH_SUCCEEDED':
+       console.log('payload:', action.payload)
+       return 999
     default:
       return state
   }

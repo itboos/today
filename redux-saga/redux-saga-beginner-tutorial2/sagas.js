@@ -1,5 +1,6 @@
+/* eslint-disbale */
 import { delay } from 'redux-saga'
-import { put, takeEvery, all, call } from 'redux-saga/effects'
+import { put, takeEvery, takeLatest, all, call } from 'redux-saga/effects'
 import request from './fetch'
 
 
@@ -24,15 +25,15 @@ function* fetchData(action) {
   console.log('fetchData....')
    try {
       const data = yield call(request, url)
-      console.log('data:', data)
-      // yield put({type: "FETCH_SUCCEEDED", data})
+      yield put({type: "FETCH_SUCCEEDED", payload: data})
    } catch (error) {
       // yield put({type: "FETCH_FAILED", error})
    }
 }
 // 产生一个task 当每次 dispatch  'FETCH_REQUESTED' 时
 function* watchFetchData() {
-  yield takeEvery('FETCH_REQUESTED', fetchData)
+  // yield takeEvery('FETCH_REQUESTED', fetchData)
+  yield takeLatest('FETCH_REQUESTED', fetchData)
 }
 // notice how we now only export the rootSaga
 // single entry point to start all Sagas at once
