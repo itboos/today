@@ -194,6 +194,14 @@
      https://github.com/zalmoxisus/remote-redux-devtools
 
 
+   12.23:
+    redux-saga 相关：
+    1.https://github.com/little-saga/little-saga/blob/master/docs/building-your-own-redux-saga.md
+    2. https://github.com/little-saga/little-saga
+    3. https://srtian96.gitee.io/blog/2018/06/02/%E8%A7%A3%E8%AF%BBRedux%E6%BA%90%E7%A0%81/
+    4. https://github.com/ProtoTeam/blog/blob/master/201710/3.md
+
+
     vscode 快捷键：
      control + option + i 生成文件头注释
      control + ~ 切换/隐藏 控制台

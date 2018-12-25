@@ -5,7 +5,7 @@ import request from './fetch'
 
 
 function* helloSaga() {
-  console.log('Hello Sagas!');
+  // console.log('Hello Sagas!');
 }
 
 // Our worker Saga: will perform the async increment task

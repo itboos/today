@@ -10,11 +10,26 @@ import rootSaga  from './sagas'
 import Counter from './Counter'
 import reducer from './reducers'
 import { resolve } from "dns";
+import './fakesaga'
 
 const sagaMiddleware = createSagaMiddleware()
+
+// 一个很简单的中间件, 就是 发起action, 打印一下action
+const doNothingMidddleware = ({dispatch, getState}) => { 
+  // console.log('运行中间间....')
+  return (next) => { 
+    // console.log('here....')
+    return action => {
+      console.log('经过什么都不做的中间件....', action)
+      return next(action)
+    }
+  }
+} 
+
+
 const store = createStore(
   reducer,
-  applyMiddleware(sagaMiddleware)
+  applyMiddleware(sagaMiddleware, doNothingMidddleware)
 )
 sagaMiddleware.run(rootSaga)
 
@@ -25,35 +40,19 @@ function render() {
       value={store.getState()}
       onIncrement={() => action('INCREMENT')}
       onDecrement={() => action('DECREMENT')} 
-      onIncrementAsync={() => action('INCREMENT_ASYNC')} />,
+      onIncrementAsync={() => action('INCREMENT_ASYNC')}
+      showData = {() => {console.log('展示新的数据....')}} />,
     document.getElementById('root')
   )
 }
 
 render()
 store.subscribe(render)
-const test = 0
 
+
+// 发起一个请求
 // setTimeout(() => {
 //   action('FETCH_REQUESTED')
 // }, 1000)
 
 // other 测试
-
-function* logGenerator() {
-  console.log(0);
-  console.log(1, yield);
-  console.log(2, yield);
-  console.log(3, yield);
-}
-debugger
-var gen = logGenerator();
-
-// the first call of next executes from the start of the function
-// until the first yield statement
-gen.next();             // 0
-gen.next('pretzel');    // 1 pretzel
-gen.next('california'); // 2 california
-gen.next('mayonnaise'); // 3 mayonnaise
-var g1 = gen.next('mayonnaise222'); // 3 mayonnaise
-console.log(g1)
