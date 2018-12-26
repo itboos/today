@@ -1,11 +1,11 @@
 /* eslint-disbale */
 import { delay } from 'redux-saga'
-import { put, takeEvery, takeLatest, all, call } from 'redux-saga/effects'
+import { put, takeEvery, takeLatest, all, select, call, take } from 'redux-saga/effects'
 import request from './fetch'
 
 
 function* helloSaga() {
-  // console.log('Hello Sagas!');
+  console.log('Hello Sagas!');
 }
 
 // Our worker Saga: will perform the async increment task
@@ -35,13 +35,69 @@ function* watchFetchData() {
   // yield takeEvery('FETCH_REQUESTED', fetchData)
   yield takeLatest('FETCH_REQUESTED', fetchData)
 }
+
+
+// start------------
+const Api = {
+  store: {
+    token: '',
+  },
+  authorize: (user, password) => {
+    console.log(user, password)
+  },
+  storeItem: (token) => {
+    console.log('存储token：', token)
+    this.store.token = token;
+  },
+  clearItem: ()=> {
+    console.log('清除token：', token)
+    this.store.token = '';
+  }
+}
+function* watchLOGIN_REQUEST() {
+  yield takeLatest('LOGIN_REQUEST', loginRequest)
+}
+function loginRequest() {
+  return {
+    user: 'zdl',
+    password: '123'
+  }
+}
+// 认证
+function* authorize(user, password) {
+  try {
+    const token = yield call(Api.authorize, user, password)
+    yield put({type: 'LOGIN_SUCCESS', token})
+    return token
+  } catch(error) {
+    yield put({type: 'LOGIN_ERROR', error})
+  }
+}
+
+function* loginFlow() {
+  while (true) {
+    const {user, password} = yield take('LOGIN_REQUEST')
+    const token = yield call(authorize, user, password)
+    if (token) {
+      yield call(Api.storeItem, {token})
+      yield take('LOGOUT')
+      yield call(Api.clearItem, 'token')
+    }
+  }
+}
+
+// end------------
+
+
+
 // notice how we now only export the rootSaga
 // single entry point to start all Sagas at once
 export default function* rootSaga() {
   yield all([
     helloSaga(),
     watchIncrementAsync(),
-    watchFetchData()
+    watchFetchData(),
+    loginFlow()
   ])
 }
 
