@@ -245,6 +245,34 @@ kill -2 PID
 查看某一端口的占用情况： lsof -i:端口号 
 
 
+
+linux 技巧：使用 screen 管理你的远程会话
+
+    https://www.ibm.com/developerworks/cn/linux/l-cn-screen/index.html
+    https://segmentfault.com/a/1190000002607962
+
+    使用screen 开启一个新的session， 在里面运行我们的服务，等ssh 关闭连接后， 这个服务 继续保持在后台运行
+
+
+    🌰：
+    screen -S mongod 启动MongoDB  mongod
+    screen -S yAPI 启动yAPI   node server/server.js
+    
+    screen -list
+    There are screens on:
+        4561.pts-46.eduard-X   (30.03.2015 14:48:51)   (Attached) 连接的
+        4547.pts-46.eduard-X   (30.03.2015 14:48:33)   (Detached) 分离的
+        4329.pts-41.eduard-X   (30.03.2015 14:46:28)   (Attached)
+        3995.pts-30.eduard-X   (30.03.2015 14:30:01)   (Detached)
+
+    恢复一个分离的却 显示连接的窗口，屏幕会响应没有屏幕要恢复：
+    
+    您可以选择其中分离并通过查找PID（或全名）与重新安装照常屏幕
+     screen -d -r 12345
+    
+
+
+
  7. Docker 相关：
     https://docs.docker.com/  官方文档 
     docker Hub:
