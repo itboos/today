@@ -176,7 +176,7 @@ https://stackoverflow.com/questions/42446931/mongodb-exception-in-initandlisten-
 
 // =====================================
 6.5 mongoDB 的配置和使用 
-
+MongoDB 的使用： http://blog.51cto.com/linuxg/1895805
 安装:(参照官网)
 MacOs 安装：
 https://docs.mongodb.com/manual/tutorial/install-mongodb-on-os-x/
@@ -232,6 +232,36 @@ kill -2 PID
  建议不要使用 ”kill -9 pid“，因为如果 MongoDB 运行在没开启日志（--journal）的情况下，
             可能会造成数据损失。
 
+mongodb远程连接配置如下：
+https://www.cnblogs.com/jinxiao-pu/p/7121307.html
+https://segmentfault.com/q/1010000002923686
+
+1.修改配置文件mongodb.conf
+
+命令：vim /etc/mongodb.conf
+
+把 bind_ip=127.0.0.1 这一行注释掉或者是修改成 bind_ip=0.0.0.0
+
+ 
+
+2.重启mongodb服务
+sudo service mongod stop
+
+
+2.1防火墙开放27017端口(看情况)
+
+命令：iptables -A INPUT -p tcp -m state --state NEW -m tcp --dport 27017 -j ACCEPT
+
+
+3.远程连接
+
+要连接的IP：134.567.345.23
+
+mongo 134.567.345.23:27017
+
+带用户名密码的链接：
+mongo somewhere.mongolayer.com:10011/my_database -u username -p password
+
 
 
 
@@ -255,6 +285,7 @@ linux 技巧：使用 screen 管理你的远程会话
 
 
     🌰：
+    screen -S 可以给screen 窗口取一个名字
     screen -S mongod 启动MongoDB  mongod
     screen -S yAPI 启动yAPI   node server/server.js
     
@@ -264,12 +295,21 @@ linux 技巧：使用 screen 管理你的远程会话
         4547.pts-46.eduard-X   (30.03.2015 14:48:33)   (Detached) 分离的
         4329.pts-41.eduard-X   (30.03.2015 14:46:28)   (Attached)
         3995.pts-30.eduard-X   (30.03.2015 14:30:01)   (Detached)
+        3997.yAPI.eduard-X     (30.03.2015 14:30:01)   (Detached)
 
-    恢复一个分离的却 显示连接的窗口，屏幕会响应没有屏幕要恢复：
+    恢复一个分离的窗口：
+      screen -r <screen_pid>
+
+    问题：恢复一个分离的却 显示连接的窗口，屏幕会响应没有屏幕要恢复：
     
     您可以选择其中分离并通过查找PID（或全名）与重新安装照常屏幕
-     screen -d -r 12345
+     screen -d -r 12345(进程号)
     
+    screen 窗口快捷键：
+      ctrl +  a + 其它键
+      ctrl +  a + c 创建一个新的运行shell的窗口并切换到该窗口
+      ctrl +  a + d 暂时断开 screen 回话
+      ctrl +  a + k 杀掉当前窗口 （同时也会终止当前窗口创建的任务）
 
 
 
@@ -282,3 +322,41 @@ linux 技巧：使用 screen 管理你的远程会话
     http://www.runoob.com/docker/docker-image-usage.html
     把一个 Node.js web 应用程序给 Docker 化：
     https://nodejs.org/zh-cn/docs/guides/nodejs-docker-webapp/
+
+
+
+
+
+小技巧：
+
+ ssh 自动登录：
+  参考文章：
+  https://segmentfault.com/a/1190000011438491
+  https://www.cnblogs.com/configure/p/7911037.html  (1)
+  https://blog.csdn.net/Jerome_s/article/details/77351507 (1)
+用expect实现SCP/SSH自动输入密码登录：
+假设我们的服务器iP 地址为： 198.18.36.58
+set timeout 30
+设定超时时间为30s，spawn是expect的语句，执行命令前都要加这句
+
+ssh 自动登录:
+``` sh
+#!/usr/bin/expect  expect 所在位置, 表明使用 expect 来执行
+set timeout 30
+spawn ssh root@198.18.36.58
+expect "password:"
+send "********（服务器的登录密码）\r"
+# 代表执行完留在远程控制台，不加这句执行完后返回本地控制台
+interact
+```
+注意：密码有特殊字符如“$”需要转义；
+　　　密码以“\r”结尾。
+
+linux下执行.sh文件的方法和语法
+  参考文章：https://blog.csdn.net/ljp812184246/article/details/52585650
+
+1. 创建 sh文件，编写内容
+2. 赋予文件可执行权限 chmod a+x xxx.sh 
+.sh文件就是文本文件，如果要执行，需要使用chmod a+x xxx.sh来给可执行权限。 
+3. 执行
+   3.1 进入 sh 文件所有目录： ./aa.sh
