@@ -263,6 +263,10 @@ mongo 134.567.345.23:27017
 mongo somewhere.mongolayer.com:10011/my_database -u username -p password
 
 
+MongoDB 的数据库备份与还原：
+https://docs.mongodb.com/manual/tutorial/backup-and-restore-tools/
+
+
 
 
 7. 配置域名解析， https 证书
@@ -360,3 +364,107 @@ linux下执行.sh文件的方法和语法
 .sh文件就是文本文件，如果要执行，需要使用chmod a+x xxx.sh来给可执行权限。 
 3. 执行
    3.1 进入 sh 文件所有目录： ./aa.sh
+
+
+# Mac下使用launchctl创建定时任务:
+使用launchctl加载plist
+任务描述文件写好后，怎么使用它呢？可以使用launchctl工具，添加任务到launchd。
+系统定义了几个位置来存放任务列表
+~/Library/LaunchAgents 由用户自己定义的任务项
+/Library/LaunchAgents 由管理员为用户定义的任务项
+/Library/LaunchDaemons 由管理员定义的守护进程任务项
+/System/Library/LaunchAgents 由Mac OS X为用户定义的任务项
+/System/Library/LaunchDaemons 由Mac OS X定义的守护进程任务项
+
+作者：柳浪闻笛
+参考：
+链接：https://www.jianshu.com/p/b4f31bf47b5d
+https://www.kancloud.cn/mayan0718/mac/587087 (强)
+https://my.oschina.net/jackin/blog/263024
+
+### 加载任务, -w选项会将plist文件中无效的key覆盖掉，建议加上
+$ launchctl load -w com.demo.plist
+
+### 删除任务
+$ launchctl unload -w com.demo.plist
+
+### 查看任务列表, 使用 grep '任务部分名字' 过滤
+$ launchctl list | grep 'com.demo'
+
+### 开始任务
+$ launchctl start  com.demo.plist
+
+### 结束任务
+$ launchctl stop   com.demo.plist
+
+注意:
+  如果任务被修改了，那么必须先unload，然后重新load
+  start可以测试任务，这个是立即执行（但是自己实际上没有看到有执行），不管时间到了没有
+  执行start和unload前，任务必须先load过，否则报错
+  stop可以停止任务
+
+例子:
+每天固定的时间，将远程的 MongoDB 数据备份到本地电脑
+~/Library/LaunchAgents/
+
+/Users/xueqi/Library/LaunchAgents/com.mongdb.yapi.backup.plist
+内容如下：
+``` xml
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.mongdb.yapi.backup.plist</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>/Users/xueqi/mongod_bak.sh</string>
+  </array>
+  <key>StartCalendarInterval</key>
+  <dict>
+      <key>Minute</key>
+      <integer>14</integer>
+      <key>Hour</key>
+      <integer>14</integer>
+  </dict>
+  <key>StandardOutPath</key>
+<string>/Users/xueqi/mongod_bak.err</string>
+<key>StandardErrorPath</key>
+<string>/Users/xueqi/mongod_bak.log</string>
+</dict>
+</plist>
+// 上面的脚本表示，每天的 14:14 分执行 /Users/xueqi/mongod_bak.sh的脚本
+```
+/Users/xueqi/mongod_bak.sh：
+
+``` sh
+  #!/bin/sh
+DUMP="/Users/xueqi/Documents/D/software/mongodb-osx-x86_64-4.0.4/bin/mongodump"
+DUMP_PATH="/Users/xueqi/Documents/D/software/mongodb-osx-x86_64-4.0.4/bin/"
+# MongoDB 服务器IP:
+HOST_IP="198.18.36.58"
+# mac 本地备份目录
+MAC_OUT_DIR="/Users/xueqi/Documents/D/yAPI_backups"
+# 备份文件将以备份时间保存
+DATE=`date +%Y_%m_%d_%H_%M_%S`
+# 数据库操作员
+DB_USER="root"
+# 数据库操作员密码
+DB_PASS="******"
+# 保留最新30天的备份
+DAYS="30"
+# 备份文件命名格式
+TAR_BAK="mongod_bak_$DATE.tar.gz"
+
+# 本地备份
+cd $MAC_OUT_DIR
+mkdir -p $MAC_OUT_DIR/$DATE
+$DUMP -h $HOST_IP -o $MAC_OUT_DIR/$DATE
+
+# 将备份文件打包放入正式目录
+# tar -zcvf $TAR_DIR/$TAR_BAK $OUT_DIR/$DATE
+# 删除30天前的旧备份
+# find $TAR_DIR/ -mtime +$DAYS -delete
+
+# 说明：数据库备份
+```
