@@ -177,9 +177,13 @@ https://stackoverflow.com/questions/42446931/mongodb-exception-in-initandlisten-
 // =====================================
 6.5 mongoDB 的配置和使用 
 MongoDB 的使用： http://blog.51cto.com/linuxg/1895805
+
 安装:(参照官网)
 MacOs 安装：
 https://docs.mongodb.com/manual/tutorial/install-mongodb-on-os-x/
+Ubuntu安装：
+https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/
+不同的系统, 不同的MongoDB 安装方式，会导致启动服务的命令会有差别
 
 Ubuntu: 
 https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/
@@ -242,8 +246,6 @@ https://segmentfault.com/q/1010000002923686
 
 把 bind_ip=127.0.0.1 这一行注释掉或者是修改成 bind_ip=0.0.0.0
 
- 
-
 2.重启mongodb服务
 sudo service mongod stop
 
@@ -266,7 +268,9 @@ mongo somewhere.mongolayer.com:10011/my_database -u username -p password
 MongoDB 的数据库备份与还原：
 https://docs.mongodb.com/manual/tutorial/backup-and-restore-tools/
 
-
+导出数据库:
+mongodump -h IP --port 端口 -u 用户名 -p 密码 -d 数据库 -o 文件存在路径  
+mongodump -h 198.18.36.58 -d yapi -o /Users/xueqi/Desktop
 
 
 7. 配置域名解析， https 证书
@@ -281,6 +285,7 @@ https://docs.mongodb.com/manual/tutorial/backup-and-restore-tools/
 
 
 linux 技巧：使用 screen 管理你的远程会话
+    https://www.ibm.com/developerworks/cn/linux/l-cn-screen/index.html 强
 
     https://www.ibm.com/developerworks/cn/linux/l-cn-screen/index.html
     https://segmentfault.com/a/1190000002607962
@@ -329,7 +334,19 @@ linux 技巧：使用 screen 管理你的远程会话
 
 
 
-
+Ubutu 18.0 开机启动 项目：
+/etc/rc.local 在里面编写脚本
+https://www.cnblogs.com/digdeep/p/9760025.html (强)
+https://www.centos.bz/2018/05/ubuntu-18-04-rc-local-systemd%E8%AE%BE%E7%BD%AE/
+http://hcjhuanghe.top/archives/58
+Ubutu:
+查看服务状态：
+sudo systemctl status rc-local.service
+Ubuntu 上使用：
+    https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/
+    1. 启动 sudo service mongod start
+    2. 停止 sudo service mongod stop
+    3. 重启 sudo service mongod restart
 
 小技巧：
 
@@ -364,6 +381,25 @@ linux下执行.sh文件的方法和语法
 .sh文件就是文本文件，如果要执行，需要使用chmod a+x xxx.sh来给可执行权限。 
 3. 执行
    3.1 进入 sh 文件所有目录： ./aa.sh
+
+### expect 脚本注意事项：
+
+```
+不能按照习惯来用sh autosu.sh来这行expect的程序，会提示找不到命令，如下：
+
+autosu.sh: line 3: spawn: command not found
+couldn't read file "password:": no such file or directory
+autosu.sh: line 5: send: command not found
+autosu.sh: line 6: interact: command not found
+
+因为expect用的不是bash所以会报错。执行的时候直接./autosu.sh就可以了。～切记！
+
+--------------------- 
+作者：紫颖 
+来源：CSDN 
+原文：https://blog.csdn.net/zhuying_linux/article/details/6657020 
+版权声明：本文为博主原创文章，转载请附上博文链接！
+```
 
 
 # Mac下使用launchctl创建定时任务:
@@ -436,7 +472,8 @@ $ launchctl stop   com.demo.plist
 // 上面的脚本表示，每天的 14:14 分执行 /Users/xueqi/mongod_bak.sh的脚本
 ```
 /Users/xueqi/mongod_bak.sh：
-
+#### !!!注意： 这里有个问题，就是里面的路径都要使用绝对路径， 对于mongodump 命令，虽然已经添加到环境变量，本地cmd 窗口可以直接使用，但是 在脚本里会报命令找不到的错误(暂时不知道问题,为什么没有携带环境变量)，对于这个，我们就使用命令的绝对位置，如
+mongodump ->  /Users/xueqi/Documents/D/software/mongodb-osx-x86_64-4.0.4/bin/mongodump
 ``` sh
   #!/bin/sh
 DUMP="/Users/xueqi/Documents/D/software/mongodb-osx-x86_64-4.0.4/bin/mongodump"
@@ -467,4 +504,13 @@ $DUMP -h $HOST_IP -o $MAC_OUT_DIR/$DATE
 # find $TAR_DIR/ -mtime +$DAYS -delete
 
 # 说明：数据库备份
+```
+
+启动yAPI：
+``` bash
+#!/bin/bash
+echo "启动mongd 和 YAPI..start... " > /home/supermonkey/yapi_start.log
+# 启动yapi 服务
+nohup /home/supermonkey/.nvm/versions/node/v8.12.0/bin/node /home/supermonkey/my-yapi/vendors/server/app.js &
+echo "开机启动mongd 和 YAPI.. end.... " > /home/supermonkey/yapi_start.log
 ```
