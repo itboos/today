@@ -12,13 +12,14 @@ export default function counter(state = 0, action) {
        return 999
     case 'LOGIN_SUCCESS':
        console.log('LOGIN_SUCCESS:', action.payload)
+       // 更新state......, 返回新的state
        return 2
     case 'LOGIN_ERROR':
        console.log('LOGIN_ERROR:', action.payload)
        return 3
     case 'LOGIN_REQUEST':
-      console.log('LOGIN_REQUEST:', action.payload)
-      return 4
+      // console.log('LOGIN_REQUEST:', action.payload)
+      return action.payload
     case 'LOGOUT':
       console.log('LOGOUT:', action.payload)
       return 5
