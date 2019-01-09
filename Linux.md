@@ -167,11 +167,31 @@ https://stackoverflow.com/questions/42446931/mongodb-exception-in-initandlisten-
   nginx 的一个问题:
   http://blog.51cto.com/ichange/1406528
  
+ 
    ps  -ef | grep nginx 看下主目录 是哪里 是不是装了两个可恶的 Nginx
 
  conf 文件语法和设置检查：
  ./nginx -t -c /usr/local/nginx/conf/nginx.conf
  创建软链接后，  nginx -t -c /usr/local/nginx/conf/nginx.conf
+
+ 查看某个文件软连接 之后的真实连接： ls -al
+
+
+ 查看Nginx 当前配置文件：
+  nginx -t:
+
+  nginx: the configuration file /usr/local/etc/nginx/nginx.conf syntax is ok
+
+  nginx: configuration file /usr/local/etc/nginx/nginx.conf test is successful
+
+  Nginx 重新加载：
+  nginx -s reload （在修改了nginx.conf文件后，重新加载nginx）
+
+  一个问题：
+  nginx 403 Forbidden 排错记录：
+  https://www.jianshu.com/p/e0dadb871894
+
+  这样就可以看到nginx。conf 的实际位置了.
 
 
 // =====================================
