@@ -1,0 +1,361 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>canvas曲线 - demo</title>
+    <style>
+        #canvas {
+            background-color: #000;
+            border: 1px solid #ccc;
+            margin: 0 auto;
+            display: block
+        }
+    </style>
+</head>
+<body>
+    <!-- https://segmentfault.com/a/1190000012774280 
+      https://github.com/hujiulong/blog/issues/1
+      https://github.com/Aaaaaaaty/Blog/issues/36ez x56f7gbui9ol0;-
+      https://github.com/Aaaaaaaty/Blog/issues/31
+      贝塞尔曲线： 解释
+      https://juejin.im/post/58ce7f0461ff4b006c9a5e66
+      通过de Casteljau算法绘制贝塞尔曲线，并计算它的切线，实现1-7阶贝塞尔曲线的形成动画。
+      https://github.com/venshine/BezierMaker 强
+      具体文章:
+      https://blog.csdn.net/venshine/article/details/51758841
+      求三次贝塞尔曲线的控制点: 强
+      http://www.ayqy.net/blog/%E6%B1%82%E4%B8%89%E6%AC%A1%E8%B4%9D%E5%A1%9E%E5%B0%94%E6%9B%B2%E7%BA%BF%E7%9A%84%E6%8E%A7%E5%88%B6%E7%82%B9/
+    -->
+   <canvas height="250" width="375" id="canvas"></canvas> 
+   <script>
+        // var data = [Math.random() * 300];
+        var data = [120, 160, 150, 145, 170, 140, 130, 155, 168];
+        // for (var i = 1; i < 10; i++) { //按照echarts
+        //     data.push(Math.round((Math.random() - 0.5) * 20 + data[i - 1]));
+        // }
+        console.log('data:', data);
+        var option = {
+            canvas:{
+                id: 'canvas'
+            },
+            series: {
+                name: '模拟数据',
+                itemStyle: {
+                    // color: 'rgb(255, 70, 131)'
+                    color: '#fff'
+                },
+                areaStyle: {
+                    color: 'rgb(255, 158, 68)'
+                },
+                data: data
+            }
+        }
+        var ctrlNodesArr = []
+        var ctrlDrawIndex = 0
+        /**
+         * 曲线类
+        */
+        function LinearGradient(option) {
+            this.canvas = document.getElementById(option.canvas.id)
+            this.ctx = this.canvas.getContext('2d')
+            this.width = this.canvas.width
+            this.height = this.canvas.height
+            this.series = option.series
+        }
+
+        LinearGradient.prototype.initData = function() {
+            var self = this
+            var scale = 0.2 // 这个scale 是干什么用的？？ 为任意的小于1 的正整数， 用于计算控制点的坐标.
+            var dataMax = 0,
+                dataMin = this.series.data[0],
+                diffY = 0,
+                diffX = 0,
+                self = this
+            // 遍历数据坐标，得的数据的最大和最小值
+            this.series.data.forEach(function (obj, i) {
+                if (dataMax < obj) dataMax = obj
+                if (dataMin > obj) dataMin = obj
+            })
+            // 得到X，Y轴平均diff
+            diffY = this.height / (dataMax - dataMin)
+            // 这里的diffX 是不是用来计算数据点的 x 坐标的？
+            diffX = this.width / this.series.data.length
+
+            // 找到前一个点到下一个点中间的控制点 核心代码
+            // 这里 i 本来是 3
+            for(var index = 3; index < this.series.data.length; index ++) {
+                //前一个点坐标
+                var last1X = diffX * (index - 1),
+                last1Y = Math.floor(self.height - diffY * (self.series.data[index - 1] - dataMin)),
+                // 前两个点坐标
+                last2X = diffX * (index - 2),
+                last2Y = Math.floor(self.height - diffY * (self.series.data[index - 2] - dataMin)),
+                // 当前点坐标
+                nowX = diffX * (index),
+                nowY = Math.floor(self.height - diffY * (self.series.data[index] - dataMin)),
+                // 下一个点坐标
+                nextX = diffX * (index + 1),
+                nextY = Math.floor(self.height - diffY * (self.series.data[index + 1] - dataMin)),
+                // 确定三次贝塞尔曲线控制点 https://wenku.baidu.com/view/19682071f242336c1eb95e47.html
+                // 控制点 1 的坐标
+                cAx = last1X + (nowX - last2X) * scale,
+                cAy = last1Y + (nowY - last2Y) * scale,
+                // 控制点 2 的坐标
+                cBx = nowX - (nextX - last1X) * scale,
+                cBy = nowY - (nextY - last1Y) * scale 
+                if (index === 1) {
+                    cAx = last1X + (nowX - 0) * scale
+                    cAy = last1Y + (nowY - self.height) * scale
+                } else if (index === self.series.data.length - 1) { // 最后一个点
+                    cBx = nowX - (nowX - last1X) * scale
+                    cBy = nowY - (nowY - last1Y) * scale
+                }
+
+                var obj = {
+                    cAx: cAx,
+                    cAy: cAy,
+                    cBx: cBx,
+                    cBy: cBy,
+                    nowX: nowX,
+                    nowY: nowY,
+                    t: 0
+                }
+
+                // 测试 获取控制点的方法2
+                // var ps = getControlPoints([{x: last2X, y: last2Y}, {x: last1X, y: last1Y}, {x: nowX, y: nowY}, {x: nextX, y: nextY}], 0.9)
+                // var obj2 = {
+                //     cAx: ps[0].x,
+                //     cAy: ps[0].y,
+                //     cBx: ps[1].x,
+                //     cBy: ps[1].y,
+                //     nowX: nowX,
+                //     nowY: nowY,
+                //     t: 0
+                // }
+                console.log('obj:', obj)
+                ctrlNodesArr.push(obj)
+            }
+        }
+
+
+        LinearGradient.prototype.draw = function() {
+            // dataMax = yMax; dataMin = yMin
+            var self = this
+            this.ctx.beginPath()
+            // this.ctx.lineTo(0, this.height)
+            ctrlNodesArr.forEach(function(item, index) { //找到前一个点到下一个点中间的控制点
+                var ctrlAx = item.cAx,
+                    ctrlAy = item.cAy,
+                    ctrlBx = item.cBx,
+                    ctrlBy = item.cBy,
+                    x = item.nowX,
+                    y = item.nowY 
+                // 绘制三次贝塞尔曲线 https://developer.mozilla.org/zh-CN/docs/Web/API/Canvas_API/Tutorial/Drawing_shapes
+                // bezierCurveTo(cp1x, cp1y, cp2x, cp2y, x, y)
+                // 绘制三次贝塞尔曲线，cp1x,cp1y为控制点一，cp2x,cp2y为控制点二，x,y为结束点。
+                self.ctx.bezierCurveTo(ctrlAx, ctrlAy, ctrlBx, ctrlBy, x, y);
+            })
+            var lingrad = this.ctx.createLinearGradient(0,0,0,this.width);
+            lingrad.addColorStop(0, this.series.areaStyle.color);
+            lingrad.addColorStop(1, this.series.itemStyle.color);
+            // this.ctx.lineTo(this.width, this.height)
+            // this.ctx.lineTo(0, this.height)
+            this.ctx.strokeStyle = this.series.itemStyle.color
+            this.ctx.stroke()
+        }
+        LinearGradient.prototype.drawBall = function() {
+            var self = this
+            //存储了各段曲线的控制点
+            var item = ctrlNodesArr[ctrlDrawIndex]
+            var ctrlAx = item.cAx,
+                ctrlAy = item.cAy,
+                ctrlBx = item.cBx,
+                ctrlBy = item.cBy,
+                x = item.nowX,
+                y = item.nowY,
+                ox = 0,
+                oy = 0
+            if(ctrlDrawIndex === 0) {
+                ox = 0
+                oy = 0
+            } else {
+                ox = ctrlNodesArr[ctrlDrawIndex - 1].nowX
+                oy = ctrlNodesArr[ctrlDrawIndex - 1].nowY
+            }
+            if(item.t > 1) {
+                ctrlDrawIndex++ //当一段曲线的t>1说明曲线已经走到头
+            }else {
+                self.ctx.clearRect(0, 0, self.width, self.height)
+                item.t += 0.05
+                //各段曲线均为三阶贝塞尔，故下面计算x,y值代入到了三阶公式中
+                var ballX = ox * Math.pow((1 - item.t), 3) + 3 * ctrlAx * item.t * Math.pow((1 - item.t), 2) + 3 * ctrlBx * Math.pow(item.t, 2) * (1 - item.t) + x * Math.pow(item.t, 3)
+                var ballY = oy * Math.pow((1 - item.t), 3) + 3 * ctrlAy * item.t * Math.pow((1 - item.t), 2) + 3 * ctrlBy * Math.pow(item.t, 2) * (1 - item.t) + y * Math.pow(item.t, 3)
+                newMap.draw()
+                self.ctx.beginPath()
+                self.ctx.arc(ballX, ballY, 5, 0, Math.PI * 2, false)
+                self.ctx.fill()
+            }
+            if(ctrlDrawIndex !== ctrlNodesArr.length) {
+                // window.requestAnimationFrame(newMap.drawBall.bind(self))
+            }
+        }
+        var newMap = new LinearGradient(option)
+        newMap.initData()
+        newMap.drawBall()
+        // 画x 轴的横线
+        function drawXline(self) {
+            var lineMargin = 50; // 横线之间的间隔
+            var padding = 80;
+            var lineNum = 4
+            var xWidth = 300; // x轴总长度
+            var tTime = 60; // 60分钟
+            var timeMagin = 10; // 时间点分割
+            var xDotNum = tTime / timeMagin;
+            var xMargin = xWidth / xDotNum;
+            self.ctx.strokeStyle = 'red';
+            // 画水平分割线
+            for(var i = 0; i <= lineNum; i++) {
+                self.ctx.beginPath();
+                self.ctx.moveTo(padding, i * lineMargin); // move pen to 0, 50
+                self.ctx.lineTo(self.width, i * lineMargin);
+                self.ctx.stroke();
+            }
+            // 画Y轴
+            self.ctx.beginPath();
+            self.ctx.moveTo(padding, 0); // move pen
+            self.ctx.lineTo(padding, lineMargin * lineNum);
+            self.ctx.stroke();
+
+            // 写Y轴 数字
+            self.ctx.fillStyle = '#fff';
+            self.ctx.font = '12px serif';
+            self.ctx.textAlign = 'center';
+            for (var j = lineNum; j > 0; j--) {
+              self.ctx.fillText(`L${5-j}: ${lineMargin * (4-j)}`, padding - 25 , lineMargin * j + 2);
+            }
+
+            // 画Y轴坐标的圆形
+            // 计算文字的宽度
+            let textY = Math.ceil(self.ctx.measureText('L5: 200').width);
+            // console.log('textY', textY);
+
+            var dotConfig = {
+              // 定义 L1 样式
+              1: {
+                fillStyle: 'red',
+                shadowColor: '#fff'
+              },
+              2: {
+                fillStyle: 'yellow',
+                shadowColor: '#fff'
+              },
+              3: {
+                fillStyle: 'blue',
+                shadowColor: 'pink'
+              },
+              4: {
+                fillStyle: 'green',
+                shadowColor: '#fff'
+              }
+            }
+            for (var l = 1; l < lineNum; l++) {
+               self.ctx.beginPath();
+               self.ctx.fillStyle = dotConfig[l].fillStyle;
+                // 设置阴影大小和颜色
+                self.ctx.shadowColor = dotConfig[l].shadowColor;
+                self.ctx.shadowBlur = 2;
+                // 画实心圆
+                self.ctx.arc(padding - 25 -textY, `${lineMargin * (lineNum - l)}`, 5, 0, 2 * Math.PI);
+                self.ctx.fill();
+            }
+
+            self.ctx.fillStyle = 'red';
+            // 取消阴影效果
+            self.ctx.shadowBlur = 0;
+            // 写x轴坐标
+            for (var k = 1; k <= xDotNum; k++) {
+              self.ctx.fillText(timeMagin * k, `${xMargin * k + padding }` , lineMargin * lineNum + 15);
+            }
+        }
+        drawXline(newMap);
+
+
+   </script>
+   <script>
+       // 获取控制点的方法 2:
+        // 测试 http://www.ayqy.net/blog/%E6%B1%82%E4%B8%89%E6%AC%A1%E8%B4%9D%E5%A1%9E%E5%B0%94%E6%9B%B2%E7%BA%BF%E7%9A%84%E6%8E%A7%E5%88%B6%E7%82%B9/
+        // var ps = getControlPoints([{x: last2X, y: last2Y}, {x: last1X, y: last1Y}, {x: nowX, y: nowY}, {x: nextX, y: nextY}], 0.9)
+        // var obj2 = {
+        //     cAx: ps[0].x,
+        //     cAy: ps[0].y,
+        //     cBx: ps[1].x,
+        //     cBy: ps[1].y,
+        //     nowX: nowX,
+        //     nowY: nowY,
+        //     t: 0
+        // }
+
+    /**
+     * 获取控制点坐标
+     * @param  {Array} arr 4个点坐标数组
+     * @param  {Float} smooth_value [0, 1] 平滑度
+     * p1 上一个点
+     * p2 左端点
+     * P3 右端点
+     * p4 下一个点
+     * @return {Array}     2个点坐标数组
+     * */
+    function getControlPoints (arr, smooth_value) {
+        var x0 = arr[0].x, y0 = arr[0].y;
+        var x1 = arr[1].x, y1 = arr[1].y;
+        var x2 = arr[2].x, y2 = arr[2].y;
+        var x3 = arr[3].x, y3 = arr[3].y;
+
+        // Assume we need to calculate the control
+        // points between (x1,y1) and (x2,y2).
+        // Then x0,y0 - the previous vertex,
+        //      x3,y3 - the next one.
+        // 1.假设控制点在(x1,y1)和(x2,y2)之间，第一个点和最后一个点分别是曲线路径上的上一个点和下一个点
+
+        // 2.求中点
+        var xc1 = (x0 + x1) / 2.0;
+        var yc1 = (y0 + y1) / 2.0;
+        var xc2 = (x1 + x2) / 2.0;
+        var yc2 = (y1 + y2) / 2.0;
+        var xc3 = (x2 + x3) / 2.0;
+        var yc3 = (y2 + y3) / 2.0;
+
+        // 3.求各中点连线长度
+        var len1 = Math.sqrt((x1-x0) * (x1-x0) + (y1-y0) * (y1-y0));
+        var len2 = Math.sqrt((x2-x1) * (x2-x1) + (y2-y1) * (y2-y1));
+        var len3 = Math.sqrt((x3-x2) * (x3-x2) + (y3-y2) * (y3-y2));
+
+        // 4.求中点连线长度比例（用来确定平移前p2, p3的位置）
+        var k1 = len1 / (len1 + len2);
+        var k2 = len2 / (len2 + len3);
+
+        // 5.平移p2
+        var xm1 = xc1 + (xc2 - xc1) * k1;
+        var ym1 = yc1 + (yc2 - yc1) * k1;
+
+        // 6.平移p3
+        var xm2 = xc2 + (xc3 - xc2) * k2;
+        var ym2 = yc2 + (yc3 - yc2) * k2;
+
+        // Resulting control points. Here smooth_value is mentioned
+        // above coefficient K whose value should be in range [0...1].
+        // 7.微调控制点与顶点之间的距离，越大曲线越平直
+        var ctrl1_x = xm1 + (xc2 - xm1) * smooth_value + x1 - xm1;
+        var ctrl1_y = ym1 + (yc2 - ym1) * smooth_value + y1 - ym1;
+
+        var ctrl2_x = xm2 + (xc2 - xm2) * smooth_value + x2 - xm2;
+        var ctrl2_y = ym2 + (yc2 - ym2) * smooth_value + y2 - ym2;
+
+        return [{x: ctrl1_x, y: ctrl1_y}, {x: ctrl2_x, y: ctrl2_y}];
+    }
+   </script>
+</body>
+</html>
