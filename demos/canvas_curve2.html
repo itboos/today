@@ -1,0 +1,116 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>canvas曲线 - demo</title>
+    <style>
+        #canvas {
+            background-color: #232323;
+            border: 1px solid #ccc;
+            margin: 0 auto;
+            display: block
+        }
+    </style>
+</head>
+<body>
+    <!-- https://segmentfault.com/a/1190000012774280 
+      https://github.com/hujiulong/blog/issues/1
+      https://github.com/Aaaaaaaty/Blog/issues/36ez x56f7gbui9ol0;-
+      https://github.com/Aaaaaaaty/Blog/issues/31
+      贝塞尔曲线： 解释
+      https://juejin.im/post/58ce7f0461ff4b006c9a5e66
+      通过de Casteljau算法绘制贝塞尔曲线，并计算它的切线，实现1-7阶贝塞尔曲线的形成动画。
+      https://github.com/venshine/BezierMaker 强
+      具体文章:
+      https://blog.csdn.net/venshine/article/details/51758841
+      求三次贝塞尔曲线的控制点: 强
+      http://www.ayqy.net/blog/%E6%B1%82%E4%B8%89%E6%AC%A1%E8%B4%9D%E5%A1%9E%E5%B0%94%E6%9B%B2%E7%BA%BF%E7%9A%84%E6%8E%A7%E5%88%B6%E7%82%B9/
+    -->
+   <canvas height="250" width="375" id="canvas"></canvas> 
+   <script>
+        // var data = [Math.random() * 300];
+        var data = [120, 160, 150, 145, 170, 140, 130, 155, 168, 140];
+        // var data = [76,84,72,71,71,84,86,89,99,105,130,146,156,159,146,150,161,172,170,164,168,161,164,176,181,178,181,187,186,178,185,181,184,194,191,186,189,189,192,190,196,201,202,196,184,183,189,191,193,198,191,193,185,190,193,198,192,192,186,193,193,196,195,193,185,174,171,162,154,152,151,157,164,182,193,195,199,200,197,189,177,180,189,197,196,197,201,202,200,207,206,196,182,176,183,190,187,192,189,176,174,165,164,164,167,169,167,165,180,178,170,166,169,168,168,167,168,161,164,155,144];
+        var points = []; // 曲线上的点，x, y
+        var canvas = document.getElementById('canvas');
+        var ctx = canvas.getContext('2d');
+        // 限制数据最大和最小值
+        // 计算贝塞尔 曲线控制点
+        data.forEach(function(value, index) {
+            points.push({
+                x: index * 30,
+                y: value
+            })
+        })
+        function createCurveControlPoints(points, i) {
+        // 不在区间的点
+            function isNotMiddlePoint(points, i) {
+                if (points[i - 1] && points[i + 1]) {
+                    return points[i].y >= Math.max(points[i - 1].y, points[i + 1].y) || points[i].y <= Math.min(points[i - 1].y, points[i + 1].y);
+                } else {
+                    return false;
+                }
+            }
+
+            var a = 0.2;
+            var b = 0.2;
+            var pAx = null;
+            var pAy = null;
+            var pBx = null;
+            var pBy = null;
+            if (i < 1) {
+                pAx = points[0].x + (points[1].x - points[0].x) * a;
+                pAy = points[0].y + (points[1].y - points[0].y) * a;
+            } else {
+                pAx = points[i].x + (points[i + 1].x - points[i - 1].x) * a;
+                pAy = points[i].y + (points[i + 1].y - points[i - 1].y) * a;
+            }
+
+            if (i > points.length - 3) {
+                var last = points.length - 1;
+                pBx = points[last].x - (points[last].x - points[last - 1].x) * b;
+                pBy = points[last].y - (points[last].y - points[last - 1].y) * b;
+            } else {
+                pBx = points[i + 1].x - (points[i + 2].x - points[i].x) * b;
+                pBy = points[i + 1].y - (points[i + 2].y - points[i].y) * b;
+            }
+
+            // fix issue https://github.com/xiaolin3303/wx-charts/issues/79
+            if (isNotMiddlePoint(points, i + 1)) {
+                pBy = points[i + 1].y;
+            }
+            if (isNotMiddlePoint(points, i)) {
+                pAy = points[i].y;
+            }
+
+            return {
+                ctrA: { x: pAx, y: pAy },
+                ctrB: { x: pBx, y: pBy }
+            };
+        }
+        ctx.beginPath();
+        ctx.shadowOffsetX = 0; // 阴影Y轴偏移
+        ctx.shadowOffsetY = 16; // 阴影X轴偏移
+        ctx.shadowBlur = 12; // 模糊尺寸
+        ctx.shadowColor = 'rgba(0, 0, 0, 2)'; // 颜色
+        // 计算x轴，平分坐标
+        points.forEach(function (item, index) {
+            if (index > 0) {
+                //  here
+                var ctrlPoint = createCurveControlPoints(points, index - 1);
+                ctx.bezierCurveTo(ctrlPoint.ctrA.x, ctrlPoint.ctrA.y, ctrlPoint.ctrB.x, ctrlPoint.ctrB.y, item.x, item.y);
+            }
+        });
+        ctx.strokeStyle = '#fff';
+        ctx.stroke()
+
+        
+   </script>
+   <script>
+      
+   </script>
+</body>
+</html>
