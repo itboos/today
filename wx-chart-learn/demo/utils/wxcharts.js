@@ -1457,7 +1457,7 @@ function drawYAxis(series, opts, config, context) {
         drawYAxisTitle(opts.yAxis.title, opts, config, context);
     }
 }
-
+// 绘制底部的 信息
 function drawLegend(series, opts, config, context) {
     if (!opts.legend) {
         return;

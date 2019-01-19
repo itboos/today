@@ -534,3 +534,11 @@ echo "启动mongd 和 YAPI..start... " > /home/supermonkey/yapi_start.log
 nohup /home/supermonkey/.nvm/versions/node/v8.12.0/bin/node /home/supermonkey/my-yapi/vendors/server/app.js &
 echo "开机启动mongd 和 YAPI.. end.... " > /home/supermonkey/yapi_start.log
 ```
+
+
+### 2019
+修改host文件：
+1.查看host文件
+ cat /etc/hosts**
+2..打开hosts文件
+ sudo vim /etc/hosts** 打开hosts文件。

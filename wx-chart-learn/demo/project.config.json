@@ -14,7 +14,7 @@
 	"compileType": "miniprogram",
 	"libVersion": "2.4.4",
 	"appid": "wx65dca6b170b51b73",
-	"projectname": "%E6%B5%8B%E8%AF%95-1",
+	"projectname": "%E6%B5%8B%E8%AF%95-2",
 	"debugOptions": {
 		"hidedInDevtools": []
 	},
@@ -40,9 +40,10 @@
 			"current": 0,
 			"list": [
 				{
-					"id": -1,
+					"id": 0,
 					"name": "曲线图",
-					"pathName": "pages/charts/line/line"
+					"pathName": "pages/charts/line/line",
+					"query": ""
 				}
 			]
 		}

@@ -1,28 +1,23 @@
-var wxCharts = require('../../../utils/wxcharts.js');
-// var wxCharts = require('../../../utils/curve.js');
+// var wxCharts = require('../../../utils/wxcharts.js');
+var wxCharts = require('../../../utils/curve.js');
 var app = getApp();
 var lineChart = null;
 Page({
     data: {
     },
     touchHandler: function (e) {
-        console.log(lineChart.getCurrentDataIndex(e));
-        lineChart.showToolTip(e, {
-            // background: '#7cb5ec',
-            format: function (item, category) {
-                return category + ' ' + item.name + ':' + item.data 
-            }
-        });
     },    
     createSimulationData: function () {
         var categories = [];
         var data = [];
-        for (var i = 0; i < 10; i++) {
-            categories.push('2016-' + (i + 1));
-            data.push(Math.random()*(200-10)+ 60);
-        }
+        // for (var i = 0; i < 10; i++) {
+        //     categories.push('2016-' + (i + 1));
+        //     data.push(Math.random()*(200-10)+ 60);
+        // }
         data =  [76, 84,86,89,170, 190,99,105,130, 100];
-        console.log('data:', data)
+        // data =  [76,  190,99,105,130];
+        // categories = ['00:00', '15:00', '30:00', '45:00', '60:00']
+        categories = ['00:00', '15:00', '30:00', '45:00', '60:00']
         return {
             categories: categories,
             data: data
@@ -66,15 +61,15 @@ Page({
                 }
             }],
             xAxis: {
-                disableGrid: true
+                disableGrid: false,
+                type: 'calibration' // 显示刻度
             },
             yAxis: {
-                title: '成交金额 (万元)',
                 format: function (val) {
                     return val.toFixed(2);
                 },
-                min: 60,
-                max: 220
+                min: 50,
+                max: 250
             },
             width: windowWidth,
             height: 200,
