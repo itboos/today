@@ -400,6 +400,24 @@ git fetch origin tag <tagname>
  强制删除未合并的分支:
  git branch -D test
 
+ git push --delete <remote_name> <branch_name>
+ 例如： 删除远程分支：m1.4.0
+ gi push --delete origin m1.4.1
+
+ 方法2： 推送一个空白的分支，覆盖远程的原有分支，达到删除的目的：
+ git push [远程仓库名] :远程分支
+ 栗子：
+  要删除远程的hotfix分支：
+	git push origin :hotfix
+ 
+ 删除远程分支时，有时会遇到问题，这个时候需要清理本地分支信息的缓存，
+ 执行： 
+ git fetch --prune origin
+ 可以简写成： git fetch -p origin
+ 原文地址：
+ https://stackoverflow.com/questions/32147093/git-delete-remotes-remote-refs-do-not-exist
+
+
  远程分支：
  查看远程仓库:
  git remote show
