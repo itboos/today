@@ -286,4 +286,12 @@
     贝塞尔曲线：
     https://zh.wikipedia.org/wiki/%E8%B2%9D%E8%8C%B2%E6%9B%B2%E7%B7%9A
 
+    2019.01.31:
+    f2移动端可视化方案：
+    https://antv.alipay.com/zh-cn/f2/3.x/index.html
+    https://github.com/antvis/f2
+
+    微信插件：
+    https://github.com/TKkk-iOSer/WeChatPlugin-MacOS#demo%E6%BC%94%E7%A4%BA
+
  */
