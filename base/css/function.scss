@@ -1,0 +1,12 @@
+ $base-font-size: 18.75px !default;
+
+ @function strip-unit($num) {
+    @return $num / ($num * 0 + 1);
+ }
+ @function rem($value,$context:$base-font-size) {
+    $target: strip-unit($value); /* 去除单位 */
+    $base: strip-unit($context);
+    @return $target/$base + rem
+ }
+
+ $static_url: 'http://nh5.nagezan.net/wx/loveshow/2018-/tomorrowSinger/firstRound/static/imgs/';

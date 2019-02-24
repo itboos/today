@@ -1,0 +1,239 @@
+@import './common/css/reset';
+@import './common/css/base';
+@import './common/css/function';
+$picUrl: 'http://static.xiaoyouzb.com/h5/voice_share/';
+#app {
+  font-size: rem(14);
+  position: relative;
+}
+html,body{
+  height: 100%;
+}
+body {
+  background: url($picUrl + 'static/imgs/bg.png') no-repeat 0 0;
+  background-size: 100%;
+  color: #fff;
+}
+.fix-position {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+}
+.room-name {
+  font-size: rem(16);
+  height: rem(22);
+  line-height: rem(22);
+  padding-top: 0.21333rem;
+}
+.room-desc {
+  font-size: rem(10);
+  height: rem(14);
+  line-height: rem(14);
+  opacity: .6;
+  margin-top: rem(2);
+}
+.room-info {
+  margin-top: rem(16);
+  height: rem(62);
+  padding: 0 rem(12) 0 rem(25);
+  > a {
+    position: relative;
+  }
+  h3, h4 {
+    font-weight: 500;
+  }
+  .master-head {
+    width: rem(62);
+    height: rem(62);
+    border-radius: 999rem;
+    
+  }
+  .master-mute {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    z-index: 2;
+    width: rem(18);
+    height: rem(18);
+  }
+  .master-name {
+    width: rem(75);
+    flex: 1;
+    text-align: left;
+    margin-left: rem(12);
+  }
+  .audience {
+    width: rem(120);
+    .heads {
+      > img {
+        width: rem(24);
+        height: rem(24);
+        border-radius: 999rem;
+      }
+    }
+    .arrow-btn-1 {
+      width: rem(20);
+      height: rem(20);
+      margin-top: rem(2);
+    }
+    .arrow-btn-2 {
+      width: rem(12);
+      margin-top: rem(1);
+    }
+    > p {
+      font-size: rem(12);
+      height: rem(14);
+      line-height: rem(14);
+      margin: 0 auto;
+      margin-top: rem(6);
+      width: rem(100);
+      padding-left: rem(4);
+      background: rgba( 1, 17, 28, 0.2);
+      border-radius: rem(8);
+    }
+  }
+}
+.online-people {
+  margin: rem(25) 0 rem(35) 0;
+  padding-right: rem(25);
+}
+.one {
+  width: rem(62);
+  margin-left: rem(24);
+  margin-bottom: rem(23);
+  > p {
+    font-size: rem(12);
+    line-height: rem(17);
+    height: rem(17);
+    margin-top: rem(2);
+  }
+  .head {
+    position: relative;
+    .user-head, .banned {
+      width: rem(62);
+      height: rem(62);
+      border-radius: 999rem;
+    }
+    .banned {
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+    .off_mico {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      z-index: 2;
+      width: rem(18);
+      height: rem(18);
+    }
+  }
+}
+.message-info {
+  width: rem(351);
+  margin: 0 auto;
+  height: rem(225);
+  overflow: auto;
+  .item {
+    background: rgba(1, 17, 28, .2);
+    text-align: left;
+    padding: rem(8)  rem(6)  rem(8) rem(9);
+    border-radius: rem(6);
+    margin-bottom: rem(8);
+   .name {
+      display: inline-block;
+      margin-left: rem(6);
+      font-size: rem(15);
+    }
+    .grade-box {
+      display: inline-block;
+    }
+  }
+}
+.download-area {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background: #fff;
+  height: rem(60);
+  .logo {
+    width: rem(40);
+    margin-left: rem(16);
+    // border-radius: rem(10);
+    > img {
+      border-radius: rem(10);
+    }
+  }
+  .info {
+    margin-left: rem(12);
+    flex: 1;
+    text-align: left;
+  }
+  h3 {
+    font-size: rem(16);
+    color: rgb(33,33,33);
+    height: rem(22);
+    line-height: rem(22);
+  }
+  p {
+    font-size: rem(10);
+    color: rgb(178, 178, 178);
+    height: rem(14);
+    line-height: rem(14);
+  }
+  .btn {
+    width: rem(84);
+    height: rem(30);
+    line-height: rem(30);
+    color: #fff;
+    font-size: rem(16);
+    background: rgb(17, 168, 245);
+    border-radius: rem(40);
+    margin-right: rem(16);
+  }
+}
+.notOnline {
+  position: absolute;
+  width: rem(171);
+  left: 50%;
+  margin-left: rem(-86);
+  bottom: rem(213);
+  color: #fff;
+  .not-online-tip {
+    // width: rem(150);
+    width: 100%;
+    // margin:  0 auto;
+    padding: 0 rem(10);
+    font-size: rem(30);
+    height: rem(42);
+  }
+  > P {
+    font-size: rem(12);
+    opacity: 0.6;
+    margin: rem(6) 0 rem(46);
+  }
+  .btn {
+    width: rem(171);
+    margin:  0 auto;
+    height: rem(40);
+    font-size: rem(16);
+    text-align: center;
+    line-height: rem(40);
+    background: rgb(17, 168, 245);
+    border-radius: rem(20);
+  }
+}
+.bottom-line::after {
+  content: '';
+  display: block;
+  width: 100%;
+  height: 0;
+  overflow: hidden;
+  transform: scaleY(0.5);
+  border-bottom: solid 1px rgba(247, 247, 247, .6);
+  
+}
