@@ -2,8 +2,11 @@ import { call, put, takeEvery, takeLatest } from 'redux-saga/effects';
 import http from './common/http';
 import {FETCH_DATA, FETCH_DATA_SUCCESS} from './type';
 
+// 延时函数
+const delay = (ms) => new Promise(res => setTimeout(res, ms));
 // worker Saga: 将会在 FETCH_DATA action 时触发
 function *fetchData(action) {
+  yield delay(2000); // 延时2s发起请求
   try{
     const user = yield call(http.get, 'users/itboos', {host: 'Base', data: { id: action.payload.id }})
     // 这里可以对拿到的数据进行一些操作

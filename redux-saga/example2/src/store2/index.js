@@ -4,7 +4,7 @@ import createSgaMiddleware  from 'redux-saga';
 import rootReducer from './reducer'
 // action 常量
 import { fetchData } from './action';
-import rootSaga from './saga'
+import rootSaga from './saga2'
 
 // 创建saga middleware 中间件
 const sagaMiddleware = createSgaMiddleware()
@@ -28,6 +28,9 @@ store.subscribe(function() {
 // 发起请求：返回发起请求的action
 /* eslint-disable-next-line */
 const action = store.dispatch(fetchData);
+
+// 获取当前state
+console.log('store.getState:', store.getState())
 
 // 由于网路请求存在副作用，它会使得我们的reducer不纯，所以，我们不因该在 reducer 里写网络请求的代码。
 // 由于中间件可以在 dispatch action 之后，到达reducer 之前做一些操作，所以，我们可以利用中间件来做网络请的操作，类似的网络请求有很多种，redux-saga 只是其中一种.

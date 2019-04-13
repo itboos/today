@@ -20,6 +20,7 @@ export default {
       const response = await axios.get(url)
       // console.log('respons', response)
       return response.data
+      // throw new Error('403 denied!');
     } catch (e) {
       console.log(e)
       throw e
