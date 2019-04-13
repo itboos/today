@@ -20,3 +20,4 @@ saga Effects:
 
   如： store.dispatch({type: 'LOGIN_REQUEST', payload: {user: 'zdl'}})
 
+为什么redux 需要使用 第三方库来fetch 数据？
