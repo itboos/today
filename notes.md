@@ -747,6 +747,17 @@ node 笔记:
  当本地的文件修改了后，可以通过git add  xxx文件 讲文件提交到本地仓库，以便后面的提交
 也可以通过 git checkout  xxx文件  放弃本次修改，这会让文件回到上次提交的状态，把修改的内容都放弃了
 b1分支的提交
+根据tag创建分支:
+```
+现在主分支上有一个tag为ver1.0.0.1,主分支的名字为master.
+1.执行:git origin fetch 获得最新.
+2.通过:git branch <new-branch-name> <tag-name> 会根据tag创建新的分支.
+例如:git branch newbranch ver1.0.0.1
+会以tag ver1.0.0.1创建新的分支newbranch;
+3.可以通过git checkout newbranch 切换到新的分支.
+4.通过 git push origin newbranch 把本地创建的分支提交到远程仓库.
+
+```
  ```
 
  Mac 安装tree工具，显示目录的层级
@@ -767,7 +778,7 @@ b1分支的提交
 ```
 	/*eslint-disable*/
 	/*eslint-enable*/
-	/*global*/
+	/* global a*/
 	/*eslint*/
 	/*eslint-env*/
 	// eslint-disable-line
