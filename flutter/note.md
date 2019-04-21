@@ -55,5 +55,11 @@ https://en.wikipedia.org/wiki/Tracing_garbage_collection#Generational_GC_.28ephe
 1. https://hackernoon.com/why-flutter-uses-dart-dd635a054ebf
 
 
+命令行 运行dart 开启断言：
+```
+  dart --enable-asserts test.dart
+  dart --help 显示帮助
+```
+
 
 

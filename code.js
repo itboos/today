@@ -63,4 +63,92 @@ var newObj = JSON.parse(JSON.stringify(soucreObj));
 console.log(newObj.f === soucreObj.f); // false  因为是深拷贝， 所有新对象拥有一份完全新的数据
 // 这里的原理就是利用了JSON.parse 会生成一个全新的对象
 
+/* eslint-disable */
+
+// 设计一个迭代器，用来在一个队列上运行，一次一个条目
+
+var tasks = {
+   [Symbol.iterator]() {
+     var steps = this.actions.slice();
+     return {
+       // 使迭代器本身成为iterable
+       [Symbol.iterator]() { return this },
+ 
+       next(...args) {
+         if (steps.length > 0) {
+           let res = steps.shift()(...args)
+           return { value: res, done: false }
+         } else {
+           return { value: undefined, done: true }
+         }
+       },
+ 
+       return(v) {
+         steps.length = 0;
+         return { value: v, done: true };
+       }
+     }
+   },
+   actions: []
+ };
+ 
+ // 使用task 队列的一种方式
+ tasks.actions.push(
+   function step1(x) {
+     console.log('step 1:', x)
+     return x * 2;
+   },
+   function step2(x, y) {
+     console.log('step 2:', x, y)
+     return  x + (y * 2);
+   },
+   function step3(x, y, z) {
+     console.log('step 3:', x, y, z)
+     return (x * y) + z;
+   }
+ );
+ 
+ var it = tasks[Symbol.iterator]();
+ var res1 = it.next(10); // x: 20, done: false
+ var res2 = it.next(20, 50); // 20 + (50*2) 120
+ var res3 = it.next(20, 50, 120);// 1120
+ var res4 = it.next();
+ 
+ console.log(res1, res2, res3, res4)
+ 
+ // 一个缓存简单的缓存函数调用结果的方法, 可以用于reselect 中的缓存方法
+ 
+ function Momorize(fn) {
+   const cacheMap = {};
+   return function(...args) {
+     const key = Array.prototype.join.call(args, '_')
+     let result
+     if (!cacheMap[key]) {
+       result = fn.apply(null, args)
+       cacheMap[key] = result
+     } else {
+       console.log('使用缓存结果：参数为', key)
+     }
+     console.log('cacheMap:', cacheMap)
+     return cacheMap[key];
+   }
+ }
+ 
+ function add (x, y) {
+   console.log('调用add:', x, y)
+   return x + y
+ }
+ 
+ // var res1 = add(999, 1);
+ // var res2 = add(999, 1);
+ var addWithCache = Momorize(add);
+ var res1 = addWithCache(999, 1)
+ var res2 = addWithCache(999, 1)
+ var res3 = addWithCache(999, 1)
+ var res4 = addWithCache(1000, 1)
+ var res5 = addWithCache(999, 1)
+ console.log('res1:', res1, res2, res3, res4, res5)
+ 
+ 
+
 
