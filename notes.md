@@ -5,6 +5,28 @@
 
 git 笔记: 2017-06-06 17:07:13
   https://git-scm.com/book/zh/v2/
+
+
+	配置某个仓库的账号和邮箱：(在同时具有全局和仓库的账号和邮箱的时候，优先使用仓库的配置)
+   
+   在项目根目录下：运行脚本
+	 ```
+   git config user.name "itboos"
+   git config user.email "zhongdonling@gmail.com"
+	 ```
+
+   
+   设置全局的账号和邮箱：
+	 ```
+   git config --global user.name "zhongdonglin"
+   git config --global user.email "zhongdonglin@supermonkey.com.cn"
+  ```
+   仓库 config 文件可以看到配置的用户名和邮箱账号
+	 ```
+   [user]
+      name = itboos
+      email = zhongdonling@gmail.com
+	 ```
   ```git
 	git add ***  或者 git add .
 	git commit 
