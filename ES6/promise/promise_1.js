@@ -17,7 +17,7 @@ function getURL(URL) {
   });
 }
 const getUrl1 = '/wxAct/getActivityInfo?activityNo=test0422&key=e6975067'
-const getUrl2 = '/wxAct/applyTicketByActNo?activityNo=test0422&key=e6975067&phonenumber=13168024501'
+const getUrl2 = '/wxAct/applyTicketByActNo?activityNo=test0422&key=e6975067&phonenumber=13168024030'
 var request = {
       comment: function getComment() {
           return getURL(getUrl1).then(JSON.parse);
