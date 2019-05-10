@@ -62,4 +62,15 @@ https://en.wikipedia.org/wiki/Tracing_garbage_collection#Generational_GC_.28ephe
 ```
 
 
+flutter 解决方案：
+
+数据模块： 
+
+- 数据管理-[flutter_redux](https://pub.flutter-io.cn/packages/flutter_redux)
+- 网络请求-[dio](https://github.com/flutterchina/dio)
+- Json序列化--json_serializable
+- 数据库：-- [sqlite的封装](https://github.com/tekartik/sqflite)
+
+
+
 
