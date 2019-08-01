@@ -779,6 +779,13 @@ b1分支的提交
 3.可以通过git checkout newbranch 切换到新的分支.
 4.通过 git push origin newbranch 把本地创建的分支提交到远程仓库.
 
+通过 comment 关键子查找 commit：
+git log --grep
+
+栗子： 想查找 comment 包含 devConfig.js 的那些提交
+git log --grep=devConfig.js
+
+
 ```
  ```
 
