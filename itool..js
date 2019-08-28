@@ -253,7 +253,7 @@ function isLocalStorageSupport(){
 }(document, window);
 
 
-检查是否支持localStorage, safiri 无痕模式会报错
+// 检查是否支持localStorage, safiri 无痕模式会报错
 
 function isLocalStorageSupport(){
     try {
@@ -274,3 +274,44 @@ console.log(res);
 if (!res) {
   alert('无痕模式可能会导致问题....');
 }
+
+// 2019-08-28 09:45:37
+// 将传回调形式的函数，转换成 返回 Promise 对象的函数：
+// promisify(f, true) to get array of results
+
+function promisify(f, manyArgs = false) {
+    return function (...args) {
+      return new Promise((resolve, reject) => {
+        function callback(err, ...results) { // our custom callback for f
+          if (err) {
+            return reject(err);
+          } else {
+            // resolve with all callback results if manyArgs is specified
+            resolve(manyArgs ? results : results[0]);
+          }
+        }
+        // 手动加了一个 callback 参数，原方法需要明确， 最后一个参数是 calllback
+        args.push(callback);
+        
+        f.call(this, ...args);
+      });
+    };
+  };
+  
+  function f(time, callback) {
+    setTimeout(() => {
+      console.log('时间到了...')
+      callback(null, 1, 2,3)
+    }, time)
+  }
+  // promiseify 前：
+  // f(2000, (err, ...args) => {
+  //   console.log('结果：', err, args)
+  // })
+  
+  // promiseify 后：
+  const pf = promisify(f, true);
+  
+  pf(2000).then(res => {
+    console.log('res:', res) //  [1, 2, 3]
+  })
