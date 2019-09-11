@@ -700,6 +700,9 @@ Git 搜索: 可以搜索某一个变量或者方法的引入时间
   git commit --amend
 如果已经推送了最后一次提交就不要修正它。
 
+ Git 清理本地 无效分支：
+ git remote prune origin
+
  ```
 
  phthon3 相关教程: 2017年06月16日10:51:48
