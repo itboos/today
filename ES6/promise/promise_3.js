@@ -10,6 +10,7 @@ function sequenceTasks(tasks) {
       return promise.then(task).then(pushValue);
   }, Promise.resolve());
 }
+
 function getURL(URL) {
   return new Promise(function (resolve, reject) {
       var req = new XMLHttpRequest();
