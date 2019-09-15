@@ -1,4 +1,3 @@
-// 2017年08月12日15:12:05  开始写一些种子方法
 /**
  * Determine if a value is an Array
  *
@@ -208,7 +207,7 @@ DOm.addEventListener("touchend", function(e) {
   }
 }, false);
 
-检测是否支持localStorage:
+// 检测是否支持localStorage:
 // 移动端浏览器隐私模式/无痕模式使用本地存储localStorage/sessionStorage的问题
 function isLocalStorageSupport(){
     try {
@@ -315,3 +314,27 @@ function promisify(f, manyArgs = false) {
   pf(2000).then(res => {
     console.log('res:', res) //  [1, 2, 3]
   })
+
+// 实现一个无论调用多少次，都只执行一次的工具函数。
+function once(fn, context) {
+  let called = false
+  let result = null
+  return function(...args) {
+    if (called) {
+      return result
+    }
+    called = true
+    return result = fn.apply(context || null, args)
+  }
+}
+
+const saiHi = once(function(name) {
+  console.log('周六愉快~....', name)
+  return 1;
+})
+var res1 = saiHi('zack zhong')
+var res2 =saiHi('zack zhong1')
+saiHi('zack zhong2')
+saiHi('zack zhong3')
+
+console.log('res1, res2:', res1, res2)

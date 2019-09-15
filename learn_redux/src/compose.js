@@ -11,7 +11,7 @@
 
  /** 
   * 组合方法
-  * compose(funcA, funcB, funcC) 形象为 compose( funcA( funcB( funcC() )) )
+  * compose(funcA, funcB, funcC) 形象为 (...args) => funcA( funcB( funcC(...args) ))
   * 从右到左把接收到的函数合成后的最终函数。
   * (arguments): 需要合成的多个函数。预计每个函数都接收一个参数。
   * 它的返回值将作为一个参数提供给它左边的函数，以此类推。
