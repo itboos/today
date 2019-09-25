@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>css-position-sticky-同时设置 top 和 bottom</title>
+  <style>
+    .nav {
+      position: sticky;
+      top: 0;
+      bottom: 0;
+      background: #fcc800;
+      padding: 20px;
+      text-align: center;
+    }
+    li {
+      margin-bottom: 20px;
+    }
+    .container {
+      background: #242424;
+    }
+    .test-1 {
+      padding-top: 300px;
+    }
+    .test-2 {
+      height: 1000px;
+    }
+    .test {
+      padding: 1400px 0;
+    }
+    .important {
+      color: #fcc800;
+    }
+  </style>
+</head>
+<body>
+   <div class="container">
+    <div class="test-1"></div>
+    <div class="test-2"></div>
+    <div class="nav">
+        底部导航栏-1
+    </div>
+    <div class="test-2"></div>
+   </div>
+   <div class="test"></div>
+</body>
+</html>
