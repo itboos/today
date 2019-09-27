@@ -542,3 +542,15 @@ echo "开机启动mongd 和 YAPI.. end.... " > /home/supermonkey/yapi_start.log
  cat /etc/hosts**
 2..打开hosts文件
  sudo vim /etc/hosts** 打开hosts文件。
+
+### tree 命令：
+https://www.jianshu.com/p/15a96c1de695
+
+macOS 默认不支持tree命令，可以通过homebrew安装，brew install tree -g
+
+展示 文件 目录的结构：
+常见命令：
+tree -a
+tree -f
+输出 目录结构到文件：
+tree > ~/Desktop/tree.txt
