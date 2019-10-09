@@ -338,3 +338,34 @@ saiHi('zack zhong2')
 saiHi('zack zhong3')
 
 console.log('res1, res2:', res1, res2)
+
+// 接受一个函数作为参数， 返回一个对这个函数返回结果取反的参数
+function complement(fn) {
+  return function() {
+    return !fn.apply(null, arguments)
+    // return !fn.apply(null, Array.from(arguments))
+  }
+}
+var isOld = complement(function(a) {
+  return a % 2 === 0
+})
+// 返回常量的函数
+function always(v) {
+  return function() {
+    return v
+  }
+}
+var f = always(function() {console.log('1')})
+
+// 数组扁平化
+function flat(arr) {
+  var res = []
+  for (let i = 0, len = arr.length; i < len;  i++) {
+    if (Array.isArray(arr[i])) {
+       res = res.concat(flat(arr[i]))
+    } else {
+      res.push(arr[i])
+    }
+  }
+  return res
+}
