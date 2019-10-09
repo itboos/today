@@ -339,7 +339,7 @@ saiHi('zack zhong3')
 
 console.log('res1, res2:', res1, res2)
 
-// 接受一个函数作为参数， 返回一个对这个函数返回结果取反的参数
+// 接受一个函数作为参数， 返回一个对这个函数返回结果取反的函数
 function complement(fn) {
   return function() {
     return !fn.apply(null, arguments)
@@ -369,3 +369,25 @@ function flat(arr) {
   }
   return res
 }
+// 提供一个参数 的部分函数-
+function partial1(fn, arg1) {
+  return function() {
+    return fn.apply(null, [arg1, ...arguments])
+  }
+}
+
+// 在函数 compose(ramda 中 的组合函数) 时 报错的一种检查 出错位置的函数
+
+const trace = curry(function(tag, x) {
+  console.log(tag, x)
+  return x
+})
+
+// demo:
+var dasherize = compose(join('-'), toLower, split(' '), replace(/\s{2, }/ig, ' '))
+dasherize('The world is a vampire')
+
+// debug: 在执行完 split 打印一下结果。
+var dasherize = compose(join('-'), toLower, trace('after split'), split(' '), replace(/\s{2, }/ig, ' '))
+
+// after split [ 'The', 'world', 'is', 'a', 'vampire' ]
