@@ -703,6 +703,16 @@ Git 搜索: 可以搜索某一个变量或者方法的引入时间
  Git 清理本地 无效分支：
  git remote prune origin
 
+ git  删除远程 仓库的某次、几次）错误提交
+
+ 先回到 想要回退的 commit
+（1）git reset commitId，(注：不要带--hard) 到上个版本
+（2）git stash，暂存修改
+（3）git push --force, 强制push,远程的最新的一次commit被删除
+（4）git stash pop，释放暂存的修改，开始修改代码
+（5）git add . -> git commit -m "massage" -> git push
+  
+ 值得注意的是，这类操作比较比较危险，例如：在你的commit 3之后别人又提交了新的commit 4，那在你强制推送之后，那位仁兄的commit 4也跟着一起消失了。
  ```
 
  phthon3 相关教程: 2017年06月16日10:51:48
