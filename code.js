@@ -154,7 +154,7 @@ var tasks = {
  // 兼容性较好 的 base 64 编码解码方法(可以解决解码时中文乱码的问题)
 
 // https://developer.mozilla.org/en-US/docs/Web/API/WindowBase64/Base64_encoding_and_decoding#The_.22Unicode_Problem.22
-
+// https://segmentfault.com/a/1190000016290403
 // base 64 编码工具
 function b64EncodeUnicode(str) {
   // first we use encodeURIComponent to get percent-encoded UTF-8,
