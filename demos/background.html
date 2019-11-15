@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title> </title>
+    <style type="text/css">
+    
+    .container {
+        text-align: center;
+    }
+
+    .bar {
+        width: 100px;
+        display: inline-block;
+        transition: 1s all cubic-bezier(.46, 1, .23, 1.52);
+        border: 1px solid #e3e3e3;
+        border-radius: 4px;
+        background-color: #ef5621;
+        padding: 10px 20px;
+        box-sizing: border-box;
+    }
+
+    .bar:hover {
+      width: 200px;
+    }
+
+    .demo {
+      width: 400px;
+      height: 200px;
+      background: url('https://img.supermonkey.com.cn/box/1025/new_1025_10.jpg/wm.jpg');
+    }
+
+    h3 {
+      text-align: center;
+      font-size: 20px;
+      color: #fcc800;
+      padding: 80px 0;
+    }
+    #container {
+      width: 500px;
+      padding-top: 50px;
+      height: 500px;
+      border: solid 1px red;
+      margin: 0 auto;
+      overflow: scroll;
+      /* 
+         MDN: https://developer.mozilla.org/zh-CN/docs/Web/CSS/background：
+
+         background-url,  background-repeat, background-position, background-size 
+         注意：
+         background-url:
+           设置 多个 背景，最先声明的 url 背景具有更高的层级。当 多个 背景的位置有交叉时，会发生堆叠，先声明的在最上层。
+
+         background-size 
+                    需要跟在 background-position 后面 并且加上 / background-position / background-size
+
+         background-size: 50% 50% 图片大小 各设置成大小 50%.
+                          关键字: contain, cover, auto, <length>,  <percentage>
+         
+         background-position: 可以使用九宫格定位法: 
+
+          top = top center, top left, top right
+          right = right center, right top , right bottom
+          bottom = bottom center, bottom left, bottom right
+          left = left center, left top, left bottom
+          center = center center;
+          也可以使用 px 像素：
+          第一个值是 距离 x 轴的距离， 第二个值时 y 值的距离
+          例如： background-position: 50px, 100px
+
+         background-size: width [height = auto]
+              如果不设置值的话，大小就是图片默认的宽高， 只设置一个值的话， 就是设置 宽度，高度为 auto
+              可以设置 100% auto : 表示图片的宽度完全显示出来，高度根据 设置的 宽度等比例显示。
+         background-origin: 
+           https://developer.mozilla.org/en-US/docs/Web/CSS/background-origin
+         background-attachment:
+           https://developer.mozilla.org/en-US/docs/Web/CSS/background-attachment
+      */
+      background: 
+                  url('https://mdn.mozillademos.org/files/11307/bubbles.png') no-repeat top center / 50% 50%,
+                  url('https://img.supermonkey.com.cn/webapp/h5/wuhan2019/section-total.png') no-repeat center center / 100% auto ,
+                  url('https://mdn.mozillademos.org/files/11305/firefox.png') no-repeat  bottom left / 200px auto,
+                  url('https://thirdwx.qlogo.cn/mmopen/bQSNMicI8MVQqIIZCx5aKE0MSt10fAB7D3LicYeZUIyVfibdvlanPTaHeDMmcRJjB3EN7kMYRSNMOY8Jo9XQn7r9zHy5r4pUuiaA/132') no-repeat bottom left / 100px 100px;
+      /* background-attachment: fixed, local, local, local; */
+    }
+    
+    </style>
+</head>
+<body>
+  <div id="container">
+    <h3>我是 h3</h3>
+    <h3>我是 h3</h3>
+    <h3>我是 h3</h3>
+    <h3>我是 h3</h3>
+    <h3>我是 h3</h3>
+    <h3>我是 h3</h3>
+  </div>
+<script type="text/javascript"> 
+</script>
+</body>
+</html>
