@@ -713,6 +713,51 @@ Git 搜索: 可以搜索某一个变量或者方法的引入时间
 （5）git add . -> git commit -m "massage" -> git push
   
  值得注意的是，这类操作比较比较危险，例如：在你的commit 3之后别人又提交了新的commit 4，那在你强制推送之后，那位仁兄的commit 4也跟着一起消失了。
+
+   查看本地分支及追踪的分支:
+
+    git branch -v
+
+    查看本地分支及追踪的分支:
+
+    git branch -vv
+    
+    推送一个远程分支：
+    
+    git push orign [本地分支名]:[远程分支名]
+    但是，本地的分支并没有自动跟踪远程分支：
+    
+    栗子： 
+      推送本地分支zdl-main 到远程仓库origin, 并且重命名为 develop
+      git push origin zdl-main:develop
+    
+    设置本地的分支跟踪远程分支：
+    
+    git branch --set-upstream-to=origin/[远程分支名] [本地分支名] （ps: 这种情况一般用于自己推送分支到远程）
+    
+    栗子：
+    设置本地分支master1.4.2跟踪远程分支 master1.4.2
+    
+    git branch --set-upstream-to=origin/master.4.2 master1.4.2
+    
+    方法2：
+    切换一到一个新的分支，并且跟踪远程分支
+    
+    git checkout -b  zdl-main origin/serverfix
+    (新建一个本地分支zdl-main, 并且跟踪远程分支)
+    其结果相当于新建一个本地分支，并且跟踪制定的远程分支
+    
+    这种情况一般是 切换到一个远程别人推送的分支
+    
+    查看所有的分支：
+    git branch -a
+    
+    栗子： 设置本地分支(master1.4.2) 跟踪远程分支 master1.4.2
+    git branch --set-upstream-to=origin/master1.4.2  master1.4.2
+    
+    栗子： git branch --set-upstream-to=origin/master1.4.2 master1.4.2
+
+
  ```
 
  phthon3 相关教程: 2017年06月16日10:51:48
