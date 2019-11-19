@@ -1,0 +1,195 @@
+{
+
+
+
+  "workbench.iconTheme": "material-icon-theme",
+  "window.zoomLevel": 0,
+  "editor.tabSize": 2,
+  "editor.fontSize": 14,
+  //Emmet 设置
+  "emmet.syntaxProfiles": {
+      "vue-html": "html",
+      "vue": "html"
+  },
+  "vsicons.dontShowNewVersionMessage": true,
+  "fileheader.Author": "zhongdonglin",
+  "fileheader.LastModifiedBy": "zhongdonglin",
+  "material-icon-theme.showUpdateMessage": false,
+  "emmet.triggerExpansionOnTab": true,
+  "sublimeTextKeymap.promptV3Features": true,
+  "workbench.panel.location": "bottom",
+  "terminal.integrated.shell.linux": "/bin/zsh",
+  // // 终端在 OS X 上使用的 shell 的路径,改为zsh。
+  "terminal.integrated.shell.osx": "/bin/zsh",
+  "sync.gist": "9c5e1f361a805ea52ac7667726ccfdd4",
+  "sync.lastUpload": "",
+  "sync.autoDownload": false,
+  "sync.autoUpload": false,
+  "sync.lastDownload": "",
+  "sync.forceDownload": false,
+  "sync.host": "",
+  "sync.pathPrefix": "",
+  "sync.quietSync": false,
+  "sync.askGistName": false,
+  "sync.removeExtensions": true,
+  "sync.syncExtensions": true,
+  "files.associations": {
+    "*.wpy": "vue",
+    "*.wxml": "html",
+    "*.wxss": "css",
+    "*.cjson": "jsonc",
+    "*.wxs": "javascript"
+  }, //  启用保存时自动修复,默认只支持.js文件
+  "eslint.validate": [
+    "javascript",  //  用eslint的规则检测js文件
+    "javascriptreact",
+    {
+      "language": "vue",   // 检测vue文件
+      "autoFix": true   //  为vue文件开启保存自动修复的功能
+    },
+    {
+      "language": "html",
+      "autoFix": true
+    },
+    {
+      "language": "html",
+      "autoFix": true
+    },
+    {
+      "language": "wepy",
+      "autoFix": true
+    },
+  ],
+  "eslint.workingDirectories": [
+    "/work"
+  ],
+  "workbench.sideBar.location": "left",
+  "workbench.panel.defaultLocation": "right",
+  "telemetry.enableCrashReporter": false,
+  "telemetry.enableTelemetry": false,
+  "update.channel": "none",
+  "javascript.updateImportsOnFileMove.enabled": "always",
+  "git.enableSmartCommit": true,
+  "emmet.includeLanguages": {
+    "wxml": "html"
+  },
+  "minapp-vscode.disableAutoConfig": true,
+  "update.mode": "manual",
+   // https://vuejs.github.io/vetur/highlighting.html#custom-block 用户自定义高亮块
+   "vetur.grammar.customBlocks": {
+    "config": "json",
+    "docs": "md",
+    "i18n": "json"
+  },
+  // TODO 配置
+  "todohighlight.keywordsPattern": "TODO|FIXME", //highlight `TODO:`,`FIXME:` or content between parentheses
+  "todohighlight.defaultStyle": {
+      "color": "red",
+      "backgroundColor": "#fcc800",
+      "overviewRulerColor": "#ffab00",
+      "cursor": "pointer",
+      "border": "1px solid #eee",
+      "borderRadius": "2px",
+      "isWholeLine": true,
+      //other styling properties goes here ... 
+  },
+  "todohighlight.include":[
+    "**/*.js",
+    "**/*.jsx",
+    "**/*.ts",
+    "**/*.tsx",
+    "**/*.html",
+    "**/*.php",
+    "**/*.css",
+    "**/*.scss",
+    "**/*.wpy",
+    "**/*.vue",
+  ],
+  "todohighlight.exclude":[
+    "**/node_modules/**",
+    "**/bower_components/**",
+    "**/dist/**",
+    "**/build/**",
+    "**/.vscode/**",
+    "**/.github/**",
+    "**/_output/**",
+    "**/*.min.*",
+    "**/*.map",
+    "**/.next/**",
+    "**/tmp/**"
+  ],
+  "sync.forceUpload": true,
+  "[css]": {
+    "editor.defaultFormatter": "HookyQR.beautify"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "HookyQR.beautify"
+  },
+  "eslint.autoFixOnSave": true,
+  "workbench.colorTheme": "Material Theme",
+  "cSpell.enabledLanguageIds": [
+    "asciidoc",
+    "c",
+    "cpp",
+    "csharp",
+    "css",
+    "git-commit",
+    "go",
+    "handlebars",
+    "haskell",
+    "html",
+    "jade",
+    "java",
+    "javascript",
+    "javascriptreact",
+    "json",
+    "jsonc",
+    "latex",
+    "less",
+    "markdown",
+    "php",
+    "plaintext",
+    "pug",
+    "python",
+    "restructuredtext",
+    "rust",
+    "scala",
+    "scss",
+    "text",
+    "typescript",
+    "typescriptreact",
+    "vue",
+    "yaml",
+    "yml"
+  ],
+  "cSpell.userWords": [
+    "ALLCITY",
+    "ERRORMAP",
+    "POSITIONID",
+    "Wxfunc",
+    "animationend",
+    "bezier",
+    "bindscroll",
+    "boxname",
+    "elif",
+    "iconfont",
+    "keyframes",
+    "mixins",
+    "nowrap",
+    "ramda",
+    "rgba",
+    "subpackages",
+    "touchmove",
+    "wechat",
+    "wepy",
+    "wifi",
+    "wudi",
+    "wxss"
+  ],
+  "vetur.validation.template": false,
+  "vetur.validation.script": false,
+  "vetur.validation.style": false,
+  "[html]": {
+    "editor.defaultFormatter": "HookyQR.beautify"
+  }
+}
