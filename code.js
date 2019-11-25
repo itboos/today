@@ -180,3 +180,29 @@ function b64DecodeUnicode(str) {
 
 b64DecodeUnicode('4pyTIMOgIGxhIG1vZGU='); // "✓ à la mode"
 b64DecodeUnicode('Cg=='); // "\n"
+
+
+// seamless-immutable.js 模块化写法:
+(
+  function() {
+    "use strict";
+    function immutableInit(config)  {
+      // ...
+    }
+    var Immutable = immutableInit();
+    /* istanbul ignore if */
+    if (typeof define === 'function' && define.amd) {
+      define(function() {
+        return Immutable;
+      });
+    } else if (typeof module === "object") {
+      module.exports = Immutable;
+    } else if (typeof exports === "object") {
+      exports.Immutable = Immutable;
+    } else if (typeof window === "object") {
+      window.Immutable = Immutable;
+    } else if (typeof global === "object") {
+      global.Immutable = Immutable;
+    }
+  }
+)()
