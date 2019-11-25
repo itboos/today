@@ -756,7 +756,9 @@ Git 搜索: 可以搜索某一个变量或者方法的引入时间
     git branch --set-upstream-to=origin/master1.4.2  master1.4.2
     
     栗子： git branch --set-upstream-to=origin/master1.4.2 master1.4.2
-
+    
+		清除本地无效分支：
+		git remote prune origin
 
  ```
 
