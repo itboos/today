@@ -554,3 +554,10 @@ tree -a
 tree -f
 输出 目录结构到文件：
 tree > ~/Desktop/tree.txt
+
+查看 Linux 系统信息：
+
+```
+ uname -a
+```
+  
