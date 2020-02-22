@@ -206,3 +206,72 @@ b64DecodeUnicode('Cg=='); // "\n"
     }
   }
 )()
+
+/**
+ *  支持 promise 异步操作的责任链, 任务可以顺序传递下去，按顺序执行，也可以在某处中断。
+ *  promise 的顺序调用 2020.02.22
+ * @param {*} next 
+ * @param {*} params 
+ */
+function init1(next, params) {
+  console.log('init1:', params)
+  next(params)
+}
+function doSomeThing() {
+  return new Promise((resolve) => {
+    console.log('new Promis...')
+    setTimeout(function() {
+      console.log('setTimeout...')
+      resolve(998)
+    }, 3000)
+  })
+}
+async function init2(next, params) {
+  const res = await doSomeThing()
+  console.log('init2:', res)
+  next(params)
+  // 终止责任链
+  // return 'end'
+  // 也可以 把这个 获得的结果 继续传递下去：
+  // next(res)
+}
+
+function init3(next, params) {
+  console.log('init3:', params)
+  next(params)
+}
+
+// 这里可以是一些 异步或者 同步的 任务， 会按 顺序依次执行下去。
+const list = [init1, init2, init3]
+// const list = [init1, init3]
+
+function chain(list, params) {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const result = await (list.shift())(next, params)
+      console.log('result:', result)
+      // 如果有 结果返回， 或者 设置 一个标识字段，有了这个返回，就任务想提前终止责任链。
+      if (result !== undefined) {
+        resolve(result)
+      }
+    } catch (e) {
+      reject(e)
+    }
+
+    function next(params) {
+      if (list.length === 0) {
+        console.log('即将 resolve...')
+        resolve(params)
+      } else {
+        resolve(chain(list, params))
+      }
+    }
+  })
+}
+
+function callFn(list, params) {
+  return chain(list, params)
+}
+
+const res = callFn(list, { a: 1, b: 2 })
+console.log('res:', res)
