@@ -275,3 +275,173 @@ function callFn(list, params) {
 
 const res = callFn(list, { a: 1, b: 2 })
 console.log('res:', res)
+
+
+// JSON.stringify Polyfill --start
+//: number, string, boolean, null, undefined, array, regexp, date
+/* eslint-disable */
+function type(v) {
+  const reg = /\[\w+\s(\w+)\]/gi
+  const str = Object.prototype.toString.call(v)
+  return reg.exec(str)[1].toLocaleLowerCase() 
+}
+
+/**
+ * desc JSON.stringify Polyfill
+ * 可以 处理 string, regRex, object, null, boolean 等类型的值
+ * 对于属性值为 undefined， function, Symbol 的属性会跳过处理
+ * 对于属性值为  NaN 的属性，会把值改成 null, typeof NaN = 'number'
+ * 对于属性值为 RegExp 的属性，值变成一个 {} 对象
+ * 对于 Date 对象， 会调用 date 对象的 toISOString 方法
+ * @param {*} source 
+ */
+function stringifyPolyfill(source) {
+  let str = undefined
+  switch(type(source)) {
+    case 'number':
+       // 处理 NaN
+      // eslint-disable-next-line
+      str = source !== source  ?  'null' : '"'+ source + '"'
+      break
+    case 'string':
+    case 'boolean':
+      str = '"'+ source + '"'
+      break
+    case 'null':
+        str =  'null'
+        break
+    case 'date':
+      // new Date().toJSON() = new Date().toISOString()
+      str = '"' +  new Date().toISOString() + '"'
+      break
+    case 'regexp':
+        str = '{}'
+        break
+    case 'array':
+      str = stringifyArray(source)
+      break
+    case 'object':
+      str = stringifyObj(source)
+      break
+    default:
+  }
+  return str
+}
+
+function stringifyObj(obj) {
+  const keys = Object.keys(obj)
+  let res = '{'
+
+  keys.forEach( key => {
+    const v = obj[key]
+
+    switch(type(v)) {
+      case 'number':
+      case 'boolean':
+      case 'null':
+        // NaN !== NaN
+        res = v !== v ? res + '"'+ key + '"' + ":" + null + "," :
+        res + '"'+ key + '"' + ":" + v + ","
+        break
+      case 'string':
+        res = res + '"'+ key + '"' + ":" + '"' + v + '"' + ","
+        break
+      case 'date':
+        // new Date().toJSON() = new Date().toISOString()
+        res = res + '"'+ key + '"' + ":" + '"' +  new Date().toISOString() + '"' + ","
+        break
+      case 'regexp':
+        res = res + '"'+ key + '"' + ":" + '{}' + ","
+        break
+      case 'array':
+        res = res + '"'+ key + '"' + ":" +  stringifyArray(v) + ','
+        break
+      case 'object':
+        res = res + '"'+ key + '"' + ":" + stringifyObj(v) + ','
+        break
+      default:
+    }
+  })
+
+  res = res.slice(0, res.length - 1)
+  res += '}'
+  return res
+}
+
+function stringifyArray(arr) {
+  let res = "["
+
+  arr.forEach(v => {
+    switch(type(v)) {
+      case 'number':
+      case 'boolean':
+      case 'null':
+        // NaN !== NaN
+        res = v !== v ? res + null + "," :
+        res + v + ","
+        break
+      case 'string':
+        res = res + '"'+ v + '"' + ','
+        break
+      case 'date':
+        // new Date().toJSON() = new Date().toISOString()
+        res = res + new Date().toISOString() + ","
+        break
+      case 'regexp':
+        res = res + '{}' + ","
+        break
+      case 'array':
+        res = res + stringifyArray(v) + ','
+        break
+      // 是对象，循环调用自身， 在哪个位置判断循环引用
+      case 'object':
+        res = res + stringifyObj(v) + ','
+        break
+      default:
+    }
+  })
+
+  res = res.slice(0, res.length - 1)
+  res += ']'
+  return res
+}
+
+var a = {
+  o1: '1',
+  name: 'zack',
+  gf: {
+    name: '小青',
+    bf: {
+      name: '小明',
+      age: 25,
+    }
+  },
+  arr: [2,4,5,6,7, [8, 9, 10], {a: 1, b: 2 } ],
+  fn: stringifyPolyfill,
+  sys: Symbol('sss'),
+  test: NaN,
+  reg: new RegExp('abc'),
+  c: null,
+  date: new Date(),
+  bool: true
+}
+
+// console.log('JSON.stringify:', JSON.stringify(a))
+// console.log(stringifyPolyfill(a) === JSON.stringify(a))
+// console.log(stringifyPolyfill(a))
+
+console.log(stringifyPolyfill(null))
+console.log(stringifyPolyfill(null) === JSON.stringify(null)) // true
+
+// console.log(stringifyPolyfill(undefined))
+// console.log(stringifyPolyfill(undefined) === JSON.stringify(undefined)) // true
+
+
+// console.log(stringifyPolyfill(1))
+// console.log(stringifyPolyfill(new Date()))
+// console.log(stringifyPolyfill(new Date()) === JSON.stringify(new Date())) // true
+
+// console.log(stringifyPolyfill(true))
+// console.log(stringifyPolyfill(/abc/))
+
+// JSON.stringify Polyfill --end
