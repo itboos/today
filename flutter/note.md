@@ -73,4 +73,21 @@ flutter 解决方案：
 
 
 
+#### 笔记：
 
+> 1. 使用 assets 本地文件时，如（图片，json, ）等本地文件时，要先在系项目的 .yaml 文件里 配置，
+否则会加载文件失败。
+
+
+如：
+pubspec.yaml
+
+```
+assets:
+  # To add assets to your application, add an assets section, like this:
+  # assets:
+    - assets/data/starwars_data.json // json 文件
+    - images/a_dot_burr.jpeg  // 用到的图片 1
+    ...
+    #  - images/a_dot_ham.jpeg
+```
