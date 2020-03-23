@@ -7,6 +7,8 @@ demo5:  原型模式 -> 理解new 运算的实现过程
 
 ### 设计模式：
 
+- [维基百科-软件设计模式](https://zh.wikipedia.org/wiki/Category:%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F)
+
 策略模式：
 
 - [策略模式](https://design-patterns.readthedocs.io/zh_CN/latest/behavioral_patterns/strategy.html)
