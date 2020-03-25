@@ -1,4 +1,4 @@
-  // 策略模式的demo: 对象有交税的行为，但交税 payTax 在不同的情况下有不同的实现算法，  
+  // 策略模式的demo: ，指对象有某个行为，但是在不同的场景中，该行为有不同的实现算法。比如对象有交税的行为，但交税 payTax 在不同的情况下有不同的实现算法，  
   // https://zh.wikipedia.org/wiki/%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F
   
   function Context(strategy) {
