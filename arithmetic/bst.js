@@ -1,5 +1,10 @@
  /**
   * desc: 二叉搜索树的创建和遍历： 先序， 中序，后序遍历。
+  * 先序：根节点 -> 左节点 -> 右节点
+  * 中序：左节点 -> 根节点-> 右节点
+  * 后续：左节点 ->  右节点 -> 根节点
+  * 可以看到，这种命名方式是已根节点的访问顺序来命名的。
+  * 
   * date: 2020-04-07
   * @param {*} data 
   * @param {*} left 
@@ -79,9 +84,62 @@ bsOne.insert(22)
 bsOne.insert(37)
 bsOne.insert(99)
 
+/*
+ 树结构图:
+     23
+   /    \
+  16    45
+ /  \  /  \
+3  22 37  99
+
+*/
+
 console.log('bsOne:', bsOne)
 inOrder(bsOne.root);
 console.log('-------------------------')
 preOrder(bsOne.root);
 console.log('-------------------------')
 postOrder(bsOne.root);
+
+// 二叉搜索树的查找
+
+// 1. 查找最小值: 最小值肯定在最左侧
+function getBSTMin(root) {
+  var current = root
+  while(current.left !== null) {
+    current = current.left
+  }
+  return current.data
+}
+
+// 2. 查找最大值： 最大值肯定在最右侧
+
+function getBSTMax(root) {
+  var current = root
+  while(current.right !== null) {
+    current = current.right
+  }
+  return current.data
+}
+
+// 3. 查找指定值： 
+function find (root, data) {
+  var current = root
+  while(current != null) {
+    if (current.data === data) {
+      return current
+    } else if (current.data > data) {
+      current = current.left
+    } else {
+      current = current.right
+    }
+  }
+  return null
+}
+
+// 测试
+var min = getBSTMin(bsOne.root)
+var max = getBSTMax(bsOne.root)
+console.log('min, max:', min, max)
+console.log(find(bsOne.root, 3))
+console.log(find(bsOne.root, 99))
