@@ -1,20 +1,18 @@
 /**
  * 计算 斐波那契数列的第 n 项
- * 从前往后计算, 动态规划思路, O(n)
+ * 从前往后计算, 动态规划思路, O(n) 迭代方法
  * @param {Number} n 
  */
 function fib(n) {
   if ( n<= 2 ) {
     return 1
   }
-  var prevOne = 1; // 2
-  var prevTwo = 1; // 1
-  var now = 0;
+  var resultArr = [0, 1, 1] 
+  // base case arr[1] 表示斐波那契数列的第一项, arr[2] 表示斐波那契数列的第二项
   for (var i = 3; i <= n; i++) {
-    now = prevOne + prevTwo // 3
-    prevTwo = prevOne // 2
-    prevOne = now // 3
+    resultArr[i] = resultArr[i - 1] + resultArr[i - 2]
   }
+  return resultArr[n]
   // 1, 1, 2, 3, 5, 8, 12
   console.log('res:', prevOne)
 }
@@ -28,6 +26,7 @@ function fib(n) {
 
 /**
  * 带缓存版本的 计算方法， 重叠子问题只计算一次，缓存了每个子问题的结果
+ * 时间复杂度为 O(n), 效率已经接近迭代版本的动态规划.
  * @param {Number} n 
  * @param {Object} fibMap 
  */
