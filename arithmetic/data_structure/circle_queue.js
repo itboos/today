@@ -57,6 +57,7 @@ MyCircularQueue.prototype.deQueue = function() {
   if (this.head === this.tail) {
     this.head = -1
     this.tail = -1
+    return true
   }
   this.head = (this.head + 1) % this.size
   return true
@@ -101,7 +102,7 @@ MyCircularQueue.prototype.isFull = function() {
 };
 
 
- var circularQueue = new MyCircularQueue(3); // 设置长度为 3
+var circularQueue = new MyCircularQueue(3); // 设置长度为 3
 var res1 = circularQueue.enQueue(1);  // 返回 true
 var res2 = circularQueue.enQueue(2);  // 返回 true
 var res3 = circularQueue.enQueue(3);  // 返回 true
@@ -114,4 +115,3 @@ var res9 = circularQueue.Rear();  // 返回 4
 
 console.log('res1....9', res1, res2, res3, res4, res5)
 console.log('res1....9', res6, res7, res8, res9)
-
