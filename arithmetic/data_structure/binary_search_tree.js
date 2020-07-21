@@ -94,12 +94,12 @@ bsOne.insert(99)
 3  22 37  99
 
 */
-
 console.log('bsOne:', bsOne)
+console.log('------------中序遍历-------------')
 inOrder(bsOne.root); // 3 16 22 23 37 45 99
-console.log('-------------------------')
+console.log('------------先序遍历-------------')
 preOrder(bsOne.root);// 23 16 3 22 45 37 99
-console.log('-------------------------')
+console.log('----------后续遍历---------------')
 postOrder(bsOne.root); // 3 22 16 37 99 45 23
 
 // 二叉搜索树的查找
@@ -138,9 +138,33 @@ function find (root, data) {
   return null
 }
 
+// 这两个方法返回最小值和最大值，但有时，我们希望方法返回存储最小值和最大值的节点。
+// 这很好实现，只需要修改方法，让它返当前回节点，而不是节点中存储的数据即可。
+
 // 测试
 var min = getBSTMin(bsOne.root)
 var max = getBSTMax(bsOne.root)
 console.log('min, max:', min, max)
 console.log(find(bsOne.root, 3))
 console.log(find(bsOne.root, 99))
+
+
+// 广度遍历
+function BFS_Traverse(node) {
+  var queue = []
+  queue.push(node)
+  while (queue.length > 0) {
+    var node = queue.shift()
+    // console.log('->', node.data)
+    node.show();
+    if (node.left) {
+      queue.push(node.left)
+    }
+    if (node.right) {
+      queue.push(node.right)
+    }
+  }
+  console.log('遍历完成')
+}
+console.log('-------------广度遍历------------')
+BFS_Traverse(bsOne.root)
