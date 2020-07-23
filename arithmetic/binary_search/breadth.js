@@ -15,3 +15,6 @@ function BFS_Traverse(node) {
   }
   console.log('遍历完成')
 }
+
+// 二叉树的层次遍历 参考资料：
+// https://cloud.tencent.com/developer/article/1196253
