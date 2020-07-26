@@ -96,11 +96,11 @@ bsOne.insert(99)
 */
 console.log('bsOne:', bsOne)
 console.log('------------中序遍历-------------')
-inOrder(bsOne.root); // 3 16 22 23 37 45 99
-console.log('------------先序遍历-------------')
+inOrder(bsOne.root); // 3 16 22 23 37 45 99 // 根左右
+console.log('------------先序遍历-------------') // 左根右
 preOrder(bsOne.root);// 23 16 3 22 45 37 99
 console.log('----------后续遍历---------------')
-postOrder(bsOne.root); // 3 22 16 37 99 45 23
+postOrder(bsOne.root); // 3 22 16 37 99 45 23 // 左右根
 
 // 二叉搜索树的查找
 
