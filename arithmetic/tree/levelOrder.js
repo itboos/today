@@ -37,8 +37,8 @@ var levelOrder = function(root) {
   return number
 };
 
-var resLevelOrder = levelOrder(bsOne.root)
-console.log('层次遍历，输出二维数组1：', resLevelOrder)
+// var resLevelOrder = levelOrder(bsOne.root)
+// console.log('层次遍历，输出二维数组1：', resLevelOrder)
 
 
 /*
@@ -59,6 +59,41 @@ function myPreOrder(node, depth, number) {
   myPreOrder(node.left, depth + 1, number)
   myPreOrder(node.right, depth + 1, number)
 }
-var myPreOrderRes = levelOrder2(bsOne.root)
+// var myPreOrderRes = levelOrder2(bsOne.root)
 
-console.log('层次遍历，输出二维数组2：', myPreOrderRes)
+// console.log('层次遍历，输出二维数组2：', myPreOrderRes)
+
+// 二叉树的层次遍历的相关变种：
+// 103. 二叉树的锯齿形层次遍历
+// https://leetcode-cn.com/problems/binary-tree-zigzag-level-order-traversal/
+function zigzagLevelOrder(root) {
+  var queue = []
+  var number = []
+  if (!root) return number
+
+  queue.push(root)
+  while(queue.length > 0) {
+    var currentLevelSize = queue.length
+    var currentLevelArr = []
+    // 循环 currentLevelSize 次的目的是 每次都把 一层的节点遍历完， 以便得到某一层结果。
+    for (var i = 0; i < currentLevelSize; i++) {
+      var node = queue.shift()
+      // TODO leetcode 里的值 是 val 形式的， 提交的时候要 改成 node.val
+      currentLevelArr.push(node.data)
+      if (node.left !== null) {
+        queue.push(node.left)
+      }
+      if (node.right !== null) {
+        queue.push(node.right)
+      }
+    }
+    // 将一层的数据添加到 结果数组里
+    currentLevelArr = number.length % 2 === 0 ? currentLevelArr : currentLevelArr.reverse()
+    number.push(currentLevelArr)
+  }
+  return number
+}
+
+var zigzagLevelOrderRes = zigzagLevelOrder(bsOne.root)
+
+console.log('二叉树的锯齿形层次遍历3: ', zigzagLevelOrderRes)
