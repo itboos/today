@@ -42,7 +42,8 @@ var levelOrder = function(root) {
 
 
 /*
-* desc: 层次遍历方法2：
+* desc: 层次遍历方法2： 递归方法
+* https://leetcode-cn.com/problems/binary-tree-level-order-traversal/solution/die-dai-di-gui-duo-tu-yan-shi-102er-cha-shu-de-cen/
 */
 function levelOrder2(root) {
   var number = [[]]
@@ -52,6 +53,7 @@ function levelOrder2(root) {
 
 function myPreOrder(node, depth, number) {
   if (!node) return
+  // number 是[ [1],[2,3] ]， depth 是 3，就再插入一个空 list 放到 number中
   if (depth >= number.length ) {
     number.push([])
   }
