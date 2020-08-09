@@ -231,3 +231,40 @@ function myPreOrder(node, depth, number) {
 var myPreOrderRes = levelOrder2(bsOne.root)
 
 console.log('层次遍历，输出二维数组2：', myPreOrderRes)
+
+function rightSideView(root) {
+  var queue = []
+  var number = []
+  if (!root) return number
+
+  queue.push(root)
+  while(queue.length > 0) {
+    var currentLevelSize = queue.length
+    var currentLevelArr = []
+    // 循环 currentLevelSize 次的目的是 每次都把 一层的节点遍历完， 以便得到某一层结果。
+    for (var i = 0; i < currentLevelSize; i++) {
+      var node = queue.shift()
+      // TODO leetcode 里的值 是 val 形式的， 提交的时候要 改成 node.val
+      currentLevelArr.push(node.data)
+      if (node.left !== null) {
+        queue.push(node.left)
+      }
+      if (node.right !== null) {
+        queue.push(node.right)
+      }
+    }
+    // 将一层的数据添加到 结果数组里
+    number.push(currentLevelArr)
+  }
+  // 右视图的节点跟节点肯定在里面
+  // 从层次遍历的结果取出每一层的最右边那个节点（从第一层开始）
+  var rightView = number.map(function(levelResult) {
+    var len = levelResult.length
+    return len > 1 ? levelResult[len - 1] : levelResult[0]
+  })
+  return rightView
+}
+
+var rightSideViewRes = rightSideView(bsOne.root)
+
+console.log('二叉树的右视图a: ', rightSideViewRes)

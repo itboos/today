@@ -97,3 +97,32 @@ function zigzagLevelOrder(root) {
 var zigzagLevelOrderRes = zigzagLevelOrder(bsOne.root)
 
 console.log('二叉树的锯齿形层次遍历3: ', zigzagLevelOrderRes)
+
+// 199.二叉树的右视图
+// https://leetcode-cn.com/problems/binary-tree-right-side-view/
+
+function rightSideView(root) {
+  var queue = []
+  var number = []
+  if (!root) return number
+
+  queue.push(root)
+  while(queue.length > 0) {
+    var currentLevelSize = queue.length
+    // 循环 currentLevelSize 次的目的是 每次都把 一层的节点遍历完， 以便得到某一层结果。
+    for (var i = 0; i < currentLevelSize; i++) {
+      var node = queue.shift()
+      // TODO leetcode 里的值 是 val 形式的， 提交的时候要 改成 node.val
+      number.push(node.data)
+      // 只添加右节点
+      if (node.right !== null) {
+        queue.push(node.right)
+      }
+    }
+  }
+  return number
+}
+
+var rightSideViewRes = rightSideView(bsOne.root)
+
+console.log('二叉树的右视图: ', rightSideViewRes)

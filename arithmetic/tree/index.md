@@ -17,3 +17,10 @@
 我们按照高度顺序一层一层的访问整棵树，高层次的节点将会比低层次的节点先被访问到
 
 - [二叉树的层次遍历](./levelOrder.js)
+
+### 笔记：
+-[BFS 的使用场景总结：层序遍历、最短路径问题](https://leetcode-cn.com/problems/binary-tree-level-order-traversal/solution/bfs-de-shi-yong-chang-jing-zong-jie-ceng-xu-bian-l/)
+
+### 题目勾选：
+- 102. 二叉树的层次遍历
+- 103. 二叉树的锯齿形层次遍历
