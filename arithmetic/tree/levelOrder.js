@@ -44,6 +44,7 @@ var levelOrder = function(root) {
 /*
 * desc: 层次遍历方法2： 递归方法
 * https://leetcode-cn.com/problems/binary-tree-level-order-traversal/solution/die-dai-di-gui-duo-tu-yan-shi-102er-cha-shu-de-cen/
+* 通用模板： https://leetcode-cn.com/problems/binary-tree-level-order-traversal/solution/tao-mo-ban-bfs-he-dfs-du-ke-yi-jie-jue-by-fuxuemin/
 */
 function levelOrder2(root) {
   var number = [[]]

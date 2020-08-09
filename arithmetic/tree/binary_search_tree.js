@@ -268,3 +268,65 @@ function rightSideView(root) {
 var rightSideViewRes = rightSideView(bsOne.root)
 
 console.log('二叉树的右视图a: ', rightSideViewRes)
+
+/**
+ * desc:  173. 二叉搜索树迭代器
+ * https://leetcode-cn.com/problems/binary-search-tree-iterator/
+ * 思路： 本质上属于先序遍历：
+ * 先中序遍历得到从小到大顺序的数组，然后从左往右依次返回数组元素即可。
+ */
+function BSTIterator(root) {
+  if (root === null) {
+    this.dataArr = []
+    return
+  }
+  this.dataArr = inOrderBSTIterator(root, [])
+}
+/**
+ * @return the next smallest number
+ * @return {number}
+ */
+BSTIterator.prototype.next = function() {
+  return this.dataArr.shift()
+};
+
+/**
+ * @return whether we have a next smallest number
+ * @return {boolean}
+ */
+BSTIterator.prototype.hasNext = function() {
+  return this.dataArr.length > 0
+};
+
+/**
+ * Your BSTIterator object will be instantiated and called as such:
+ * var obj = new BSTIterator(root)
+ * var param_1 = obj.next()
+ * var param_2 = obj.hasNext()
+ */
+
+function inOrderBSTIterator(node, resArr) {
+  if (node!== null ) {
+    inOrderBSTIterator(node.left, resArr)
+    resArr.push(node.data)
+    inOrderBSTIterator(node.right, resArr)
+  }
+  return resArr
+}
+
+var BSTIteratorObj = new BSTIterator(bsOne.root)
+console.log('BSTIteratorRes hasNext-------------', BSTIteratorObj.next())
+console.log('BSTIteratorRes-------------', BSTIteratorObj.hasNext())
+console.log('BSTIteratorRes-------------', BSTIteratorObj.next())
+console.log('BSTIteratorRes-------------', BSTIteratorObj.next())
+console.log('BSTIteratorRes-------------', BSTIteratorObj.next())
+console.log('BSTIteratorRes-------------', BSTIteratorObj.next())
+console.log('BSTIteratorRes-------------', BSTIteratorObj.next())
+console.log('BSTIteratorRes hasNext----------只剩最后一个元素了', BSTIteratorObj.hasNext())
+console.log('BSTIteratorRes-------------', BSTIteratorObj.next())
+console.log('BSTIteratorRes-------------', BSTIteratorObj.next())
+console.log('BSTIteratorRes hasNext -------------', BSTIteratorObj.hasNext())
+console.log('BSTIteratorRes-------------', BSTIteratorObj.next())
+
+// 删除二叉搜索树的节点
+// https://leetcode-cn.com/problems/delete-node-in-a-bst/solution/shan-chu-er-cha-sou-suo-shu-zhong-de-jie-dian-by-l/
