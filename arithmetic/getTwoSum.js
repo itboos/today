@@ -33,7 +33,7 @@ var twoSum2 = function(nums, target) {
   }
   for (var j = 0; j < nums.length; j++) {
     var leftNum = target - nums[j];
-    // 防止同一个元素使用两次
+    // 如果 leftNum 存在且不是 nums[j] 本身
     if (numMap[leftNum] && j !== numMap[leftNum]) {
         return [j, numMap[leftNum]]
     }
