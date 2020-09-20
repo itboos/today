@@ -3,6 +3,8 @@
 // 来源：力扣（LeetCode）
 // 链接：https://leetcode-cn.com/problems/two-sum
 // 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+// https://labuladong.gitbook.io/algo/suan-fa-si-wei-xi-lie/twosum-wen-ti-de-he-xin-si-xiang
+
 /**
  * @desc: 两数之和
  * @param {Array} nums 
@@ -26,6 +28,8 @@ function twoSum(nums, target) {
 // 执行一次遍历，看 targetMap[target-current] 是否存在
 // 这里， 多个相同的 value, 索引会被覆盖。但是题目说，一个输入，只对应一个解，所以不存在这种情况.
 // 时间复杂度： O(n), 空间复杂度 O(1)
+// 由于哈希表的查询时间为 O(1)，算法的时间复杂度降低到 O(N)，但是需要 O(N) 的空间复杂度来存储哈希表。
+// 不过综合来看，是要比暴力解法高效的
 var twoSum2 = function(nums, target) {
   var numMap = {}
   for (var i = 0; i < nums.length; i++) {
@@ -115,3 +119,27 @@ var twoSum4 = function(nums, target) {
 
 var res = twoSum2([3,3], 6)
 console.log('res:', res) // [1, 3] => [3,1]
+
+
+/**
+ * 如果给的数组是有序的，则可以使用 双指针的方法来结题
+ */
+
+ var twoSum5 = function(nums,  target) {
+  var left = 0, right = nums.length  - 1;
+  while(left <  right) {
+    var  sum = nums[left] + nums[right]
+    if ( sum === target) {
+      return [left, right]
+    }
+    if (sum < target) {
+      left += 1 // 让 left 大一些
+    } else {
+      right -= 1 // 让 right 小一些
+    }
+  }
+  return [-1, -1]
+ }
+
+ var res5 = twoSum2([1,2,3,4,5, 6, 7, 8, 9], 13)
+console.log('res5:', res5) // [1, 3] => [3,1]
