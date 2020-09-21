@@ -130,6 +130,7 @@ console.log('res:', res) // [1, 3] => [3,1]
   while(left <  right) {
     var  sum = nums[left] + nums[right]
     if ( sum === target) {
+
       return [left, right]
     }
     if (sum < target) {
@@ -141,5 +142,54 @@ console.log('res:', res) // [1, 3] => [3,1]
   return [-1, -1]
  }
 
- var res5 = twoSum2([1,2,3,4,5, 6, 7, 8, 9], 13)
-console.log('res5:', res5) // [1, 3] => [3,1]
+//  var res5 = twoSum2([1,2,3,4,5, 6, 7, 8, 9], 13)
+// console.log('res5:', res5) // [1, 3] => [3,1]
+
+/**
+ * desc: 两数之和的变种，nums 中可能有多对儿元素之和都等于 target，请你的算法返回所有和为 target 的元素对儿，
+ * 其中不能出现重复
+ * @example: 输入： nums = [1,3,1,2,2,3], target = 4， 输出： [[1,3],[2,2]]
+ * 思路： 排序加左右指针法
+ * 双指针操作的部分虽然有那么多 while 循环，
+ * 但是时间复杂度还是 O(N)，而排序的时间复杂度是 O(NlogN)，所以这个函数的时间复杂度是 O(NlogN)
+ */
+
+var twoSum6 = function twoSumTarget(nums,  target) {
+  // 排序数组(一定要是从小到大排序的才行)
+  var sortedNums = nums.slice(0).sort((a, b) => a-b)
+  var low = 0, high = sortedNums.length  - 1;
+  var result = []
+  while(low <  high) {
+    var left = sortedNums[low],
+        right = sortedNums[high]
+    var  sum = left + right
+    if  (sum > target) {
+      // 跳过相同的元素
+      while(low <  high && sortedNums[high] === right) {
+        high = high - 1 
+      }
+    } else if (sum < target) {
+      // 跳过相同的元素  
+      while(low <  high && sortedNums[low] === left) {
+        low = low + 1 
+      }
+    } else  {
+      // sum = target
+      result.push([left, right])
+      // 移动左右指针，跳过重复元素
+      while(low <  high && sortedNums[high] === right) {
+        high = high - 1 
+      }
+      while(low <  high && sortedNums[low] === left) {
+        low = low + 1 
+      }
+    }
+  }
+  return result
+ }
+
+ var res6 = twoSum6([2,7,11,15], 9)
+ console.log('res6:', res6) // [[1,3], [2, 2]]
+
+
+
