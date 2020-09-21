@@ -11,3 +11,5 @@ http://web.jobbole.com/90033/
 https://github.com/yexiaochai/medlog
 https://github.com/mozilla/source-map
 https://github.com/yexiaochai/medlog
+
+sentry: https://sentry.io/welcome/ 开源错误监控方案
