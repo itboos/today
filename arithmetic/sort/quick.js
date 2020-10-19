@@ -2,23 +2,24 @@
  *  快速排序: 
  *   思路：
  *       
- *   时间复杂度未： O(n²）
+ *   时间复杂度未： O(nlogn)
  * 
- *   空间复杂度： O(1) 选择排序算法的运行并不需要额外的存储空间，所以空间复杂度是O(1)，也就是说，这是一个原地排序算法
+ *   空间复杂度： O(logn)
  *              
  * 
- *   最好情况时间复杂度： O(n²), 
+ *   最好情况时间复杂度： O(nlogn)
  * 
  *   最坏情况时间复杂度： O(n²) 
  * 
- *   平均情况时间复杂度： O(n²) 不管有序无序，都要执行 n 次比较。
+ *   平均情况时间复杂度： O(nlogn)
  *   
- *   稳定性：
-
+ *   稳定性： 不稳定，因为关键字的比较和交换是跳跃进行的
+ *   desc: 维基百科： https://zh.wikipedia.org/wiki/%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F
+     平均性能最好
  * */
 
  // 参考：https://blog.csdn.net/weshjiness/article/details/8660583
- // https://zh.wikipedia.org/wiki/%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F
+ // http://data.biancheng.net/view/117.html
 
 //  https://blog.csdn.net/qq_36528114/article/details/78667034
 
