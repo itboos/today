@@ -15,7 +15,7 @@
 function twoSum(nums, target) {
   var res = []
   for (var i = 0, len = nums.length; i < len; i++) {
-      for (var j=i+1; j < nums.length; j++) {
+      for (var j = i+1; j < nums.length; j++) {
           if (nums[i] + nums[j] === target) {
               res = [i, j]
               return res
@@ -130,7 +130,6 @@ console.log('res:', res) // [1, 3] => [3,1]
   while(left <  right) {
     var  sum = nums[left] + nums[right]
     if ( sum === target) {
-
       return [left, right]
     }
     if (sum < target) {
