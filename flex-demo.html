@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>flex-布局一览</title>
+<style type="text/css">
+body {
+  max-width: 750px;
+  margin: 0 auto;
+}
+/* flex-end:  demo1 */
+#container-1 {
+  display: flex;
+  justify-content: flex-end;
+  height: 100px;
+  background-color: lightyellow;
+  margin: 5px auto 20px;
+}
+.box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50px;
+  width: 75px;
+  background-color: springgreen;
+  border: 1px solid #333;
+}
+/* flex-end: demo1 */
+
+/* flex-start: demo2 */
+#container-2 {
+  display: flex;
+  justify-content: flex-start;
+  height: 100px;
+  background-color: lightyellow;
+  margin: 5px auto 20px;
+}
+/* flex-start: demo2 */
+
+/* justify-content: center: demo3 */
+#container-3 {
+  display: flex;
+  justify-content: center;
+  height: 100px;
+  background-color: lightyellow;
+  margin: 5px auto 20px;
+}
+
+/* justify-content: space-between: demo4 */
+#container-4 {
+  display: flex;
+  justify-content: space-between;
+  /*
+    默认方向是 按照主轴的方向来的，从左往右。
+    但是：它同时受到两个属性的影响：
+     direction: lrt; // 从左往右, 这个也是默认值。
+     direction: rtl; // 从右往左
+     此时，效果等价于 
+     flex-direction: row-reverse;
+
+     direction: rtl;
+     flex-direction: row-reverse; 
+  */
+  height: 100px;
+  background-color: lightyellow;
+  margin: 5px auto 20px;
+}
+
+/* justify-content: space-around: demo5 */
+#container-5 {
+  display: flex;
+  justify-content: space-around;
+  height: 100px;
+  background-color: lightyellow;
+  margin: 5px auto 20px;
+}
+/*  auto margin: demo6 */
+#container-6 {
+  display: flex;
+  justify-content: flex-end;
+  height: 100px;
+  background-color: lightyellow;
+  margin: 5px auto 20px;
+}
+.box24 {
+  margin-right: auto;
+}
+/* 或者使用这个
+.box25 {
+  margin-left: auto;
+}  */
+/*  auto margin: demo6 */
+
+/*  auto margin: demo7 */
+#container-7 {
+  display: flex;
+  justify-content: flex-end;
+  height: 100px;
+  background-color: lightyellow;
+  margin: 5px auto 20px;
+}
+.box29 {
+  margin-right: auto;
+}
+.box33 {
+  margin-left: auto;
+}
+
+/*  auto margin: demo8 */
+#container-8 {
+  display: flex;
+  justify-content: flex-end;
+  height: 100px;
+  background-color: lightyellow;
+  margin: 5px auto 20px;
+}
+.box37 {
+  margin-left: auto;
+}
+/*  auto margin: demo8 */
+
+/*  auto margin: demo9 */
+#container-9 {
+  display: flex;
+  justify-content: flex-end;
+  height: 200px;
+  background-color: lightyellow;
+  margin: 5px auto 20px;
+}
+.box44 {
+  align-self: flex-end;
+  margin-left: auto;
+}
+/*  auto margin: demo9 */
+/*  auto margin: demo10 */
+
+#container-10 {
+  display: flex;
+  /* justify-content: flex-end; */
+  height: 200px;
+  background-color: lightyellow;
+  margin: 5px auto 20px;
+}
+.box45 {
+  margin: auto;
+  /* 
+    单个元素水平垂直居中 
+    等价于父元素设置： 
+    justify-content: center;
+    align-items: center;
+  */
+}
+/*  auto margin: demo10 */
+
+/*  auto margin: demo11 */
+#container-11 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 220px;
+  background-color: lightyellow;
+  margin: 5px auto 20px;
+}
+.box46 {
+  margin-top: auto;
+  visibility: hidden;
+}
+.box47 {
+  margin-top: auto;
+}
+.box48 {
+  margin-top: auto;
+  margin-bottom: auto;
+}
+/*  auto margin: demo11 */
+
+
+/*  auto margin: demo12 */
+#container-12 {
+  display: flex;
+  height: 100px;
+  background-color: lightyellow;
+  margin: 5px auto 20px;
+  position: relative;
+}
+.box56 {
+  width: 150px;
+}
+.box57 {
+  position: absolute;
+  left: 50%;
+  transform: translate3d(-50%, 0, 0);
+}
+.box58 {
+  margin-left: auto;
+  width: 50px;
+}
+
+/*  水平间距均分 demo: demo13 */
+#container-13 {
+  display: flex;
+  align-items: center;
+  /*
+    方法1： 使用最新的属性：
+      justify-content: space-evenly;
+  */
+  justify-content: space-between;
+  height: 100px;
+  background-color: lightyellow;
+  margin: 5px auto 20px;
+  position: relative;
+}
+
+  /*
+    方法2： 使用伪元素黑魔法：
+      给父容器前后添加一个伪元素。
+    #container:: before {
+       content: "";
+    }
+    #container:: after {
+     content: "";
+    }
+  */
+
+#container-13::before {
+   content: "";
+}
+#container-13::after {
+ content: "";
+}
+
+</style>
+</head>
+<body>
+  <a href="https://stackoverflow.com/questions/32551291/in-css-flexbox-why-are-there-no-justify-items-and-justify-self-properties/33856609#33856609">原文链接：</a>
+  <a href="https://www.w3.org/TR/css-flexbox-1/#auto-margins">auto-margin</a>
+  <img src="https://i.stack.imgur.com/9Oxw7.png" alt="">
+   <h3>justify-content：</h3>
+  <div>
+    <a href="https://codepen.io/xueqi/pen/xxxmdEK" target="_blank">codepen 代码:</a>
+  </div>
+  <div id="container-1">
+    <div class="box box1">1</div>
+    <div class="box box2">2</div>
+    <div class="box box3">3</div>
+    <div class="box box4">4</div>
+    <div class="box box5">5</div>
+  </div>
+  <hr/>
+  <!-- flex-start: demo2 -->
+  <div>
+    <a href="https://codepen.io/xueqi/pen/VwwJYgy" target="_blank">codepen 代码:</a>
+  </div>
+  <div id="container-2">
+    <div class="box box1">4</div>
+    <div class="box box2">5</div>
+    <div class="box box3">6</div>
+    <div class="box box4">7</div>
+    <div class="box box5">8</div>
+   </div>
+  <hr/>
+  <!-- flex-start: demo2  -->
+
+  <!-- justify-content: center: demo3 -->
+  <div>
+      <a href="https://codepen.io/xueqi/pen/ExxBaJZ" target="_blank">  codepen 代码:</a>
+  </div>
+  <div id="container-3">
+    <div class="box box1">9</div>
+    <div class="box box2">10</div>
+    <div class="box box3">11</div>
+    <div class="box box4">12</div>
+    <div class="box box5">13</div>
+    </div>
+  <hr/>
+  <!-- justify-content: center: demo3 -->
+
+  <!-- justify-content: justify-content: space-between;: demo4 -->
+  <div>
+      <a href="https://codepen.io/xueqi/pen/rNNEaXM" target="_blank">  codepen 代码:</a>
+  </div>
+  <div id="container-4">
+    <div class="box box1">14</div>
+    <div class="box box2">15</div>
+    <div class="box box3">16</div>
+    <div class="box box4">17</div>
+    <div class="box box5">18</div>
+    </div>
+  <hr/>
+
+   <!-- justify-content: justify-content: space-around;: demo5 -->
+   <div>
+      <a href="https://codepen.io/xueqi/pen/gOONpbZ" target="_blank">  codepen 代码:</a>
+  </div>
+  <div id="container-5">
+    <div class="box box1">19</div>
+    <div class="box box2">20</div>
+    <div class="box box3">21</div>
+    <div class="box box4">22</div>
+    <div class="box box5">23</div>
+    </div>
+  <hr/>
+
+  <h3>auto margins </h3>
+  <p>auto margins always have priority.</p>
+
+<!-- justify-content: flex-end: .box-24: margin-left: auto-->
+<div>
+    <a href="https://codepen.io/xueqi/pen/qBBzdOV" target="_blank">  .box24 { margin-right: auto } codepen 代码:</a>
+</div>
+<div id="container-6">
+  <div class="box box24">24</div>
+  <div class="box box25">25</div>
+  <div class="box box26">26</div>
+  <div class="box box27">27</div>
+  <div class="box box28">28</div>
+</div>
+<hr/>
+
+<div>
+    <a href="https://codepen.io/xueqi/pen/eYYwNBg" target="_blank">  codepen 代码:</a>
+</div>
+<div id="container-7">
+  <div class="box box29">29</div>
+  <div class="box box30">30</div>
+  <div class="box box31">31</div>
+  <div class="box box32">32</div>
+  <div class="box box33">33</div>
+</div>
+<hr/>
+
+<div>
+    <a href="https://codepen.io/xueqi/pen/JjjQdEM" target="_blank">  codepen 代码:</a>
+</div>
+<div id="container-8">
+  <div class="box box34">34</div>
+  <div class="box box35">35</div>
+  <div class="box box36">36</div>
+  <div class="box box37">37</div>
+  <div class="box box38">38</div>
+</div>
+<hr/>
+
+<div>
+    <a href="https://codepen.io/xueqi/pen/eYYwNEW" target="_blank">  codepen 代码:</a>
+</div>
+<div id="container-9">
+  <div class="box box40">40</div>
+  <div class="box box41">41</div>
+  <div class="box box42">42</div>
+  <div class="box box42">43</div>
+  <div class="box box44">44</div>
+</div>
+<hr/>
+
+<div>
+    <a href="https://codepen.io/xueqi/pen/VwwJLME" target="_blank">  单个元素水平垂直居中：codepen 代码:</a>
+</div>
+<div id="container-10">
+  <div class="box box45">45</div>
+</div>
+<hr/>
+
+<div>
+    <a href="https://codepen.io/xueqi/pen/jOOjPxr" target="_blank">codepen 代码:</a>
+</div>
+<div id="container-11">
+  <div class="box box46">46</div>
+  <div class="box box47">47</div>
+  <div class="box box48">48</div>
+ </div>
+<hr/>
+
+<div>
+    <a href="https://codepen.io/xueqi/pen/gOONPMX" target="_blank">flex-item 使用绝对定位： codepen 代码:</a>
+</div>
+<div id="container-12">
+  <div class="box box56">56</div>
+  <div class="box box57">57</div>
+  <div class="box box58">58</div>
+ </div>
+<hr/>
+
+<div>
+    <a href="https://codepen.io/xueqi/pen/yLLdeaw" target="_blank">justify-content: space-same (concept): / space-evenly : 每个元素间距均分 ：codepen 代码:</a>
+</div>
+<div id="container-13">
+  <div class="box box66">66</div>
+  <div class="box box67">67</div>
+  <div class="box box68">68</div>
+  <div class="box box69">69</div>
+  <div class="box box69">70</div>
+ </div>
+<hr/>
+
+<script type="text/javascript"> 
+   
+</script>
+</body>
+</html>
