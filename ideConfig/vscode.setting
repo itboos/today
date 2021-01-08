@@ -1,0 +1,94 @@
+{
+  "sync.gist": "9c5e1f361a805ea52ac7667726ccfdd4",
+  "sync.autoDownload": false,
+  "workbench.editorAssociations": [],
+  "sync.forceDownload": false,
+  "settingsSync.ignoredSettings": [],
+  "workbench.colorTheme": "Solarized Light",
+  "workbench.iconTheme": "material-icon-theme",
+  "editor.fontSize": 14,
+  "editor.tabSize": 2,
+  "git.enableSmartCommit": true,
+  "terminal.integrated.scrollback": 9999999,
+  "editor.formatOnSave": true,
+  "eslint.codeAction.showDocumentation": {
+    "enable": true
+  },
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.codeActionsOnSave": {
+    "source.fixAll": true // 自动修复所有问题
+    //    "source.fixAll.eslint": true,
+    //    "source.fixAll.stylelint": false
+  },
+  "eslint.validate": ["javascript", "jsx", "ts", "tsx"],
+  "files.associations": {
+    "*.cjson": "jsonc",
+    "*.wxss": "css",
+    "*.wxs": "javascript"
+  },
+  "emmet.includeLanguages": {
+    "wxml": "html"
+  },
+  "minapp-vscode.disableAutoConfig": true,
+  "minapp-vscode.snippets": {
+    "wxml": {
+      "open-data": {
+        "body": "<open-data type=\"${1|groupName,userNickName,userAvatarUrl,userGender,userCity,userProvince,userCountry,userLanguage|}\" lang=\"${2|en,zh_CN,zh_TW|}\" />$0"
+      }
+    },
+    "pug": {
+      "open-data": {
+        "body": "open-data(type=\"${1|groupName,userNickName,userAvatarUrl,userGender,userCity,userProvince,userCountry,userLanguage|}\" lang=\"${2|en,zh_CN,zh_TW|}\")$0"
+      }
+    }
+  },
+  // VS Code Todo Tree 配置 http://jonasbn.github.io/til/vscode/todo_tree_extension.html
+  "todo-tree.tree.showScanModeButton": false,
+  "sync.autoUpload": true,
+  "todo-tree.regex.regexCaseSensitive": false,
+  "todo-tree.tree.autoRefresh": true,
+  "todo-tree.highlights.customHighlight": {
+    "BUG": {
+      "foreground": "black",
+      "background": "#FFA500",
+      "iconColour": "orange",
+      "icon": "alert"
+    },
+    "WARN": {
+      "foreground": "white",
+      "background": "red",
+      "iconColour": "red",
+      "icon": "alert",
+      "type": "text"
+    },
+    "TODO": {
+      "foreground": "black",
+      "background": "#fcc800",
+      "iconColour": "green",
+      "icon": "check",
+      "type": "text"
+    },
+    "FIXME": {
+      "foreground": "black",
+      "background": "red",
+      "iconColour": "red",
+      "icon": "bug"
+    },
+    "REVIEW": {
+      "foreground": "black",
+      "background": "cyan",
+      "iconColour": "lightblue",
+      "icon": "eye"
+    },
+    "HACK": {
+      "foreground": "black",
+      "background": "#FFA500",
+      "iconColour": "orange",
+      "icon": "alert"
+    }
+  },
+  "todo-tree.highlights.defaultHighlight": {
+    "type": "text-and-comment"
+  },
+  "todo-tree.general.tags": ["TODO", "FIXME", "BUG", "REVIEW", "HACK", "WARN"]
+}
