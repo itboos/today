@@ -70,7 +70,7 @@ demos：
     		const value= this.state.liked ? '喜欢': '不喜欢';
     		return (
 	    		<div>
-					<p onClick={this.handClick}>钟冬林{value}美女</p>
+					<p onClick={this.handClick}>钟{value}美女</p>
 				</div>
     		);
     	}
